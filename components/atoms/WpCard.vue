@@ -1,7 +1,7 @@
 <template>
-  <v-select v-bind="$attrs">
+  <v-card elevation="4">
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />
     </template>
-  </v-select>
+  </v-card>
 </template>

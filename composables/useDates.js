@@ -20,7 +20,11 @@ export default () => {
     if (!date) { return null }
     return DateTime.fromJSDate(date).plus(options.plus).toISODate()
   }
-  const JStoFormat = (date, options) => {
+  const ISOtoFormat = (date, options = { format: 'DATE_MED' }) => {
+    if (!date) { return null }
+    return DateTime.fromISO(date).toLocaleString(DateTime[options.format])
+  }
+  const JStoFormat = (date, options = { format: 'DATE_MED' }) => {
     if (!date) { return null }
     return DateTime.fromJSDate(date).toLocaleString(DateTime[options.format])
   }
@@ -33,6 +37,7 @@ export default () => {
     ISO,
     ISOtoISO,
     ISOtoJS,
+    ISOtoFormat,
     JStoISO,
     JStoFormat,
     unitDiff

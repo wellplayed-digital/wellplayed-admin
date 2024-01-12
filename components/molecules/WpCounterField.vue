@@ -6,8 +6,7 @@
     hide-spin-buttons
     prepend-inner-icon="mdi-minus"
     append-inner-icon="mdi-plus"
-    variant="outlined"
-    class="wp-text-field"
+    class="wp-text-field cursor-pointer"
     readonly
     @click:prepend-inner="decrement"
     @click:append-inner="increment"
