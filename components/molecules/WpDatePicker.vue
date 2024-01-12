@@ -3,6 +3,7 @@
     v-model="show"
     origin="overlap"
     :close-on-content-click="false"
+    class="wp-date-picker"
   >
     <template #activator="{props: slotProps}">
       <WpTextField
@@ -10,6 +11,7 @@
         :label="label"
         readonly
         :rules="rules"
+        :hide-details="hideDetails"
         v-bind="slotProps"
       />
     </template>
@@ -29,7 +31,8 @@ const { ISOtoJS, JStoISO, JStoFormat } = useDates()
 const props = defineProps({
   modelValue: { type: String, default: null },
   label: { type: String, default: 'Date' },
-  rules: { type: Array, default: () => [] }
+  rules: { type: Array, default: () => [] },
+  hideDetails: { type: Boolean, default: false }
 })
 const emits = defineEmits(['update:modelValue', 'close'])
 const show = ref(false)
@@ -39,3 +42,9 @@ const date = computed({
 })
 const formattedDate = computed(() => JStoFormat(date.value, { format: 'DATE_MED' }))
 </script>
+
+<style lang="scss" scoped>
+.wp-date-picker:deep(.v-date-picker-month__day--selected .v-btn) {
+  background-color: rgb(var(--v-theme-primary));
+}
+</style>

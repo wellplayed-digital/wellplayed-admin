@@ -6,7 +6,9 @@
     hide-spin-buttons
     prepend-inner-icon="mdi-minus"
     append-inner-icon="mdi-plus"
+    variant="outlined"
     class="wp-text-field"
+    readonly
     @click:prepend-inner="decrement"
     @click:append-inner="increment"
   />
@@ -14,20 +16,24 @@
 
 <script setup>
 const props = defineProps({
-  modelValue: { type: Number, required: true }
+  modelValue: { type: Number, required: true },
+  min: { type: Number, default: -Infinity },
+  max: { type: Number, default: Infinity }
 })
 const emits = defineEmits(['update:modelValue'])
 const count = computed({
   get: () => props.modelValue,
-  set: value => emits('update:modelValue', value)
+  set: value => emits('update:modelValue', Number(value))
 })
 const decrement = () => {
-  if (count.value > 1) {
+  if (count.value > props.min) {
     count.value--
   }
 }
 const increment = () => {
-  count.value++
+  if (count.value < props.max) {
+    count.value++
+  }
 }
 </script>
 

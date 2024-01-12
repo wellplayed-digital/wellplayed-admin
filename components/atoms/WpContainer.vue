@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex justify-center">
+  <v-container class="d-flex justify-center">
     <div class="w-100" :style="{ maxWidth }">
       <slot />
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script setup>
