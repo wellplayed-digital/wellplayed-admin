@@ -4,6 +4,12 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  ssr: false,
+  vite: {
+    vue: {
+      template: { transformAssetUrls }
+    }
+  },
   build: {
     transpile: ['vuetify']
   },
@@ -15,17 +21,12 @@ export default defineNuxtConfig({
       })
     }
   ],
-  vite: {
-    vue: {
-      template: { transformAssetUrls }
-    }
-  },
+  components: [
+    { path: '~/components', prefix: '', pathPrefix: false }
+  ],
   css: [
     'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',
     '~/styles/main.scss'
-  ],
-  components: [
-    { path: '~/components', prefix: '', pathPrefix: false }
   ]
 })

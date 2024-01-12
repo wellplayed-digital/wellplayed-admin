@@ -13,7 +13,7 @@
               :min="todayPlusOneDay"
               label="Fecha de Llegada"
               :rules="[required]"
-              @update:model-value="checkEndDate"
+              @update:model-value="validateEndDate"
             />
           </v-col>
           <v-col cols="12" md="3">
@@ -52,29 +52,27 @@ const { ISO, ISOtoISO, unitDiff } = useDates()
 const { required } = useRules()
 const valid = ref(false)
 const todayPlusOneDay = ref(ISO({ plus: { days: 1 } }))
-const startDate = ref(useLocalStorage('startDate', todayPlusOneDay.value))
-const startDatePlusOneDay = computed(() => {
-  if (!startDate.value) { return null }
-  return ISOtoISO(startDate.value, { plus: { days: 1 } })
-})
-const startDatePlusOneWeek = computed(() => {
-  if (!startDate.value) { return null }
-  return ISOtoISO(startDate.value, { plus: { weeks: 1 } })
-})
-const startDatePlusTwoMonths = computed(() => {
-  if (!startDate.value) { return null }
-  return ISOtoISO(startDate.value, { plus: { months: 2 } })
-})
-const endDate = ref(useLocalStorage('endDate', startDatePlusOneWeek.value))
-const checkEndDate = () => {
+const startDate = ref(useLocalStorage('startDate'))
+const endDate = ref(useLocalStorage('endDate'))
+const startDatePlusOneDay = computed(() => ISOtoISO(startDate.value, { plus: { days: 1 } }))
+const startDatePlusTwoMonths = computed(() => ISOtoISO(startDate.value, { plus: { months: 2 } }))
+const validateEndDate = () => {
   if (!endDate.value || unitDiff(startDatePlusOneDay.value, endDate.value, 'days') < 0) {
     endDate.value = startDatePlusOneDay.value
   }
 }
-const daysSelected = computed(() => {
-  if (!startDate.value || !endDate.value) { return null }
-  return unitDiff(startDate.value, endDate.value, 'days')
-})
+const daysSelected = computed(() => unitDiff(startDate.value, endDate.value, 'days'))
+const setDefaultDates = () => {
+  startDate.value = todayPlusOneDay.value
+  endDate.value = ISOtoISO(startDate.value, { plus: { weeks: 1 } })
+}
+const validateStoredStartDate = () => {
+  const storedStartDate = localStorage.getItem('startDate')
+  if (!storedStartDate || unitDiff(todayPlusOneDay.value, storedStartDate, 'days') < 0) {
+    setDefaultDates()
+  }
+}
+validateStoredStartDate()
 const guestCountOptions = ref([
   { title: 'Cabaña para 2', value: 2 },
   { title: 'Cabaña para 4', value: 4 }
