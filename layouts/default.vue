@@ -1,6 +1,8 @@
 <template>
   <v-app>
     <WpAppBar />
-    <slot />
+    <v-main>
+      <NuxtPage />
+    </v-main>
   </v-app>
 </template>

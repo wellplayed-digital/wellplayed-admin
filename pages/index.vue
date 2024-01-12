@@ -1,7 +1,3 @@
 <template>
-  <div>
-    <v-btn>
-      Button
-    </v-btn>
-  </div>
+  <WpDateSearchForm />
 </template>
