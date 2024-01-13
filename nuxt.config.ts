@@ -20,11 +20,15 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@pinia/nuxt',
     'nuxt-swiper'
   ],
   components: [
     { path: '~/components', prefix: '', pathPrefix: false }
   ],
+  pinia: {
+    storesDirs: ['./stores/**']
+  },
   css: [
     'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',

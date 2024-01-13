@@ -58,7 +58,7 @@
 const { ISOtoFormat } = useDates()
 const { plural } = useHelpers()
 defineProps({
-  stay: { type: Object, isRequired: true },
+  stay: { type: Object, required: true },
   featured: { type: Boolean, default: false }
 })
 const staysDetails = ref([

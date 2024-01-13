@@ -8,15 +8,15 @@
           size="small"
           variant="text"
           class="mr-4"
-          :to="link.to"
+          @click="link.click"
         >
           {{ link.text }}
         </WpButton>
       </v-col>
       <v-col cols="2" class="text-center">
-        <div class="text-h4 text-ayrampo">
+        <span class="text-h4 text-brand cursor-pointer" @click="navigateToHome">
           Ayrampo
-        </div>
+        </span>
       </v-col>
       <v-col cols="5" class="text-end">
         <WpButton
@@ -26,6 +26,7 @@
           variant="text"
           class="ml-4"
           :to="link.to"
+          @click="link.click"
         >
           {{ link.text }}
         </WpButton>
@@ -37,14 +38,18 @@
 <script setup>
 const menuLeft = ref([
   {
-    key: 'home',
-    text: 'Home',
-    to: '/'
+    key: 'gallery',
+    text: 'Galeria',
+    click: async () => {
+      await navigateTo('/')
+    }
   },
   {
     key: 'search',
     text: 'Busqueda',
-    to: '/stays-search'
+    click: async () => {
+      await navigateTo('/stays-search')
+    }
   }
 ])
 
@@ -52,12 +57,19 @@ const menuRight = ref([
   {
     key: 'login',
     text: 'Iniciar Sesión',
-    to: '/login'
+    click: async () => {
+      await navigateTo('/login')
+    }
   },
   {
     key: 'register',
     text: 'Registro',
-    to: '/register'
+    click: async () => {
+      await navigateTo('/register')
+    }
   }
 ])
+
+const navigateToHome = async () => await navigateTo('/')
+
 </script>

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap');
 
+
+:root {
+  --font-family-brand: 'Kalnia', serif;
+}
+
 body {
   background-color: #121212;
 }
@@ -22,8 +27,8 @@ body {
   pointer-events: none !important;
 }
 
-.text-ayrampo {
-  font-family: 'Kalnia', serif !important;
+.text-brand {
+  font-family: var(--font-family-brand) !important;
   font-weight: 400 !important;
   &.text-bold {
     font-weight: 700 !important;
@@ -40,5 +45,17 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
+    transition: background-color 0.2s ease-in-out;
   }
+}
+.overlay-disabled {
+  &::after {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.bg-glass {
+  background: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
 }

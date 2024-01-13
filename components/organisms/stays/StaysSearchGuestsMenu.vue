@@ -31,7 +31,7 @@
           label="Niños"
           hide-details
         />
-        <WpTransition v-model="maxGuestReached">
+        <WpTransition :show="guestTotal >= MAX_GUEST">
           <div class="text-medium-emphasis text-body-2 mt-4">
             Ha alcanzado la cantidad máxima de huespedes
           </div>
@@ -54,7 +54,6 @@ const guestCount = computed({
   set: value => emits('update:modelValue', value)
 })
 const guestTotal = computed(() => guestCount.value.adults + guestCount.value.children)
-const maxGuestReached = computed(() => guestTotal.value >= MAX_GUEST.value)
 const guestLimit = computed(() => ({
   adults: MAX_GUEST.value - guestCount.value.children,
   children: MAX_GUEST.value - guestCount.value.adults

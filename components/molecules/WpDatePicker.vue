@@ -3,6 +3,7 @@
     v-model="show"
     :close-on-content-click="false"
     class="wp-date-picker"
+    location="bottom"
   >
     <template #activator="{props: slotProps}">
       <WpTextField
