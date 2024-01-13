@@ -13,7 +13,7 @@ export default defineNuxtPlugin((app) => {
       themes: {
         dark: {
           colors: {
-            primary: colors.grey.lighten4
+            primary: colors.amber.base
           }
         }
       }

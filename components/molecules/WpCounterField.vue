@@ -4,10 +4,11 @@
     v-bind="$attrs"
     type="number"
     hide-spin-buttons
+    readonly
+    variant="outlined"
     prepend-inner-icon="mdi-minus"
     append-inner-icon="mdi-plus"
     class="wp-text-field cursor-pointer"
-    readonly
     @click:prepend-inner="decrement"
     @click:append-inner="increment"
   />
@@ -15,7 +16,7 @@
 
 <script setup>
 const props = defineProps({
-  modelValue: { type: Number, required: true },
+  modelValue: { type: Number, isRequired: true },
   min: { type: Number, default: -Infinity },
   max: { type: Number, default: Infinity }
 })

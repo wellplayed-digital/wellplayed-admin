@@ -1,55 +1,58 @@
 <template>
-  <WpContainer>
-    <v-form v-model="validForm" class="py-4" @submit.prevent="submit">
-      <v-row dense>
-        <v-col cols="12" sm="6" md="3">
-          <WpDatePicker
-            v-model="startDate"
-            :min="startLimit.min"
-            :max="startLimit.max"
-            label="Fecha de Llegada"
-            prepend-inner-icon="mdi-calendar-start"
-            hide-details
-            @update:model-value="validateEndDate"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="3">
-          <WpDatePicker
-            v-model="endDate"
-            :min="endLimit.min"
-            :max="endLimit.max"
-            prepend-inner-icon="mdi-calendar-end"
-            label="Fecha de Salida"
-            hide-details
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="3">
-          <StaysSearchGuestsMenu v-model="guests" />
-        </v-col>
-        <v-col cols="12" sm="6" md="3">
-          <WpButton
-            type="submit"
-            size="x-large"
-            :style="{marginTop: '2px'}"
-            block
-          >
-            <v-icon>mdi-magnify</v-icon>
-          </WpButton>
-        </v-col>
-        <v-col cols="12">
-          <div v-if="totalNights" class="text-body-2 text-medium-emphasis mt-2">
+  <v-form v-model="validForm" class="py-4" @submit.prevent="submit">
+    <v-row dense>
+      <v-col cols="12" sm="6" md="3">
+        <WpDatePicker
+          v-model="startDate"
+          :min="startLimit.min"
+          :max="startLimit.max"
+          label="Fecha de Llegada"
+          prepend-inner-icon="mdi-calendar-start"
+          hide-details
+          @update:model-value="validateEndDate"
+        />
+      </v-col>
+      <v-col cols="12" sm="6" md="3">
+        <WpDatePicker
+          v-model="endDate"
+          :min="endLimit.min"
+          :max="endLimit.max"
+          prepend-inner-icon="mdi-calendar-end"
+          label="Fecha de Salida"
+          hide-details
+        />
+      </v-col>
+      <v-col cols="12" sm="6" md="3">
+        <StaysSearchGuestsMenu v-model="guests" />
+      </v-col>
+      <v-col cols="12" sm="6" md="3">
+        <WpButton
+          type="submit"
+          size="x-large"
+          :style="{marginTop: '2px'}"
+          block
+          color="primary"
+        >
+          <v-icon>mdi-magnify</v-icon>
+        </WpButton>
+      </v-col>
+      <v-col v-if="totalNights" cols="12">
+        <div class="mt-2 d-flex align-center">
+          <v-icon icon="mdi-clock" color="grey" />
+          <span class="text-body-2 text-medium-emphasis ml-1">
             Estadia: {{ totalNights }} {{ plural('noche', totalNights) }}
-          </div>
-        </v-col>
-      </v-row>
-    </v-form>
-  </WpContainer>
+          </span>
+        </div>
+      </v-col>
+    </v-row>
+  </v-form>
 </template>
 
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
 const { ISO, ISOtoISO, unitDiff } = useDates()
 const { plural } = useHelpers()
+const emits = defineEmits(['submit'])
 const startDate = ref(useLocalStorage('startDate'))
 const MIN_START = ref(0)
 const MAX_START = ref(365)
@@ -88,6 +91,6 @@ const guests = ref(useLocalStorage('guests', { adults: 2, children: 0 }))
 const validForm = ref(false)
 const submit = () => {
   if (!validForm.value) { return }
-  console.log('submit')
+  emits('submit', { startDate: startDate.value, endDate: endDate.value, guests: guests.value })
 }
 </script>
