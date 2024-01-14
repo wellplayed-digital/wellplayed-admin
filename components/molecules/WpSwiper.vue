@@ -6,6 +6,7 @@
     :loop="true"
     :autoplay="{ delay }"
     :pagination="pagination"
+    v-bind="$attrs"
   >
     <SwiperSlide v-for="slide in slides" :key="slide.key" class="wp-swiper-slide">
       <slot v-bind="slide" />

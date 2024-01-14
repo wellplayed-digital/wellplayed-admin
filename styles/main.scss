@@ -17,21 +17,26 @@ body {
 }
 
 .cursor-pointer {
-  cursor: pointer !important;
+  cursor: pointer;
   * {
-    cursor: pointer !important;
+    cursor: pointer;
   }
 }
 
 .pointer-events-none {
-  pointer-events: none !important;
+  pointer-events: none;
+}
+
+.reset-link {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 .text-brand {
-  font-family: var(--font-family-brand) !important;
-  font-weight: 400 !important;
+  font-family: var(--font-family-brand);
+  font-weight: 400;
   &.text-bold {
-    font-weight: 700 !important;
+    font-weight: 700;
   }
 }
 
@@ -55,7 +60,7 @@ body {
 }
 
 .bg-glass {
-  background: rgba(0, 0, 0, 0.2) !important;
-  backdrop-filter: blur(5px) !important;
-  -webkit-backdrop-filter: blur(5px) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }

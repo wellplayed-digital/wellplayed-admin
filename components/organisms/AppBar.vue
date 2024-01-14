@@ -8,15 +8,14 @@
           size="small"
           variant="text"
           class="mr-4"
+          :to="link.to"
           @click="link.click"
         >
           {{ link.text }}
         </WpButton>
       </v-col>
       <v-col cols="2" class="text-center">
-        <span class="text-h4 text-brand cursor-pointer" @click="navigateToHome">
-          Ayrampo
-        </span>
+        <WpBrandLogo to="/" @click="global.galleryMode = false" />
       </v-col>
       <v-col cols="5" class="text-end">
         <WpButton
@@ -36,40 +35,33 @@
 </template>
 
 <script setup>
+const global = useGlobalStore()
 const menuLeft = ref([
   {
     key: 'gallery',
     text: 'Galeria',
     click: async () => {
+      global.galleryMode = true
       await navigateTo('/')
     }
   },
   {
     key: 'search',
     text: 'Busqueda',
-    click: async () => {
-      await navigateTo('/stays-search')
-    }
+    to: '/stays-search'
   }
 ])
-
 const menuRight = ref([
   {
     key: 'login',
     text: 'Iniciar Sesión',
-    click: async () => {
-      await navigateTo('/login')
-    }
+    to: '/login'
+
   },
   {
     key: 'register',
     text: 'Registro',
-    click: async () => {
-      await navigateTo('/register')
-    }
+    to: '/register'
   }
 ])
-
-const navigateToHome = async () => await navigateTo('/')
-
 </script>

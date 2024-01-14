@@ -45,7 +45,7 @@ const date = computed({
   get: () => ISOtoJS(props.modelValue),
   set: value => emits('update:modelValue', JStoISO(value))
 })
-const formattedDate = computed(() => JStoFormat(date.value))
+const formattedDate = computed(() => JStoFormat(date.value, { format: 'DATE_MED_WITH_WEEKDAY' }))
 </script>
 
 <style lang="scss" scoped>
