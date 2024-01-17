@@ -14,7 +14,7 @@
         v-bind="slotProps"
       />
     </template>
-    <WpCard class="w-100 pa-2">
+    <WpCard class="w-100 pa-2 mb-4">
       <v-card-text>
         <WpCounterField
           v-model="guestCount.adults"

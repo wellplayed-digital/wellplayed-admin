@@ -17,7 +17,7 @@
         v-bind="slotProps"
       />
     </template>
-    <WpCard class="pt-4">
+    <WpCard class="pt-4 mb-4">
       <v-date-picker
         v-model="date"
         v-bind="$attrs"

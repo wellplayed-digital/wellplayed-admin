@@ -8,7 +8,11 @@
     variant="outlined"
     prepend-inner-icon="mdi-minus"
     append-inner-icon="mdi-plus"
-    class="wp-text-field cursor-pointer"
+    class="wp-counter-field cursor-pointer"
+    :class="{
+      'wp-counter-field--min-reached': minReached,
+      'wp-counter-field--max-reached': maxReached
+    }"
     @click:prepend-inner="decrement"
     @click:append-inner="increment"
   />
@@ -25,20 +29,28 @@ const count = computed({
   get: () => props.modelValue,
   set: value => emits('update:modelValue', Number(value))
 })
+const minReached = computed(() => count.value <= props.min)
+const maxReached = computed(() => count.value >= props.max)
 const decrement = () => {
-  if (count.value > props.min) {
+  if (!minReached.value) {
     count.value--
   }
 }
 const increment = () => {
-  if (count.value < props.max) {
+  if (!maxReached.value) {
     count.value++
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.wp-text-field:deep(input) {
+.wp-counter-field:deep(input) {
   text-align: center;
+}
+.wp-counter-field--min-reached:deep(.v-field__prepend-inner) {
+  opacity: 0;
+}
+.wp-counter-field--max-reached:deep(.v-field__append-inner) {
+  opacity: 0;
 }
 </style>
