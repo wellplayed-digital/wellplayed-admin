@@ -13,7 +13,7 @@
         />
         <WpPasswordField
           v-model="password"
-          :rules="[isRequired, isValidPassword]"
+          :rules="[isRequired]"
           label="Contraseña"
           class="mb-4"
         />
@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-const { isRequired, isValidEmail, isValidPassword } = useRules()
+const { isRequired, isValidEmail } = useRules()
 const email = ref(null)
 const password = ref(null)
 const validForm = ref(false)

@@ -36,12 +36,13 @@
 
 <script setup>
 const global = useGlobalStore()
+const route = useRoute()
 const menuLeft = ref([
   {
     key: 'gallery',
     text: 'Galeria',
     click: async () => {
-      global.galleryMode = true
+      global.galleryMode = route.path !== '/' || !global.galleryMode
       await navigateTo('/')
     }
   },
@@ -56,7 +57,6 @@ const menuRight = ref([
     key: 'login',
     text: 'Iniciar Sesión',
     to: '/login'
-
   },
   {
     key: 'register',
