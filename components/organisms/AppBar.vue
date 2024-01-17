@@ -39,17 +39,17 @@ const global = useGlobalStore()
 const route = useRoute()
 const menuLeft = ref([
   {
+    key: 'search',
+    text: 'Busqueda',
+    to: '/stays-search'
+  },
+  {
     key: 'gallery',
     text: 'Galeria',
     click: async () => {
       global.galleryMode = route.path !== '/' || !global.galleryMode
       await navigateTo('/')
     }
-  },
-  {
-    key: 'search',
-    text: 'Busqueda',
-    to: '/stays-search'
   }
 ])
 const menuRight = ref([
