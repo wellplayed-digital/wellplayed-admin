@@ -91,7 +91,6 @@ const staysDetails = ref([
   //   getValue: value => value + ' USD'
   // }
 ])
-
 const startCheckout = () => {
   console.log('startCheckout')
 }

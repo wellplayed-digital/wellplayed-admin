@@ -1,5 +1,5 @@
 <template>
-  <WpContainer class="py-10 z-index-10">
+  <WpContainer class="py-10 wp-z-index-10">
     <v-row align="center">
       <v-col cols="5">
         <WpButton
@@ -46,9 +46,9 @@ const menuLeft = ref([
   {
     key: 'gallery',
     text: 'Galeria',
-    click: async () => {
+    to: '/',
+    click: () => {
       global.galleryMode = route.path !== '/' || !global.galleryMode
-      await navigateTo('/')
     }
   }
 ])

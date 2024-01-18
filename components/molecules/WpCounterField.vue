@@ -6,13 +6,10 @@
     hide-spin-buttons
     readonly
     variant="outlined"
+    class="wp-counter-field wp-cursor-pointer"
+    :class="{ 'min-reached': minReached, 'max-reached': maxReached }"
     prepend-inner-icon="mdi-minus"
     append-inner-icon="mdi-plus"
-    class="wp-counter-field cursor-pointer"
-    :class="{
-      'wp-counter-field--min-reached': minReached,
-      'wp-counter-field--max-reached': maxReached
-    }"
     @click:prepend-inner="decrement"
     @click:append-inner="increment"
   />
@@ -47,10 +44,10 @@ const increment = () => {
 .wp-counter-field:deep(input) {
   text-align: center;
 }
-.wp-counter-field--min-reached:deep(.v-field__prepend-inner) {
+.min-reached:deep(.v-field__prepend-inner) {
   opacity: 0;
 }
-.wp-counter-field--max-reached:deep(.v-field__append-inner) {
+.max-reached:deep(.v-field__append-inner) {
   opacity: 0;
 }
 </style>

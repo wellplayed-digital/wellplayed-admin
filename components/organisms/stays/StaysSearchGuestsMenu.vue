@@ -10,7 +10,7 @@
         readonly
         hide-details
         :prepend-inner-icon="guestIcon"
-        class="cursor-pointer"
+        class="wp-cursor-pointer"
         v-bind="slotProps"
       />
     </template>
@@ -58,15 +58,8 @@ const guestLimit = computed(() => ({
   adults: MAX_GUEST.value - guestCount.value.children,
   children: MAX_GUEST.value - guestCount.value.adults
 }))
-const guestIcon = computed(() => {
-  if (guestTotal.value === 1) {
-    return 'mdi-account'
-  }
-  if (guestTotal.value === 2) {
-    return 'mdi-account-multiple'
-  }
-  return 'mdi-account-group'
-})
+const ICON_PER_GUEST = ['mdi-account', 'mdi-account-multiple']
+const guestIcon = computed(() => ICON_PER_GUEST[guestTotal.value - 1] || 'mdi-account-group')
 const guestText = computed(() => {
   const adults = `${guestCount.value.adults} ${plural('adulto', guestCount.value.adults)}`
   if (!guestCount.value.children) { return adults }

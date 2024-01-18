@@ -1,20 +1,20 @@
 <template>
   <div class="h-100 d-flex align-end">
-    <WpBackground class="z-index-1">
+    <WpBackground class="wp-z-index-1">
       <WpSwiper :slides="slides">
         <template #default="slide">
           <v-img
-            class="overlay-50"
-            :class="{'overlay-disabled': global.galleryMode}"
+            class="wp-overlay"
+            :class="{'wp-overlay-50': !global.galleryMode}"
             :src="slide.imgSrc"
             cover
           />
         </template>
       </WpSwiper>
     </WpBackground>
-    <div class="z-index-2 w-100">
+    <div class="wp-z-index-2 w-100">
       <WpTransition :show="!global.galleryMode">
-        <div class="bg-glass py-6">
+        <div class="wp-bg-glass py-6">
           <WpContainer>
             <h1 class="text-h5 text-center mb-6">
               ¿Cuando deseas viajar?

@@ -13,7 +13,7 @@
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
         :hide-details="hideDetails"
-        class="cursor-pointer"
+        class="wp-cursor-pointer"
         v-bind="slotProps"
       />
     </template>

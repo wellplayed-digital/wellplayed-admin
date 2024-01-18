@@ -24,13 +24,12 @@ const pagination = ref({
   dynamicBullets: true,
   className: 'wp-swiper-pagination',
   renderBullet: (index, className) => {
-    return `<div class="${className} text-brand text-bold">${index + 1}</div>`
+    return `<div class="${className} wp-font-brand text-bold">${index + 1}</div>`
   }
 })
 </script>
 
 <style lang="scss" scoped>
-
 :deep(.swiper-pagination) {
   --size: 5rem;
   left: 84.3% !important;
@@ -49,7 +48,6 @@ const pagination = ref({
     border: 2px solid rgba(255, 255, 255, 0.5);
   }
 }
-
 :deep(.swiper-pagination-bullet) {
   font-size: 2rem;
   opacity: 0.5;
