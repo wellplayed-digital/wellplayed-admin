@@ -7,12 +7,14 @@
   >
     <template #activator="{props: slotProps}">
       <WpTextField
+        active
         :model-value="formattedDate"
         :label="label"
         readonly
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
         :hide-details="hideDetails"
+        :autofocus="autofocus"
         class="wp-cursor-pointer"
         v-bind="slotProps"
       />
@@ -37,10 +39,11 @@ const props = defineProps({
   label: { type: String, default: 'Date' },
   rules: { type: Array, default: () => [] },
   prependInnerIcon: { type: String, default: 'mdi-calendar' },
-  hideDetails: { type: Boolean, default: false }
+  hideDetails: { type: Boolean, default: false },
+  autofocus: { type: Boolean, default: false }
 })
 const emits = defineEmits(['update:modelValue', 'close'])
-const show = ref(false)
+const show = ref(props.autofocus)
 const date = computed({
   get: () => ISOtoJS(props.modelValue),
   set: value => emits('update:modelValue', JStoISO(value))

@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="validForm" class="py-4" @submit.prevent="submit">
+  <WpForm @submit="searchStays">
     <v-row dense>
       <v-col cols="12" sm="6" md="3">
         <WpDatePicker
@@ -36,16 +36,16 @@
           <v-icon>mdi-magnify</v-icon>
         </WpButton>
       </v-col>
-      <v-col v-if="totalNights" cols="12">
+      <v-col v-if="totalNights" cols="auto">
         <div class="mt-2 d-flex align-center">
-          <v-icon icon="mdi-clock" color="grey" />
-          <span class="text-body-2 text-medium-emphasis ml-1">
+          <v-icon icon="mdi-clock-outline" color="grey" />
+          <div class="text-body-2 text-medium-emphasis ml-1">
             Estadia: {{ totalNights }} {{ plural('noche', totalNights) }}
-          </span>
+          </div>
         </div>
       </v-col>
     </v-row>
-  </v-form>
+  </WpForm>
 </template>
 
 <script setup>
@@ -89,9 +89,7 @@ const validateStoredStartDate = () => {
 }
 validateStoredStartDate()
 const guests = ref(useLocalStorage('guests', { adults: 2, children: 0 }))
-const validForm = ref(false)
-const submit = () => {
-  if (!validForm.value) { return }
+const searchStays = () => {
   emits('submit', { startDate: startDate.value, endDate: endDate.value, guests: guests.value })
 }
 </script>

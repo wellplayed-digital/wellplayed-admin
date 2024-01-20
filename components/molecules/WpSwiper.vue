@@ -57,6 +57,7 @@ const pagination = ref({
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 :deep(.swiper-pagination-bullet-active-main) {
   opacity: 0.75;

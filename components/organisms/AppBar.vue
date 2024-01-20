@@ -56,12 +56,17 @@ const menuRight = ref([
   {
     key: 'login',
     text: 'Iniciar Sesión',
-    to: '/login'
+    to: '/auth/login'
   },
   {
     key: 'register',
     text: 'Registro',
-    to: '/register'
+    to: '/auth/register'
+  },
+  {
+    key: 'profile',
+    text: 'Perfil',
+    to: '/auth/profile'
   }
 ])
 </script>
