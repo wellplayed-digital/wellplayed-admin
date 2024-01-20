@@ -1,14 +1,13 @@
 <template>
   <div class="h-100 d-flex align-end">
     <WpBackground class="wp-z-index-1">
-      <WpSwiper :slides="slides">
+      <WpSwiper
+        :slides="slides"
+        class="wp-overlay"
+        :class="{'wp-overlay-50': !global.galleryMode}"
+      >
         <template #default="slide">
-          <v-img
-            class="wp-overlay"
-            :class="{'wp-overlay-50': !global.galleryMode}"
-            :src="slide.imgSrc"
-            cover
-          />
+          <v-img :src="slide.imgSrc" cover />
         </template>
       </WpSwiper>
     </WpBackground>

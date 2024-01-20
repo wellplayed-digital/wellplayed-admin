@@ -6,34 +6,35 @@
     location="bottom"
   >
     <template #activator="{props: slotProps}">
-      <WpTextField
-        active
-        :model-value="formattedDate"
+      <WpDatePickerField
+        :model-value="modelValue"
         :label="label"
-        readonly
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
         :hide-details="hideDetails"
         :autofocus="autofocus"
-        class="wp-cursor-pointer"
         v-bind="slotProps"
       />
     </template>
     <WpCard class="pt-4 mb-4">
-      <v-date-picker
+      <WpDatePickerCalendar
+        v-bind="$attrs"
+        :title="label"
+        @update:model-value="show = false"
+      />
+      <!-- <v-date-picker
         v-model="date"
         v-bind="$attrs"
         class="w-100"
         :title="label"
         hide-header
         @update:model-value="show = false"
-      />
+      /> -->
     </WpCard>
   </v-menu>
 </template>
 
 <script setup>
-const { ISOtoJS, JStoISO, JStoFormat } = useDates()
 const props = defineProps({
   modelValue: { type: String, default: null },
   label: { type: String, default: 'Date' },
@@ -42,13 +43,7 @@ const props = defineProps({
   hideDetails: { type: Boolean, default: false },
   autofocus: { type: Boolean, default: false }
 })
-const emits = defineEmits(['update:modelValue', 'close'])
 const show = ref(props.autofocus)
-const date = computed({
-  get: () => ISOtoJS(props.modelValue),
-  set: value => emits('update:modelValue', JStoISO(value))
-})
-const formattedDate = computed(() => JStoFormat(date.value, { format: 'DATE_MED_WITH_WEEKDAY' }))
 </script>
 
 <style lang="scss" scoped>
