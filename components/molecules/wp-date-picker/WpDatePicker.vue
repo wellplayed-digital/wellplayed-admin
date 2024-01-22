@@ -1,8 +1,41 @@
 <template>
+  <v-dialog
+    v-if="display.xs"
+    v-model="show"
+    fullscreen
+  >
+    <template #activator="{props: slotProps}">
+      <WpDatePickerField
+        :model-value="modelValue"
+        :label="label"
+        :rules="rules"
+        :prepend-inner-icon="prependInnerIcon"
+        :hide-details="hideDetails"
+        :autofocus="autofocus"
+        v-bind="slotProps"
+      />
+    </template>
+    <WpCard class="pt-4">
+      <WpDatePickerCalendar
+        v-model="date"
+        v-bind="$attrs"
+        @update:model-value="show = false"
+      >
+        <template #title>
+          <div class="d-flex justify-space-between align-center">
+            <div>{{ label }}</div>
+            <div>
+              <WpIconButton icon="mdi-close" @click="show = false" />
+            </div>
+          </div>
+        </template>
+      </WpDatePickerCalendar>
+    </WpCard>
+  </v-dialog>
   <v-menu
+    v-else
     v-model="show"
     :close-on-content-click="false"
-    class="wp-date-picker"
     location="bottom"
   >
     <template #activator="{props: slotProps}">
@@ -18,23 +51,19 @@
     </template>
     <WpCard class="pt-4 mb-4">
       <WpDatePickerCalendar
-        v-bind="$attrs"
-        :title="label"
-        @update:model-value="show = false"
-      />
-      <!-- <v-date-picker
         v-model="date"
-        v-bind="$attrs"
-        class="w-100"
         :title="label"
+        v-bind="$attrs"
         hide-header
         @update:model-value="show = false"
-      /> -->
+      />
     </WpCard>
   </v-menu>
 </template>
 
 <script setup>
+import { useDisplay } from 'vuetify'
+const display = ref(useDisplay())
 const props = defineProps({
   modelValue: { type: String, default: null },
   label: { type: String, default: 'Date' },
@@ -43,7 +72,12 @@ const props = defineProps({
   hideDetails: { type: Boolean, default: false },
   autofocus: { type: Boolean, default: false }
 })
+const emits = defineEmits(['update:modelValue'])
 const show = ref(props.autofocus)
+const date = computed({
+  get: () => props.modelValue,
+  set: value => emits('update:modelValue', value)
+})
 </script>
 
 <style lang="scss" scoped>

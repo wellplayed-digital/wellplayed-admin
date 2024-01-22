@@ -4,44 +4,44 @@
       <h1 class="text-h4 text-center mb-10">
         Este es tu perfil
       </h1>
-      <WpConfirmDialog
-        :confirm-action="updateUser"
-        :cancel-action="resetUser"
-        text="¿Estas seguro que quieres guardar los cambios?"
-      >
-        <template #default="{ askToConfirm }">
-          <WpForm @submit="askToConfirm">
-            <v-row dense>
-              <v-col cols="12" sm="6">
-                <WpTextField
-                  v-model="firstName"
-                  :rules="[isRequired]"
-                  label="Nombre"
-                />
-              </v-col>
-              <v-col cols="12" sm="6">
-                <WpTextField
-                  v-model="lastName"
-                  :rules="[isRequired]"
-                  label="Apellido"
-                />
-              </v-col>
-              <v-col cols="12">
-                <WpTextField
-                  v-model="email"
-                  :rules="[isRequired, isValidEmail]"
-                  label="Email"
-                />
-              </v-col>
-              <v-col>
-                <WpButton type="submit" color="primary" size="x-large" block>
+      <WpForm>
+        <v-row dense>
+          <v-col cols="12" sm="6">
+            <WpTextField
+              v-model="firstName"
+              :rules="[isRequired]"
+              label="Nombre"
+            />
+          </v-col>
+          <v-col cols="12" sm="6">
+            <WpTextField
+              v-model="lastName"
+              :rules="[isRequired]"
+              label="Apellido"
+            />
+          </v-col>
+          <v-col cols="12">
+            <WpTextField
+              v-model="email"
+              :rules="[isRequired, isValidEmail]"
+              label="Email"
+            />
+          </v-col>
+          <v-col>
+            <WpConfirmDialog
+              text="¿Estas seguro que quieres guardar los cambios?"
+              @confirm="updateUser"
+              @cancel="resetUser"
+            >
+              <template #activator="{ props: slotProps }">
+                <WpButton color="primary" size="x-large" block v-bind="slotProps">
                   Guardar Cambios
                 </WpButton>
-              </v-col>
-            </v-row>
-          </WpForm>
-        </template>
-      </WpConfirmDialog>
+              </template>
+            </WpConfirmDialog>
+          </v-col>
+        </v-row>
+      </WpForm>
       <WpDivider class="py-4" />
       <WpButton size="x-large" block @click="resetPassword">
         Resetear contraseña

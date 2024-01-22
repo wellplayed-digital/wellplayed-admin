@@ -2,10 +2,13 @@
   <v-date-picker
     v-model="date"
     v-bind="$attrs"
-    class="w-100"
-    title="title"
-    hide-header
-  />
+    class="wp-date-picker w-100"
+    :title="title"
+  >
+    <template v-for="(_, slotName) in $slots" #[slotName]>
+      <slot :name="slotName" />
+    </template>
+  </v-date-picker>
 </template>
 
 <script setup>

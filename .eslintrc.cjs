@@ -24,6 +24,7 @@ module.exports = {
     'no-unused-vars': [
       'error',
       { vars: 'all', args: 'after-used', ignoreRestSiblings: false }
-    ]
+    ],
+    'vue/valid-v-slot': 'off'
   }
 }
