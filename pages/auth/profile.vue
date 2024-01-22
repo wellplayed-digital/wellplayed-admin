@@ -4,37 +4,44 @@
       <h1 class="text-h4 text-center mb-10">
         Este es tu perfil
       </h1>
-      <WpForm>
+      <WpForm :disabled="userStore.updatingProfile">
         <v-row dense>
+          <v-col cols="12">
+            <WpTextField
+              :model-value="email"
+              label="Email"
+              readonly
+              append-inner-icon="mdi-lock"
+            />
+          </v-col>
           <v-col cols="12" sm="6">
             <WpTextField
               v-model="firstName"
-              :rules="[isRequired]"
+              :rules="[required]"
               label="Nombre"
             />
           </v-col>
           <v-col cols="12" sm="6">
             <WpTextField
               v-model="lastName"
-              :rules="[isRequired]"
+              :rules="[required]"
               label="Apellido"
-            />
-          </v-col>
-          <v-col cols="12">
-            <WpTextField
-              v-model="email"
-              :rules="[isRequired, isValidEmail]"
-              label="Email"
             />
           </v-col>
           <v-col>
             <WpConfirmDialog
               text="¿Estas seguro que quieres guardar los cambios?"
-              @confirm="updateUser"
-              @cancel="resetUser"
+              @confirm="userStore.updateProfile({ firstName, lastName })"
+              @cancel="resetForm"
             >
               <template #activator="{ props: slotProps }">
-                <WpButton color="primary" size="x-large" block v-bind="slotProps">
+                <WpButton
+                  color="primary"
+                  size="x-large"
+                  block
+                  :loading="userStore.updatingProfile"
+                  v-bind="slotProps"
+                >
                   Guardar Cambios
                 </WpButton>
               </template>
@@ -43,39 +50,22 @@
         </v-row>
       </WpForm>
       <WpDivider class="py-4" />
-      <WpButton size="x-large" block @click="resetPassword">
-        Resetear contraseña
+      <WpButton size="x-large" block :loading="userStore.signingOut" @click="userStore.signOut">
+        Cerrar Sesión
       </WpButton>
     </WpContainer>
   </div>
 </template>
 
 <script setup>
-import { useLocalStorage } from '@vueuse/core'
-
-const { isRequired, isValidEmail } = useRules()
-const DEFAULT_USER = {
-  id: 1,
-  first_name: 'Marcelo',
-  last_name: 'Gallardo',
-  email: 'muñco@fake.email'
+const { required } = useRules()
+const userStore = useUserStore()
+const email = ref(userStore.user.email)
+const firstName = ref(null)
+const lastName = ref(null)
+const resetForm = () => {
+  firstName.value = userStore.profile.first_name
+  lastName.value = userStore.profile.last_name
 }
-
-const user = ref(useLocalStorage('user', DEFAULT_USER))
-const firstName = ref(user.value.first_name)
-const lastName = ref(user.value.last_name)
-const email = ref(user.value.email)
-const updateUser = () => {
-  user.value.first_name = firstName.value
-  user.value.last_name = lastName.value
-  user.value.email = email.value
-}
-const resetUser = () => {
-  firstName.value = user.value.first_name
-  lastName.value = user.value.last_name
-  email.value = user.value.email
-}
-const resetPassword = () => {
-  console.log('resetPassword')
-}
+resetForm()
 </script>

@@ -21,14 +21,21 @@ export default defineNuxtConfig({
       })
     },
     '@pinia/nuxt',
-    'nuxt-swiper'
-  ],
-  components: [
-    { path: '~/components', prefix: '', pathPrefix: false }
+    'nuxt-swiper',
+    '@nuxtjs/supabase'
   ],
   pinia: {
     storesDirs: ['./stores/**']
   },
+  supabase: {
+    redirectOptions: {
+      login: '/auth/login',
+      callback: '/'
+    }
+  },
+  components: [
+    { path: '~/components', prefix: '', pathPrefix: false }
+  ],
   css: [
     'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',

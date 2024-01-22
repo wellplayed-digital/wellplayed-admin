@@ -15,11 +15,11 @@
         </WpButton>
       </v-col>
       <v-col cols="2" class="text-center">
-        <WpBrandLogo to="/" @click="global.galleryMode = false" />
+        <WpBrandLogo to="/" @click="globalStore.galleryMode = false" />
       </v-col>
       <v-col cols="5" class="text-end">
         <WpButton
-          v-for="link in menuRight"
+          v-for="link in menuRightEnabled"
           :key="link.key"
           size="small"
           variant="text"
@@ -35,7 +35,8 @@
 </template>
 
 <script setup>
-const global = useGlobalStore()
+const globalStore = useGlobalStore()
+const userStore = useUserStore()
 const route = useRoute()
 const menuLeft = ref([
   {
@@ -48,25 +49,23 @@ const menuLeft = ref([
     text: 'Galeria',
     to: '/',
     click: () => {
-      global.galleryMode = route.path !== '/' || !global.galleryMode
+      globalStore.galleryMode = route.path !== '/' || !globalStore.galleryMode
     }
   }
 ])
-const menuRight = ref([
+const menuRight = computed(() => [
   {
     key: 'login',
     text: 'Iniciar Sesión',
-    to: '/auth/login'
-  },
-  {
-    key: 'register',
-    text: 'Registro',
-    to: '/auth/register'
+    to: '/auth/login',
+    disabled: !!userStore.user
   },
   {
     key: 'profile',
     text: 'Perfil',
-    to: '/auth/profile'
+    to: '/auth/profile',
+    disabled: !userStore.user
   }
 ])
+const menuRightEnabled = computed(() => menuRight.value.filter(link => !link.disabled))
 </script>

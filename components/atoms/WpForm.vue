@@ -1,14 +1,14 @@
 <template>
-  <v-form v-model="isValid" @submit.prevent="submit">
+  <v-form v-model="valid" v-bind="$attrs" @submit.prevent="submit">
     <slot />
   </v-form>
 </template>
 
 <script setup>
 const emits = defineEmits(['submit'])
-const isValid = ref(false)
+const valid = ref(false)
 const submit = () => {
-  if (isValid.value) {
+  if (valid.value) {
     emits('submit')
   }
 }

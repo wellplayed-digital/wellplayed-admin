@@ -9,35 +9,35 @@
           <v-col cols="12" sm="6">
             <WpTextField
               v-model="firstName"
-              :rules="[isRequired]"
+              :rules="[required]"
               label="Nombre"
             />
           </v-col>
           <v-col cols="12" sm="6">
             <WpTextField
               v-model="lastName"
-              :rules="[isRequired]"
+              :rules="[required]"
               label="Apellido"
             />
           </v-col>
           <v-col cols="12">
             <WpTextField
               v-model="email"
-              :rules="[isRequired, isValidEmail]"
+              :rules="[required, validEmail]"
               label="Email"
             />
           </v-col>
           <v-col cols="12">
             <WpPasswordField
               v-model="password"
-              :rules="[isRequired, isValidPassword]"
+              :rules="[required, isValidPassword]"
               label="Contraseña"
             />
           </v-col>
           <v-col cols="12">
             <WpPasswordField
               v-model="confirmPassword"
-              :rules="[isRequired, matchPassword(confirmPassword, password)]"
+              :rules="[required, matchPassword(confirmPassword, password)]"
               label="Confirmar Contraseña"
             />
           </v-col>
@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-const { isRequired, isValidEmail, isValidPassword, matchPassword } = useRules()
+const { required, validEmail, isValidPassword, matchPassword } = useRules()
 const firstName = ref(null)
 const lastName = ref(null)
 const email = ref(null)

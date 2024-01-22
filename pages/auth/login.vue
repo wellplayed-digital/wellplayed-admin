@@ -4,24 +4,23 @@
       <h1 class="text-h4 text-center mb-10">
         Iniciar Sesión
       </h1>
-      <WpForm @submit="login">
+      <WpForm :disabled="userStore.logginIn" @submit="userStore.login(email)">
         <v-row dense>
           <v-col cols="12">
             <WpTextField
               v-model="email"
-              :rules="[isRequired, isValidEmail]"
+              :rules="[required, validEmail]"
               label="Email"
             />
           </v-col>
           <v-col cols="12">
-            <WpPasswordField
-              v-model="password"
-              :rules="[isRequired]"
-              label="Contraseña"
-            />
-          </v-col>
-          <v-col cols="12">
-            <WpButton type="submit" color="primary" size="x-large" block>
+            <WpButton
+              type="submit"
+              color="primary"
+              size="x-large"
+              block
+              :loading="userStore.logginIn"
+            >
               Iniciar Sesión
             </WpButton>
           </v-col>
@@ -32,10 +31,7 @@
 </template>
 
 <script setup>
-const { isRequired, isValidEmail } = useRules()
+const { required, validEmail } = useRules()
+const userStore = useUserStore()
 const email = ref(null)
-const password = ref(null)
-const login = () => {
-  console.log('login')
-}
 </script>
