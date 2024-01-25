@@ -18,7 +18,7 @@
             <h1 class="text-h5 text-center mb-6">
               ¿Cuando deseas viajar?
             </h1>
-            <StaysSearchForm @submit="navigateTo('/stays-search')" />
+            <StaysSearchForm @submit="searchStays" />
           </WpContainer>
         </div>
       </WpTransition>
@@ -28,7 +28,6 @@
 
 <script setup>
 const global = useGlobalStore()
-
 const slides = ref([
   { key: 'slide-1', imgSrc: '/img/1.jpg' },
   { key: 'slide-2', imgSrc: '/img/2.jpg' },
@@ -36,4 +35,8 @@ const slides = ref([
   { key: 'slide-4', imgSrc: '/img/4.jpg' },
   { key: 'slide-5', imgSrc: '/img/5.jpg' }
 ])
+const searchStays = (data) => {
+  navigateTo('/stays-search')
+  console.log(data)
+}
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <v-dialog v-model="show" width="auto" persistent v-bind="$attrs">
+  <v-dialog v-model="show" width="auto" persistent>
     <template #activator="slotAttrs">
-      <slot name="activator" v-bind="slotAttrs" />
+      <slot name="activator" v-bind="{ ...slotAttrs, open }" />
     </template>
     <WpCard>
       <v-card-text class="py-6">
@@ -38,5 +38,8 @@ const confirm = () => {
 const cancel = () => {
   emits('cancel')
   show.value = false
+}
+const open = () => {
+  show.value = true
 }
 </script>

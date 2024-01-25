@@ -47,9 +47,9 @@ const menuLeft = ref([
   {
     key: 'gallery',
     text: 'Galeria',
-    to: '/',
-    click: () => {
+    click: async () => {
       globalStore.galleryMode = route.path !== '/' || !globalStore.galleryMode
+      await navigateTo('/')
     }
   }
 ])

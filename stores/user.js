@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
   const supabase = useSupabaseClient()
+  const appSnackbar = useAppSnackbar()
 
   const user = useSupabaseUser()
   const profile = ref(null)
@@ -10,24 +11,23 @@ export const useUserStore = defineStore('user', () => {
   const fetchingProfile = ref(false)
   const updatingProfile = ref(false)
   const signingOut = ref(false)
-  const loading = computed(() => logginIn.value || fetchingProfile.value || updatingProfile.value || signingOut.value)
 
   const login = async (email) => {
-    if (loading.value) { return }
     try {
       logginIn.value = true
       const { error } = await supabase.auth.signInWithOtp({ email })
       if (error) { throw error }
-      alert('Check your email for the login link!')
+      appSnackbar.success({ text: 'Busca el link de ingreso en tu casilla de correo' })
+      navigateTo('/')
     } catch (error) {
-      alert(error.error_description || error.message)
+      appSnackbar.error({ text: error.error_description || error.message })
     } finally {
       logginIn.value = false
     }
   }
 
   const fetchProfile = async () => {
-    if (!user.value || loading.value) { return }
+    if (!user.value) { return }
     try {
       fetchingProfile.value = true
       const { data, error } = await supabase
@@ -38,14 +38,14 @@ export const useUserStore = defineStore('user', () => {
       if (error) { throw error }
       profile.value = data
     } catch (error) {
-      alert(error.message)
+      appSnackbar.log({ text: error.message, color: 'error' })
     } finally {
       fetchingProfile.value = false
     }
   }
 
   const updateProfile = async ({ firstName, lastName }) => {
-    if (!user.value || loading.value) { return }
+    if (!user.value) { return }
     try {
       updatingProfile.value = true
       const updates = {
@@ -58,16 +58,17 @@ export const useUserStore = defineStore('user', () => {
         returning: 'minimal' // Don't return the value after inserting
       })
       if (error) { throw error }
-      fetchProfile()
+      appSnackbar.log({ text: 'Tu perfil ha sido actualizado correctamente', color: 'success' })
     } catch (error) {
-      alert(error.message)
+      appSnackbar.log({ text: error.message, color: 'error' })
     } finally {
+      await fetchProfile()
       updatingProfile.value = false
     }
   }
 
   const signOut = async () => {
-    if (!user.value || loading.value) { return }
+    if (!user.value) { return }
     try {
       signingOut.value = true
       const { error } = await supabase.auth.signOut()
@@ -76,7 +77,7 @@ export const useUserStore = defineStore('user', () => {
       profile.value = null
       navigateTo('/')
     } catch (error) {
-      alert(error.message)
+      appSnackbar.log({ text: error.message, color: 'error' })
     } finally {
       signingOut.value = false
     }
@@ -89,7 +90,6 @@ export const useUserStore = defineStore('user', () => {
     fetchingProfile,
     updatingProfile,
     signingOut,
-    loading,
     login,
     fetchProfile,
     updateProfile,

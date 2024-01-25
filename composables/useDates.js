@@ -2,6 +2,7 @@ import { DateTime, Settings } from 'luxon'
 import { useLocale } from 'vuetify'
 
 export default () => {
+  // Luxon locale = Vuetify locale
   const { current } = useLocale()
   Settings.defaultLocale = current.value
 

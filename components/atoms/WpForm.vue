@@ -1,6 +1,6 @@
 <template>
   <v-form v-model="valid" v-bind="$attrs" @submit.prevent="submit">
-    <slot />
+    <slot v-bind="{ valid }" />
   </v-form>
 </template>
 

@@ -5,6 +5,12 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
+  app: {
+    head: {
+      titleTemplate: 'Ayrampo | %s',
+      title: 'Home'
+    }
+  },
   vite: {
     vue: {
       template: { transformAssetUrls }

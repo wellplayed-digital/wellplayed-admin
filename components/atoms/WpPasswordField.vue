@@ -1,6 +1,5 @@
 <template>
   <WpTextField
-    v-bind="$attrs"
     :type="show ? 'text' : 'password'"
     :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
     @click:append-inner="show = !show"
