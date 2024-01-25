@@ -15,6 +15,11 @@ export default defineNuxtPlugin((app) => {
           colors: {
             primary: colors.amber.base
           }
+        },
+        light: {
+          colors: {
+            primary: colors.amber.base
+          }
         }
       }
     }
