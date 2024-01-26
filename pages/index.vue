@@ -15,8 +15,9 @@
       <WpTransition :show="!global.galleryMode">
         <div class="wp-bg-glass py-6">
           <WpContainer>
-            <h1 class="text-h5 text-center mb-6">
-              ¿Cuando deseas viajar?
+            <h1 class="text-h5 text-center mb-8">
+              <!-- ¿Cuando deseas viajar? -->
+              {{ $t('home.title') }}
             </h1>
             <StaysSearchForm @submit="searchStays" />
           </WpContainer>
@@ -27,6 +28,10 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+console.log(t('test', { name: 'vue-i18n' }))
+
 const global = useGlobalStore()
 const slides = ref([
   { key: 'slide-1', imgSrc: '/img/1.jpg' },

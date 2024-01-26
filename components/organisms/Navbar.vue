@@ -17,36 +17,39 @@
       <v-col cols="2" class="text-center">
         <WpBrandLogo to="/" @click="globalStore.galleryMode = false" />
       </v-col>
-      <v-col cols="5" class="text-end">
+      <v-col cols="5" class="d-flex justify-end align-center">
         <WpButton
           v-for="link in menuRightEnabled"
           :key="link.key"
           size="small"
           variant="text"
-          class="ml-4"
+          class="mr-4"
           :to="link.to"
           @click="link.click"
         >
           {{ link.text }}
         </WpButton>
+        <LanguageSelect />
       </v-col>
     </v-row>
   </WpContainer>
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const globalStore = useGlobalStore()
 const userStore = useUserStore()
 const route = useRoute()
-const menuLeft = ref([
+const menuLeft = computed(() => [
   {
     key: 'search',
-    text: 'Busqueda',
+    text: t('navbar.search'),
     to: '/stays-search'
   },
   {
     key: 'gallery',
-    text: 'Galeria',
+    text: t('navbar.gallery'),
     click: async () => {
       globalStore.galleryMode = route.path !== '/' || !globalStore.galleryMode
       await navigateTo('/')
@@ -56,13 +59,13 @@ const menuLeft = ref([
 const menuRight = computed(() => [
   {
     key: 'login',
-    text: 'Iniciar Sesión',
+    text: t('navbar.login'),
     to: '/auth/login',
     disabled: !!userStore.user
   },
   {
     key: 'profile',
-    text: 'Perfil',
+    text: t('navbar.profile'),
     to: '/auth/profile',
     disabled: !userStore.user
   }

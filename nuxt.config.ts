@@ -5,21 +5,11 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
-  app: {
-    head: {
-      titleTemplate: 'Ayrampo | %s',
-      title: 'Home'
-    }
-  },
-  vite: {
-    vue: {
-      template: { transformAssetUrls }
-    }
-  },
   build: {
     transpile: ['vuetify']
   },
   modules: [
+    // Vite: Load vuetify module
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         // @ts-expect-error
@@ -30,6 +20,12 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     '@nuxtjs/supabase'
   ],
+  // Module options
+  vite: {
+    vue: {
+      template: { transformAssetUrls }
+    }
+  },
   pinia: {
     storesDirs: ['./stores/**']
   },
@@ -39,12 +35,21 @@ export default defineNuxtConfig({
       callback: '/'
     }
   },
+  // Autoimport components
   components: [
     { path: '~/components', prefix: '', pathPrefix: false }
   ],
   css: [
+    // Vuetify & Icons
     'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',
+    // Custom SCSS: Overrides / Utilities
     '~/styles/main.scss'
-  ]
+  ],
+  app: {
+    head: {
+      titleTemplate: 'Ayrampo | %s',
+      title: 'Home'
+    }
+  }
 })

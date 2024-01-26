@@ -13,7 +13,11 @@
         :hide-details="hideDetails"
         :autofocus="autofocus"
         v-bind="slotProps"
-      />
+      >
+        <template #append-inner>
+          <slot name="append-inner" />
+        </template>
+      </WpDatePickerField>
     </template>
     <WpCard class="pt-4">
       <WpDatePickerCalendar
@@ -47,7 +51,11 @@
         :hide-details="hideDetails"
         :autofocus="autofocus"
         v-bind="slotProps"
-      />
+      >
+        <template #append-inner>
+          <slot name="append-inner" />
+        </template>
+      </WpDatePickerField>
     </template>
     <WpCard class="pt-4 mb-4">
       <WpDatePickerCalendar

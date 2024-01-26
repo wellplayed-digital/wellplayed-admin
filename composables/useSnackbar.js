@@ -1,5 +1,5 @@
 import { render } from 'vue'
-import AppSnackbar from '~/components/organisms/AppSnackbar.vue'
+import Snackbar from '~/components/organisms/Snackbar.vue'
 
 export default () => {
   const log = ({ text, color }) => {
@@ -7,7 +7,7 @@ export default () => {
     const nuxtApp = useNuxtApp()
     const mountEl = document.createElement('div')
     document.body.appendChild(mountEl)
-    const snackbarComponent = h(AppSnackbar, {
+    const snackbarComponent = h(Snackbar, {
       onDestroy: () => {
         const parent = componentInstance?.$el?.parentNode
         render(null, parent)

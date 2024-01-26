@@ -1,0 +1,27 @@
+{
+  "test": "Working {name}!",
+  "global": {
+    "and": "&",
+    "language": "language",
+    "nights": "night | nights",
+    "adults": "adult | adults",
+    "children": "child | children"
+  },
+  "navbar": {
+    "search": "Search",
+    "gallery": "Gallery",
+    "login": "Login",
+    "profile": "My Profile"
+  },
+  "staysSearchForm": {
+    "startDate": "Check in",
+    "endDate": "Check out",
+    "guests": "Guests"
+  },
+  "home": {
+    "title": "Find your perfect stay"
+  },
+  "profile": {
+    "title": "This is your profile"
+  }
+}

@@ -10,7 +10,11 @@
     :autofocus="autofocus"
     class="wp-cursor-pointer"
     v-bind="$attrs"
-  />
+  >
+    <template v-for="(_, slotName) in $slots" #[slotName]>
+      <slot :name="slotName" />
+    </template>
+  </WpTextField>
 </template>
 
 <script setup>

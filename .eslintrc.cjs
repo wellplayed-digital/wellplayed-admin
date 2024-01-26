@@ -15,16 +15,22 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module'
   },
-  plugins: ['vue', '@typescript-eslint'],
+  plugins: [
+    'vue',
+    '@typescript-eslint',
+    'json-format'
+  ],
   rules: {
     quotes: ['error', 'single'],
-    'vue/no-v-model-argument': 'off',
     indent: ['error', 2],
     'no-multi-spaces': ['error'],
     'no-unused-vars': [
       'error',
       { vars: 'all', args: 'after-used', ignoreRestSiblings: false }
     ],
-    'vue/valid-v-slot': 'off'
+    'import/no-named-as-default': 'off',
+    'vue/no-v-model-argument': 'off',
+    'vue/valid-v-slot': 'off',
+    'vue/multi-word-component-names': 'off'
   }
 }

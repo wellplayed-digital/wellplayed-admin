@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
   const supabase = useSupabaseClient()
-  const appSnackbar = useAppSnackbar()
+  const snackbar = useSnackbar()
 
   const user = useSupabaseUser()
   const profile = ref(null)
@@ -17,10 +17,10 @@ export const useUserStore = defineStore('user', () => {
       logginIn.value = true
       const { error } = await supabase.auth.signInWithOtp({ email })
       if (error) { throw error }
-      appSnackbar.success({ text: 'Busca el link de ingreso en tu casilla de correo' })
+      snackbar.success({ text: 'Busca el link de ingreso en tu casilla de correo' })
       navigateTo('/')
     } catch (error) {
-      appSnackbar.error({ text: error.error_description || error.message })
+      snackbar.error({ text: error.error_description || error.message })
     } finally {
       logginIn.value = false
     }
@@ -38,7 +38,7 @@ export const useUserStore = defineStore('user', () => {
       if (error) { throw error }
       profile.value = data
     } catch (error) {
-      appSnackbar.log({ text: error.message, color: 'error' })
+      snackbar.log({ text: error.message, color: 'error' })
     } finally {
       fetchingProfile.value = false
     }
@@ -58,9 +58,9 @@ export const useUserStore = defineStore('user', () => {
         returning: 'minimal' // Don't return the value after inserting
       })
       if (error) { throw error }
-      appSnackbar.log({ text: 'Tu perfil ha sido actualizado correctamente', color: 'success' })
+      snackbar.log({ text: 'Tu perfil ha sido actualizado correctamente', color: 'success' })
     } catch (error) {
-      appSnackbar.log({ text: error.message, color: 'error' })
+      snackbar.log({ text: error.message, color: 'error' })
     } finally {
       await fetchProfile()
       updatingProfile.value = false
@@ -77,7 +77,7 @@ export const useUserStore = defineStore('user', () => {
       profile.value = null
       navigateTo('/')
     } catch (error) {
-      appSnackbar.log({ text: error.message, color: 'error' })
+      snackbar.log({ text: error.message, color: 'error' })
     } finally {
       signingOut.value = false
     }

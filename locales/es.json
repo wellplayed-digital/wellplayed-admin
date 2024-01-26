@@ -1,0 +1,27 @@
+{
+  "test": "Funciona {name}!",
+  "global": {
+    "and": "y",
+    "language": "lenguaje",
+    "nights": "noche | noches",
+    "adults": "adulto | adultos",
+    "children": "niño | niños"
+  },
+  "navbar": {
+    "search": "Busqueda",
+    "gallery": "Galeria",
+    "login": "Iniciar Sesion",
+    "profile": "Mi Perfil"
+  },
+  "staysSearchForm": {
+    "startDate": "Fecha de Llegada",
+    "endDate": "Fecha de Salida",
+    "guests": "Huespedes"
+  },
+  "home": {
+    "title": "¿Cuando deseas viajar?"
+  },
+  "profile": {
+    "title": "Este es tu perfil"
+  }
+}

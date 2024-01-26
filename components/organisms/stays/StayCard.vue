@@ -56,7 +56,6 @@
 
 <script setup>
 const { ISOtoFormat } = useDates()
-const { plural } = useHelpers()
 defineProps({
   stay: { type: Object, required: true },
   featured: { type: Boolean, default: false }
@@ -78,7 +77,7 @@ const staysDetails = ref([
     key: 'nights',
     title: 'Estadia',
     icon: 'mdi-clock',
-    getValue: value => `${value} ${plural('noche', value)}`
+    getValue: value => `${value} noche/s`
   }
   // {
   //   key: 'pricePerNight',

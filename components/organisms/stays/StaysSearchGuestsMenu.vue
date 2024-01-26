@@ -6,7 +6,7 @@
     <template #activator="{props: slotProps}">
       <WpTextField
         :model-value="guestText"
-        label="Huespedes"
+        :label="$t('staysSearchForm.guests')"
         readonly
         hide-details
         :prepend-inner-icon="guestIcon"
@@ -20,7 +20,7 @@
           v-model="guestCount.adults"
           :min="1"
           :max="guestLimit.adults"
-          label="Adultos"
+          :label="capitalize($t('global.adults', 2))"
           hide-details
           class="mb-4"
         />
@@ -28,7 +28,7 @@
           v-model="guestCount.children"
           :min="0"
           :max="guestLimit.children"
-          label="Niños"
+          :label="capitalize($t('global.children', 2))"
           hide-details
         />
         <WpTransition :show="guestTotal >= MAX_GUEST">
@@ -42,7 +42,10 @@
 </template>
 
 <script setup>
-const { plural } = useHelpers()
+import { useI18n } from 'vue-i18n'
+import { capitalize } from 'lodash'
+
+const { t } = useI18n()
 const props = defineProps({
   modelValue: { type: Object, default: null }
 })
@@ -61,9 +64,9 @@ const guestLimit = computed(() => ({
 const ICON_PER_GUEST = ['mdi-account', 'mdi-account-multiple']
 const guestIcon = computed(() => ICON_PER_GUEST[guestTotal.value - 1] || 'mdi-account-group')
 const guestText = computed(() => {
-  const adults = `${guestCount.value.adults} ${plural('adulto', guestCount.value.adults)}`
+  const adults = `${guestCount.value.adults} ${t('global.adults', guestCount.value.adults)}`
   if (!guestCount.value.children) { return adults }
-  const children = ` y ${guestCount.value.children} ${plural('niño', guestCount.value.children)}`
+  const children = ` ${t('global.and')} ${guestCount.value.children} ${t('global.children', guestCount.value.children)}`
   return adults + children
 })
 </script>

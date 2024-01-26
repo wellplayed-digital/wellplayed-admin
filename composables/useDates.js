@@ -1,10 +1,8 @@
-import { DateTime, Settings } from 'luxon'
-import { useLocale } from 'vuetify'
+import { useI18n } from 'vue-i18n'
+import { DateTime } from 'luxon'
 
 export default () => {
-  // Luxon locale = Vuetify locale
-  const { current } = useLocale()
-  Settings.defaultLocale = current.value
+  const { locale } = useI18n()
 
   const ISO = (options = { plus: {} }) => {
     return DateTime.local().plus(options.plus).toISODate()
@@ -23,11 +21,11 @@ export default () => {
   }
   const ISOtoFormat = (date, options = { format: 'DATE_MED' }) => {
     if (!date) { return null }
-    return DateTime.fromISO(date).toLocaleString(DateTime[options.format])
+    return DateTime.fromISO(date, { locale: locale.value }).toLocaleString(DateTime[options.format])
   }
   const JStoFormat = (date, options = { format: 'DATE_MED' }) => {
     if (!date) { return null }
-    return DateTime.fromJSDate(date).toLocaleString(DateTime[options.format])
+    return DateTime.fromJSDate(date, { locale: locale.value }).toLocaleString(DateTime[options.format])
   }
   const unitDiff = (startDate, endDate, unit) => {
     if (!startDate || !endDate) { return null }

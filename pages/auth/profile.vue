@@ -2,7 +2,7 @@
   <div class="h-100 d-flex align-center">
     <WpContainer max-width="35rem">
       <h1 class="text-h4 text-center mb-10">
-        Este es tu perfil
+        {{ $t('profile.title') }}
       </h1>
       <WpConfirmDialog
         text="¿Estas seguro que quieres guardar los cambios?"
@@ -73,7 +73,7 @@
 const { required } = useRules()
 useHead({ title: 'Perfil' })
 const userStore = useUserStore()
-const appSnackbar = useAppSnackbar()
+const snackbar = useSnackbar()
 const email = ref(userStore.user.email)
 const firstName = ref(userStore.profile.first_name)
 const lastName = ref(userStore.profile.last_name)
@@ -83,7 +83,7 @@ const hasUnsavedChanges = computed(() => (
 ))
 const unsavedChangesAlert = () => {
   if (hasUnsavedChanges.value) {
-    appSnackbar.warning({ text: 'Tienes cambios sin guardar' })
+    snackbar.warning({ text: 'Tienes cambios sin guardar' })
   }
 }
 </script>

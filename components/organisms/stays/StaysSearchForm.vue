@@ -6,7 +6,7 @@
           v-model="startDate"
           :min="startLimit.min"
           :max="startLimit.max"
-          label="Fecha de Llegada"
+          :label="$t('staysSearchForm.startDate')"
           prepend-inner-icon="mdi-calendar-start"
           hide-details
           @update:model-value="validateEndDate"
@@ -17,10 +17,17 @@
           v-model="endDate"
           :min="endLimit.min"
           :max="endLimit.max"
+          :label="$t('staysSearchForm.endDate')"
           prepend-inner-icon="mdi-calendar-end"
-          label="Fecha de Salida"
           hide-details
-        />
+        >
+          <template #append-inner>
+            <v-icon icon="mdi-clock" size="small" color="primary" />
+            <div class="text-body-2 text-primary px-1 text-no-wrap">
+              {{ totalNights }} {{ $t('global.nights', totalNights) }}
+            </div>
+          </template>
+        </WpDatePicker>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <StaysSearchGuestsMenu v-model="guests" />
@@ -36,14 +43,6 @@
           <v-icon>mdi-magnify</v-icon>
         </WpButton>
       </v-col>
-      <v-col v-if="totalNights" cols="auto">
-        <div class="mt-2 d-flex align-center">
-          <v-icon icon="mdi-clock-outline" color="grey" />
-          <div class="text-body-2 text-medium-emphasis ml-1">
-            Estadia: {{ totalNights }} {{ plural('noche', totalNights) }}
-          </div>
-        </div>
-      </v-col>
     </v-row>
   </WpForm>
 </template>
@@ -52,7 +51,6 @@
 import { useLocalStorage } from '@vueuse/core'
 
 const { ISO, ISOtoISO, unitDiff } = useDates()
-const { plural } = useHelpers()
 const emits = defineEmits(['submit'])
 const startDate = ref(useLocalStorage('startDate'))
 const MIN_START = ref(0)
