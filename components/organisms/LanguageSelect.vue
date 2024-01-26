@@ -2,7 +2,7 @@
   <v-menu>
     <template #activator="{props: slotProps}">
       <WpIconButton v-bind="slotProps" :tooltip-props="{ text: capitalize($t('global.language')) }">
-        <WpFlag :country-code="language[locale].countryCode" />
+        <WpFlag :country-code="languages[locale].countryCode" />
       </WpIconButton>
     </template>
     <v-list>
@@ -34,7 +34,7 @@ const languages = ref({
   },
   es: {
     name: 'Español',
-    countryCode: 'es'
+    countryCode: 'ar'
   }
 })
 </script>

@@ -23,5 +23,8 @@
   },
   "profile": {
     "title": "Este es tu perfil"
+  },
+  "errors": {
+    "maxGuests": "Ha alcanzado la cantidad máxima de huespedes"
   }
 }

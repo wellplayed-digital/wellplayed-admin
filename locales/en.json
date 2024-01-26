@@ -23,5 +23,8 @@
   },
   "profile": {
     "title": "This is your profile"
+  },
+  "errors": {
+    "maxGuests": "Maximum number of guests reached"
   }
 }

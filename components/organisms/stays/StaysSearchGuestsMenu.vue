@@ -5,11 +5,11 @@
   >
     <template #activator="{props: slotProps}">
       <WpTextField
-        :model-value="guestText"
+        :model-value="guestsText"
         :label="$t('staysSearchForm.guests')"
         readonly
         hide-details
-        :prepend-inner-icon="guestIcon"
+        :prepend-inner-icon="guestsIcon"
         class="wp-cursor-pointer"
         v-bind="slotProps"
       />
@@ -17,23 +17,23 @@
     <WpCard class="w-100 pa-2 mb-4">
       <v-card-text>
         <WpCounterField
-          v-model="guestCount.adults"
+          v-model="guestsCount.adults"
           :min="1"
-          :max="guestLimit.adults"
+          :max="guestsLimit.adults"
           :label="capitalize($t('global.adults', 2))"
           hide-details
           class="mb-4"
         />
         <WpCounterField
-          v-model="guestCount.children"
+          v-model="guestsCount.children"
           :min="0"
-          :max="guestLimit.children"
+          :max="guestsLimit.children"
           :label="capitalize($t('global.children', 2))"
           hide-details
         />
-        <WpTransition :show="guestTotal >= MAX_GUEST">
+        <WpTransition :show="guestsTotal >= MAX_GUESTS">
           <div class="text-medium-emphasis text-body-2 mt-4">
-            Ha alcanzado la cantidad máxima de huespedes
+            {{ $t('errors.maxGuests') }}
           </div>
         </WpTransition>
       </v-card-text>
@@ -51,22 +51,22 @@ const props = defineProps({
 })
 const emits = defineEmits(['update:modelValue', 'close'])
 const show = ref(false)
-const MAX_GUEST = ref(6)
-const guestCount = computed({
+const MAX_GUESTS = ref(6)
+const guestsCount = computed({
   get: () => props.modelValue,
   set: value => emits('update:modelValue', value)
 })
-const guestTotal = computed(() => guestCount.value.adults + guestCount.value.children)
-const guestLimit = computed(() => ({
-  adults: MAX_GUEST.value - guestCount.value.children,
-  children: MAX_GUEST.value - guestCount.value.adults
+const guestsTotal = computed(() => guestsCount.value.adults + guestsCount.value.children)
+const guestsLimit = computed(() => ({
+  adults: MAX_GUESTS.value - guestsCount.value.children,
+  children: MAX_GUESTS.value - guestsCount.value.adults
 }))
-const ICON_PER_GUEST = ['mdi-account', 'mdi-account-multiple']
-const guestIcon = computed(() => ICON_PER_GUEST[guestTotal.value - 1] || 'mdi-account-group')
-const guestText = computed(() => {
-  const adults = `${guestCount.value.adults} ${t('global.adults', guestCount.value.adults)}`
-  if (!guestCount.value.children) { return adults }
-  const children = ` ${t('global.and')} ${guestCount.value.children} ${t('global.children', guestCount.value.children)}`
+const guestsText = computed(() => {
+  const adults = `${guestsCount.value.adults} ${t('global.adults', guestsCount.value.adults)}`
+  if (!guestsCount.value.children) { return adults }
+  const children = ` ${t('global.and')} ${guestsCount.value.children} ${t('global.children', guestsCount.value.children)}`
   return adults + children
 })
+const ICON_PER_GUESTS = ['mdi-account', 'mdi-account-multiple']
+const guestsIcon = computed(() => ICON_PER_GUESTS[guestsTotal.value - 1] || 'mdi-account-group')
 </script>

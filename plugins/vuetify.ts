@@ -8,8 +8,6 @@ import en from '~/locales/en.json'
 import es from '~/locales/es.json'
 
 export default defineNuxtPlugin(({ vueApp }) => {
-  const storedLocale = useLocalStorage('locale', 'en')
-
   const messages = {
     en: {
       ...en,
@@ -33,17 +31,20 @@ export default defineNuxtPlugin(({ vueApp }) => {
     }
   }
 
+  const storedLocale = ref(useLocalStorage('locale', 'en'))
+
   const i18n = createI18n({
     legacy: false, // Vuetify does not support the legacy mode of vue-i18n
-    locale: storedLocale.value,
+    locale: storedLocale.value.toString(),
     fallbackLocale: 'en',
     messages
   })
 
+  const adapter = createVueI18nAdapter({ i18n, useI18n })
+  watch(adapter.current, (current) => { storedLocale.value = current })
+
   const vuetify = createVuetify({
-    locale: {
-      adapter: createVueI18nAdapter({ i18n, useI18n })
-    },
+    locale: { adapter },
     theme: {
       defaultTheme: 'dark',
       themes: {
