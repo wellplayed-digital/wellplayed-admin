@@ -6,7 +6,7 @@
     <template #activator="{props: slotProps}">
       <WpTextField
         :model-value="guestsText"
-        :label="$t('staysSearchForm.guests')"
+        :label="capitalize($t('global.guests', 2))"
         readonly
         hide-details
         :prepend-inner-icon="guestsIcon"

@@ -43,7 +43,7 @@
           </div>
           <div class="text-end">
             <div class="">
-              <span class="text-h3 text-bold">{{ stay.pricePerNight }}</span>
+              <span class="text-h3 font-weight-bold">{{ stay.pricePerNight }}</span>
               <span class="text-h5 ml-1">USD</span>
             </div>
             <div>precio por noche</div>

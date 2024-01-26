@@ -28,14 +28,14 @@
                   <WpTextField
                     v-model="firstName"
                     :rules="[required]"
-                    label="Nombre"
+                    :label="startCase($t('global.firstName'))"
                   />
                 </v-col>
                 <v-col cols="12" sm="6">
                   <WpTextField
                     v-model="lastName"
                     :rules="[required]"
-                    label="Apellido"
+                    :label="startCase($t('global.lastName'))"
                   />
                 </v-col>
                 <v-col>
@@ -43,11 +43,10 @@
                     type="submit"
                     color="primary"
                     size="x-large"
-                    block
                     :loading="userStore.updatingProfile"
                     :disabled="!valid || !hasUnsavedChanges"
                   >
-                    Guardar
+                    {{ $t('global.save') }}
                   </WpButton>
                 </v-col>
               </v-row>
@@ -63,13 +62,15 @@
         :loading="userStore.signingOut"
         @click="userStore.signOut"
       >
-        Cerrar Sesión
+        {{ $t('global.logout') }}
       </WpButton>
     </WpContainer>
   </div>
 </template>
 
 <script setup>
+import { startCase } from 'lodash'
+
 const { required } = useRules()
 useHead({ title: 'Perfil' })
 const userStore = useUserStore()

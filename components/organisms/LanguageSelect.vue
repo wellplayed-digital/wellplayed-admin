@@ -1,7 +1,11 @@
 <template>
   <v-menu>
     <template #activator="{props: slotProps}">
-      <WpIconButton v-bind="slotProps" :tooltip-props="{ text: capitalize($t('global.language')) }">
+      <WpIconButton
+        v-bind="slotProps"
+        tooltip
+        :tooltip-props="{ text: capitalize($t('global.language')) }"
+      >
         <WpFlag :country-code="languages[locale].countryCode" />
       </WpIconButton>
     </template>

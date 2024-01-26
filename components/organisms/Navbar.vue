@@ -21,8 +21,8 @@
         <WpButton
           v-for="link in menuRightEnabled"
           :key="link.key"
-          size="small"
           variant="text"
+          size="small"
           class="mr-4"
           :to="link.to"
           @click="link.click"
@@ -37,6 +37,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
 const globalStore = useGlobalStore()
 const userStore = useUserStore()
@@ -59,7 +60,7 @@ const menuLeft = computed(() => [
 const menuRight = computed(() => [
   {
     key: 'login',
-    text: t('navbar.login'),
+    text: t('global.login'),
     to: '/auth/login',
     disabled: !!userStore.user
   },

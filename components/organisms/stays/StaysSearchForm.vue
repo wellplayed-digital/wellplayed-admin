@@ -6,7 +6,7 @@
           v-model="startDate"
           :min="startLimit.min"
           :max="startLimit.max"
-          :label="$t('staysSearchForm.startDate')"
+          label="Check In"
           prepend-inner-icon="mdi-calendar-start"
           hide-details
           @update:model-value="validateEndDate"
@@ -17,7 +17,7 @@
           v-model="endDate"
           :min="endLimit.min"
           :max="endLimit.max"
-          :label="$t('staysSearchForm.endDate')"
+          label="Check Out"
           prepend-inner-icon="mdi-calendar-end"
           hide-details
         >

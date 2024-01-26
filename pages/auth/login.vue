@@ -1,9 +1,14 @@
 <template>
   <div class="h-100 d-flex align-center">
-    <WpContainer max-width="35rem">
-      <h1 class="text-h4 text-center mb-10">
-        Iniciar Sesión
-      </h1>
+    <WpContainer max-width="32rem">
+      <div class="text-center mb-14">
+        <h1 class="text-h4 mb-2">
+          {{ $t('login.title') }}
+        </h1>
+        <p class="text-h5 text-disabled">
+          {{ $t('login.text') }}
+        </p>
+      </div>
       <WpForm :disabled="userStore.logginIn" @submit="userStore.login(email)">
         <template #default="{ valid }">
           <v-row dense>
@@ -14,16 +19,15 @@
                 label="Email"
               />
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" class="d-flex justify-center">
               <WpButton
                 type="submit"
                 color="primary"
                 size="x-large"
-                block
                 :loading="userStore.logginIn"
                 :disabled="!valid"
               >
-                Iniciar Sesión
+                {{ $t('login.button') }}
               </WpButton>
             </v-col>
           </v-row>

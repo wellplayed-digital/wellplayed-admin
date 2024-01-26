@@ -41,10 +41,10 @@ body {
 }
 
 .wp-font-brand {
-  font-family: var(--font-brand);
-  font-weight: 400;
-  &.text-bold {
-    font-weight: 700;
+  font-family: var(--font-brand) !important;
+  font-weight: 400 !important;
+  &.font-weight-bold {
+    font-weight: 700 !important;
   }
 }
 

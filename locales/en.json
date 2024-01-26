@@ -3,26 +3,31 @@
   "global": {
     "and": "&",
     "language": "language",
+    "save": "save",
+    "login": "login",
+    "logout": "log out",
+    "firstName": "first name",
+    "lastName": "last name",
     "nights": "night | nights",
+    "guests": "guest | guests",
     "adults": "adult | adults",
     "children": "child | children"
   },
   "navbar": {
-    "search": "Search",
-    "gallery": "Gallery",
-    "login": "Login",
-    "profile": "My Profile"
-  },
-  "staysSearchForm": {
-    "startDate": "Check in",
-    "endDate": "Check out",
-    "guests": "Guests"
+    "search": "search",
+    "gallery": "gallery",
+    "profile": "my profile"
   },
   "home": {
     "title": "Find your perfect stay"
   },
   "profile": {
     "title": "This is your profile"
+  },
+  "login": {
+    "title": "Access with your email",
+    "text": "We'll send an access link to your inbox",
+    "button": "send link"
   },
   "errors": {
     "maxGuests": "Maximum number of guests reached"

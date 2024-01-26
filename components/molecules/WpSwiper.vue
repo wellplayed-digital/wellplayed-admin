@@ -24,7 +24,7 @@ const pagination = ref({
   dynamicBullets: true,
   className: 'wp-swiper-pagination',
   renderBullet: (index, className) => {
-    return `<div class="${className} wp-font-brand text-bold">${index + 1}</div>`
+    return `<div class="${className} wp-font-brand font-weight-bold">${index + 1}</div>`
   }
 })
 </script>

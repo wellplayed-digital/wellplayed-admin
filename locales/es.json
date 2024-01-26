@@ -3,26 +3,31 @@
   "global": {
     "and": "y",
     "language": "lenguaje",
+    "save": "guardar",
+    "login": "iniciar sesion",
+    "logout": "cerrar sesion",
+    "firstName": "nombre",
+    "lastName": "apellido",
     "nights": "noche | noches",
+    "guests": "huesped | huespedes",
     "adults": "adulto | adultos",
     "children": "niño | niños"
   },
   "navbar": {
-    "search": "Busqueda",
-    "gallery": "Galeria",
-    "login": "Iniciar Sesion",
-    "profile": "Mi Perfil"
-  },
-  "staysSearchForm": {
-    "startDate": "Fecha de Llegada",
-    "endDate": "Fecha de Salida",
-    "guests": "Huespedes"
+    "search": "busqueda",
+    "gallery": "galeria",
+    "profile": "mi perfil"
   },
   "home": {
     "title": "¿Cuando deseas viajar?"
   },
   "profile": {
     "title": "Este es tu perfil"
+  },
+  "login": {
+    "title": "Ingresa con tu email",
+    "text": "Enviaremos un link de acceso a tu inbox",
+    "button": "enviar link"
   },
   "errors": {
     "maxGuests": "Ha alcanzado la cantidad máxima de huespedes"
