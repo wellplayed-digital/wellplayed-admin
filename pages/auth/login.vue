@@ -19,11 +19,12 @@
                 label="Email"
               />
             </v-col>
-            <v-col cols="12" class="d-flex justify-center">
+            <v-col cols="12">
               <WpButton
                 type="submit"
                 color="primary"
                 size="x-large"
+                block
                 :loading="userStore.logginIn"
                 :disabled="!valid"
               >

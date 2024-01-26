@@ -43,6 +43,7 @@
                     type="submit"
                     color="primary"
                     size="x-large"
+                    block
                     :loading="userStore.updatingProfile"
                     :disabled="!valid || !hasUnsavedChanges"
                   >
