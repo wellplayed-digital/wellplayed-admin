@@ -2,11 +2,10 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
   const supabase = useSupabaseClient()
+  const user = useSupabaseUser()
   const snackbar = useSnackbar()
 
-  const user = useSupabaseUser()
   const profile = ref(null)
-
   const logginIn = ref(false)
   const fetchingProfile = ref(false)
   const updatingProfile = ref(false)

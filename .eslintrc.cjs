@@ -31,6 +31,7 @@ module.exports = {
     'import/no-named-as-default': 'off',
     'vue/no-v-model-argument': 'off',
     'vue/valid-v-slot': 'off',
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    'vue/no-v-for-template-key': 'off'
   }
 }

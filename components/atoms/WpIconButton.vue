@@ -1,8 +1,8 @@
 <template>
   <v-tooltip
-    v-if="tooltip"
-    v-bind="tooltipProps"
-    :location="tooltipProps.location || 'bottom'"
+    v-if="tooltipText"
+    :text="tooltipText"
+    :location="tooltipLocation"
     theme="light"
   >
     <template #activator="{ props: slotProps }">
@@ -33,7 +33,7 @@
 defineProps({
   icon: { type: String, default: '' },
   variant: { type: String, default: 'text' },
-  tooltip: { type: Boolean, default: false },
-  tooltipProps: { type: Object, default: () => ({}) }
+  tooltipText: { type: String, default: null },
+  tooltipLocation: { type: String, default: 'bottom' }
 })
 </script>
