@@ -32,7 +32,6 @@ export const useUserStore = defineStore('user', () => {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('id', user.value.id)
         .single()
       if (error) { throw error }
       profile.value = data
@@ -48,14 +47,13 @@ export const useUserStore = defineStore('user', () => {
     try {
       updatingProfile.value = true
       const updates = {
-        id: user.value.id,
         first_name: firstName,
         last_name: lastName,
         updated_at: new Date()
       }
-      const { error } = await supabase.from('profiles').upsert(updates, {
-        returning: 'minimal' // Don't return the value after inserting
-      })
+      const { error } = await supabase
+        .from('profiles')
+        .upsert(updates)
       if (error) { throw error }
       snackbar.success({ text: 'Tu perfil ha sido actualizado correctamente' })
     } catch (error) {

@@ -9,10 +9,10 @@
         @confirm="userStore.updateProfile({ firstName, lastName })"
         @cancel="unsavedChangesAlert()"
       >
-        <template #activator="{ open }">
+        <template #activator="{ open: openConfirmDialog }">
           <WpForm
             :disabled="userStore.updatingProfile"
-            @submit="open"
+            @submit="openConfirmDialog"
           >
             <template #default="{ valid }">
               <v-row dense>

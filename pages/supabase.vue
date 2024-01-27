@@ -1,68 +1,99 @@
 <template>
   <WpContainer max-width="50rem">
-    <div class="text-h5 mb-4">
-      Create a New Item
-    </div>
     <WpForm :disabled="addingItem" class="mb-10" @submit="addItem">
+      <div class="text-h5 mb-4">
+        Create a New Item
+      </div>
       <v-row>
         <v-col cols="8">
-          <WpTextField v-model="newItem.name" :rules="[required]" label="Item Name" />
+          <WpTextField
+            ref="$name"
+            v-model="newItem.name"
+            label="Item Name"
+            clearable
+          />
         </v-col>
         <v-col cols="4">
-          <WpButton type="submit" size="x-large" block :loading="addingItem">
+          <WpButton
+            type="submit"
+            color="primary"
+            size="x-large"
+            block
+            :disabled="isEmpty(newItem.name)"
+            :loading="addingItem"
+          >
             Add
           </WpButton>
         </v-col>
       </v-row>
     </WpForm>
-    <template v-if="items.length > 0">
+    <div v-if="items.length > 0">
       <div class="text-h5 mb-4">
         Items
       </div>
-      <v-list>
-        <template v-for="(item, index) in items" :key="item.id">
-          <WpDivider v-if="index > 0" />
-          <v-list-item>
-            <div class="d-flex justify-space-between align-center">
-              <div>{{ item.name }}</div>
-              <WpConfirmDialog
-                text="¿Estas seguro que quieres guardar los cambios?"
-                @confirm="deleteItem(item)"
-                @cancel="unsavedChangesAlert()"
-              >
-                <template #activator="{ open }">
-                  <WpIconButton
-                    icon="mdi-delete"
-                    size="small"
-                    tooltip-text="Delete"
-                    @click="open"
-                  />
-                </template>
-              </WpConfirmDialog>
-            </div>
-          </v-list-item>
-        </template>
-      </v-list>
-    </template>
+      <div v-for="item in items" :key="item.id">
+        <WpTextField
+          v-model="item.name"
+          :variant="item.edit ? 'outlined' : 'solo'"
+          :readonly="!item.edit"
+          elevation="0"
+          @keyup.enter="updateItem(item)"
+        >
+          <template #append-inner>
+            <WpIconButton
+              v-if="!item.edit"
+              icon="mdi-pencil"
+              size="small"
+              tooltip-text="Edit"
+              @click="item.edit = true"
+            />
+            <WpIconButton
+              v-if="item.edit"
+              icon="mdi-check"
+              size="small"
+              :loading="item.updating"
+              @click="updateItem(item)"
+            />
+            <WpConfirmDialog
+              text="¿Estas seguro que quieres guardar los cambios?"
+              @confirm="deleteItem(item)"
+            >
+              <template #activator="{ open: openConfirmDialog }">
+                <WpIconButton
+                  icon="mdi-delete"
+                  size="small"
+                  tooltip-text="Delete"
+                  :loading="item.deleting"
+                  @click="openConfirmDialog"
+                />
+              </template>
+            </WpConfirmDialog>
+          </template>
+        </WpTextField>
+      </div>
+    </div>
   </WpContainer>
 </template>
 
 <script setup>
+import { trim } from 'lodash'
+const isEmpty = value => trim(value).length === 0
+
 useHead({ title: 'Supabase' })
 
 const supabase = useSupabaseClient()
-const user = useSupabaseUser()
 const snackbar = useSnackbar()
-const { required } = useRules()
 
+const $name = ref()
 const items = ref([])
 const loading = ref(false)
-const getItems = async () => {
+const fetchItems = async () => {
   try {
     loading.value = true
     const { data, error } = await supabase
       .from('items')
       .select('*')
+      .order('id', { ascending: false })
     if (error) { throw error }
     items.value = data
   } catch (error) {
@@ -71,40 +102,68 @@ const getItems = async () => {
     loading.value = false
   }
 }
-onMounted(getItems)
-const getDefaultNewItem = () => ({
-  name: '',
-  user_id: user.value.id
-})
-const newItem = ref(getDefaultNewItem())
+onMounted(fetchItems)
+
+const getNewItemDefault = () => ({ name: '' })
+const newItem = ref(getNewItemDefault())
 const addingItem = ref(false)
 const addItem = async () => {
   try {
     addingItem.value = true
-    const { error } = await supabase.from('items').insert(newItem.value, {
-      returning: 'minimal' // Don't return the value after inserting
-    })
+    const { data, error } = await supabase
+      .from('items')
+      .insert(newItem.value)
+      .select('*')
+      .single()
     if (error) { throw error }
-    await getItems()
+    items.value.unshift(data)
+    newItem.value = getNewItemDefault()
+    $name.value.focus()
   } catch (error) {
     snackbar.error({ text: error.message })
   } finally {
     addingItem.value = false
   }
 }
+
 const deleteItem = async (item) => {
   try {
-    loading.value = true
+    item.deleting = true
     const { error } = await supabase
       .from('items')
       .delete()
       .eq('id', item.id)
     if (error) { throw error }
-    await getItems()
+    items.value = items.value.filter(i => i.id !== item.id)
   } catch (error) {
     snackbar.error({ text: error.message })
   } finally {
-    loading.value = false
+    item.deleting = false
   }
 }
+
+const updateItem = async (item) => {
+  if (isEmpty(item.name)) {
+    deleteItem(item)
+    return
+  }
+  try {
+    item.updating = true
+    const updates = {
+      name: item.name,
+      updated_at: new Date()
+    }
+    const { error } = await supabase
+      .from('items')
+      .update(updates)
+      .eq('id', item.id)
+    if (error) { throw error }
+    item.edit = false
+  } catch (error) {
+    snackbar.error({ text: error.message })
+  } finally {
+    item.updating = false
+  }
+}
+
 </script>
