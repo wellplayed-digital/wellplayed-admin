@@ -32,13 +32,13 @@ export const useUserStore = defineStore('user', () => {
       fetchingProfile.value = true
       const { data, error } = await supabase
         .from('profiles')
-        .select('first_name, last_name')
+        .select('*')
         .eq('id', user.value.id)
         .single()
       if (error) { throw error }
       profile.value = data
     } catch (error) {
-      snackbar.log({ text: error.message, color: 'error' })
+      snackbar.error({ text: error.message })
     } finally {
       fetchingProfile.value = false
     }
@@ -58,9 +58,9 @@ export const useUserStore = defineStore('user', () => {
         returning: 'minimal' // Don't return the value after inserting
       })
       if (error) { throw error }
-      snackbar.log({ text: 'Tu perfil ha sido actualizado correctamente', color: 'success' })
+      snackbar.success({ text: 'Tu perfil ha sido actualizado correctamente' })
     } catch (error) {
-      snackbar.log({ text: error.message, color: 'error' })
+      snackbar.error({ text: error.message })
     } finally {
       await fetchProfile()
       updatingProfile.value = false
@@ -68,7 +68,6 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const signOut = async () => {
-    if (!user.value) { return }
     try {
       signingOut.value = true
       const { error } = await supabase.auth.signOut()
@@ -77,7 +76,7 @@ export const useUserStore = defineStore('user', () => {
       profile.value = null
       navigateTo('/')
     } catch (error) {
-      snackbar.log({ text: error.message, color: 'error' })
+      snackbar.error({ text: error.message })
     } finally {
       signingOut.value = false
     }
