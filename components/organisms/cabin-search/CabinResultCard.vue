@@ -23,7 +23,10 @@
       </v-col>
       <v-col cols="6">
         <v-card-text class="h-100 d-flex flex-column justify-space-between">
-          <div class="">
+          <div>
+            {{ cabin }}
+          </div>
+          <!-- <div>
             <v-row
               v-for="(detail, detailIndex) in cabinDetails"
               :key="`detail${detailIndex}`"
@@ -47,7 +50,7 @@
               <span class="text-h5 ml-1">USD</span>
             </div>
             <div>precio por noche</div>
-          </div>
+          </div> -->
         </v-card-text>
       </v-col>
     </v-row>
@@ -55,41 +58,41 @@
 </template>
 
 <script setup>
-const { ISOtoFormat } = useDates()
+// const { ISOtoFormat } = useDates()
 defineProps({
   cabin: { type: Object, required: true },
   featured: { type: Boolean, default: false }
 })
-const cabinDetails = ref([
-  {
-    key: 'startDate',
-    title: 'Fecha de Llegada',
-    icon: 'mdi-calendar-start',
-    getValue: value => ISOtoFormat(value)
-  },
-  {
-    key: 'endDate',
-    title: 'Fecha de Salida',
-    icon: 'mdi-calendar-end',
-    getValue: value => ISOtoFormat(value)
-  },
-  {
-    key: 'nights',
-    title: 'Estadia',
-    icon: 'mdi-clock',
-    getValue: value => `${value} noche/s`
-  }
-  // {
-  //   key: 'pricePerNight',
-  //   title: 'priceo por Noche',
-  //   getValue: value => value + ' USD'
-  // },
-  // {
-  //   key: 'priceTotal',
-  //   title: 'priceo total',
-  //   getValue: value => value + ' USD'
-  // }
-])
+// const cabinDetails = ref([
+//   {
+//     key: 'startDate',
+//     title: 'Fecha de Llegada',
+//     icon: 'mdi-calendar-start',
+//     getValue: value => ISOtoFormat(value)
+//   },
+//   {
+//     key: 'endDate',
+//     title: 'Fecha de Salida',
+//     icon: 'mdi-calendar-end',
+//     getValue: value => ISOtoFormat(value)
+//   },
+//   {
+//     key: 'nights',
+//     title: 'Estadia',
+//     icon: 'mdi-clock',
+//     getValue: value => `${value} noche/s`
+//   }
+//   // {
+//   //   key: 'pricePerNight',
+//   //   title: 'priceo por Noche',
+//   //   getValue: value => value + ' USD'
+//   // },
+//   // {
+//   //   key: 'priceTotal',
+//   //   title: 'priceo total',
+//   //   getValue: value => value + ' USD'
+//   // }
+// ])
 const startCheckout = () => {
   console.log('startCheckout')
 }

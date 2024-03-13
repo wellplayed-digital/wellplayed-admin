@@ -87,7 +87,12 @@ const validateStoredStartDate = () => {
 }
 validateStoredStartDate()
 const guests = ref(useLocalStorage('guests', { adults: 2, children: 0 }))
+const totalGuests = computed(() => guests.value.adults + guests.value.children)
 const submit = () => {
-  emits('submit', { startDate: startDate.value, endDate: endDate.value, guests: guests.value })
+  emits('submit', {
+    startDate: toRaw(startDate.value),
+    endDate: toRaw(endDate.value),
+    guests: toRaw(totalGuests.value)
+  })
 }
 </script>
