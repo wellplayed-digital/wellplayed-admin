@@ -1,5 +1,5 @@
 <template>
-  <WpForm @submit="searchStays">
+  <WpForm @submit="submit">
     <v-row dense>
       <v-col cols="12" sm="6" md="3">
         <WpDatePicker
@@ -30,7 +30,7 @@
         </WpDatePicker>
       </v-col>
       <v-col cols="12" sm="6" md="3">
-        <StaysSearchGuestsMenu v-model="guests" />
+        <CabinSearchGuestsMenu v-model="guests" />
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <WpButton
@@ -87,7 +87,7 @@ const validateStoredStartDate = () => {
 }
 validateStoredStartDate()
 const guests = ref(useLocalStorage('guests', { adults: 2, children: 0 }))
-const searchStays = () => {
+const submit = () => {
   emits('submit', { startDate: startDate.value, endDate: endDate.value, guests: guests.value })
 }
 </script>

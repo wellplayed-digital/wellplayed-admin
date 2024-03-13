@@ -46,7 +46,7 @@ const menuLeft = computed(() => [
   {
     key: 'search',
     text: t('navbar.search'),
-    to: '/stays-search'
+    to: '/cabin-search'
   },
   {
     key: 'gallery',

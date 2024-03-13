@@ -25,7 +25,7 @@
         <v-card-text class="h-100 d-flex flex-column justify-space-between">
           <div class="">
             <v-row
-              v-for="(detail, detailIndex) in staysDetails"
+              v-for="(detail, detailIndex) in cabinDetails"
               :key="`detail${detailIndex}`"
             >
               <v-col class="d-flex align-center">
@@ -36,14 +36,14 @@
               </v-col>
               <v-col>
                 <div class="text-white text-body-1">
-                  {{ detail.getValue(stay[detail.key]) }}
+                  {{ detail.getValue(cabin[detail.key]) }}
                 </div>
               </v-col>
             </v-row>
           </div>
           <div class="text-end">
             <div class="">
-              <span class="text-h3 font-weight-bold">{{ stay.pricePerNight }}</span>
+              <span class="text-h3 font-weight-bold">{{ cabin.pricePerNight }}</span>
               <span class="text-h5 ml-1">USD</span>
             </div>
             <div>precio por noche</div>
@@ -57,10 +57,10 @@
 <script setup>
 const { ISOtoFormat } = useDates()
 defineProps({
-  stay: { type: Object, required: true },
+  cabin: { type: Object, required: true },
   featured: { type: Boolean, default: false }
 })
-const staysDetails = ref([
+const cabinDetails = ref([
   {
     key: 'startDate',
     title: 'Fecha de Llegada',

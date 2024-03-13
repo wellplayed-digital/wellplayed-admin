@@ -1,13 +1,13 @@
 <template>
   <v-row class="py-10">
-    <v-col v-for="(stay, index) in stays" :key="stay.id" cols="12" md="6">
-      <StayCard :stay="stay" :featured="index === 0" />
+    <v-col v-for="(cabin, index) in availableCabins" :key="cabin.id" cols="12" md="6">
+      <CabinResultCard :cabin="cabin" :featured="index === 0" />
     </v-col>
   </v-row>
 </template>
 
 <script setup>
-const stays = ref([
+const availableCabins = ref([
   {
     id: 1,
     startDate: '2024-01-20',
