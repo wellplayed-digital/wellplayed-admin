@@ -1,17 +1,14 @@
 <template>
   <WpContainer>
-    <CabinSearchForm @submit="searchCabin" />
-    <CabinResultsList :cabins="cabins" />
+    <CabinSearchForm :disabled="loading" @submit="searchCabin" />
+    <CabinResultsList :loading="loading" :cabins="cabins" />
   </WpContainer>
 </template>
 
 <script setup>
-
 useHead({ title: 'Busqueda' })
-
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
-
 const cabins = ref([])
 const loading = ref(false)
 const searchCabin = async ({ startDate, endDate, guests }) => {

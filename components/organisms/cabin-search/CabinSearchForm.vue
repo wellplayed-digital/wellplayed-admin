@@ -1,5 +1,5 @@
 <template>
-  <WpForm @submit="submit">
+  <WpForm :disabled="disabled" @submit="submit">
     <v-row dense>
       <v-col cols="12" sm="6" md="3">
         <WpDatePicker
@@ -50,6 +50,9 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
 
+defineProps({
+  disabled: { type: Boolean, default: false }
+})
 const { ISO, ISOtoISO, unitDiff } = useDates()
 const emits = defineEmits(['submit'])
 const startDate = ref(useLocalStorage('startDate'))

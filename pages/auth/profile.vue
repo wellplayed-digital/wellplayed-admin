@@ -72,8 +72,8 @@
 <script setup>
 import { startCase } from 'lodash'
 
-const { required } = useRules()
 useHead({ title: 'Perfil' })
+const { required } = useRules()
 const userStore = useUserStore()
 const snackbar = useSnackbar()
 const email = ref(userStore.user.email)
