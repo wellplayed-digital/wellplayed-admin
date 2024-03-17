@@ -12,14 +12,23 @@
         {{ booking }}
       </div>
     </div>
-    <WpButton class="mb-4" @click="checkAvailability">
-      Check availability
-    </WpButton>
-    <div class="mb-4">
-      <div>Available Cabins:</div>
-      <div v-for="availableCabin in availableCabins" :key="`availableCabin-${availableCabin.id}`">
-        {{ availableCabin }}
+    <div>
+      <div>New Book:</div>
+      <div>
+        CabinId: {{ cabinId }}
       </div>
+      <div>
+        StartDate: {{ startDate }}
+      </div>
+      <div>
+        EndDate: {{ endDate }},
+      </div>
+      <div>
+        Guests: {{ guest }}
+      </div>
+      <WpButton @click="createBooking">
+        Create Booking
+      </WpButton>
     </div>
   </WpContainer>
 </template>
@@ -48,16 +57,20 @@ const fetchData = async () => {
 }
 onMounted(fetchData)
 
-const availableCabins = ref([])
-const checkAvailability = async () => {
+const cabinId = ref(1)
+const guest = ref(2)
+const startDate = ref('2024-05-22')
+const endDate = ref('2024-05-23')
+const createBooking = async () => {
   try {
-    const { data, error } = await supabase.rpc('check_cabin_availability', {
-      input_start_date: '2024-04-10',
-      input_end_date: '2024-04-11',
-      guests: 3
+    const { error } = await supabase.rpc('book_cabin', {
+      input_cabin_id: cabinId.value,
+      input_start_date: startDate.value,
+      input_end_date: endDate.value,
+      input_guests: guest.value
     })
     if (error) { throw error }
-    availableCabins.value = data
+    fetchData()
   } catch (error) {
     snackbar.error({ text: error.message })
   }

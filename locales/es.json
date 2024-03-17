@@ -1,11 +1,11 @@
 {
   "test": "Funciona {name}!",
   "global": {
-    "language": "lenguaje",
-    "firstName": "nombre",
-    "lastName": "apellido",
-    "nights": "noche | noches",
-    "guests": "huesped | huespedes"
+    "language": "Lenguaje",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "nights": "Noche | Noches",
+    "guests": "Huesped | Huespedes"
   },
   "actions": {
     "save": "Guardar",
@@ -14,23 +14,29 @@
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
   },
-  "navbar": {
-    "search": "Busqueda",
-    "gallery": "Galeria",
-    "profile": "Mi Perfil"
+  "components": {
+    "navbar": {
+      "search": "Busqueda",
+      "gallery": "Galeria",
+      "profile": "Mi Perfil"
+    }
   },
-  "home": {
-    "title": "¿Cuando deseas viajar?"
-  },
-  "profile": {
-    "title": "Este es tu perfil",
-    "confirmChanges": "¿Estás seguro que deseas guardar los cambios?",
-    "confirmLogout": "¿Estás seguro que deseas cerrar sesión?",
-    "unsavedChanges": "Tienes cambios sin guardar"
-  },
-  "login": {
-    "title": "Ingresa con tu email",
-    "text": "Enviaremos un link de acceso a tu inbox",
-    "button": "Enviar link"
+  "pages": {
+    "index": {
+      "title": "¿Cuando deseas viajar?",
+      "welcome": "Bienvenido {name}",
+      "invalidLink": "El link es invalido o ha expirado"
+    },
+    "profile": {
+      "title": "Este es tu perfil",
+      "confirmChanges": "¿Estás seguro que deseas guardar los cambios?",
+      "confirmLogout": "¿Estás seguro que deseas cerrar sesión?",
+      "unsavedChanges": "Tienes cambios sin guardar"
+    },
+    "login": {
+      "title": "Ingresa con tu email",
+      "text": "Enviaremos un link de acceso a tu inbox",
+      "button": "Enviar link"
+    }
   }
 }

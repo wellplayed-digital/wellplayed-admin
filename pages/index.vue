@@ -17,7 +17,7 @@
           <WpContainer>
             <h1 class="text-h5 text-center mb-8">
               <!-- ¿Cuando deseas viajar? -->
-              {{ $t('home.title') }}
+              {{ $t('pages.index.title') }}
             </h1>
             <CabinSearchForm @submit="searchCabin" />
           </WpContainer>
@@ -29,10 +29,12 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
-console.log(t('test', { name: 'vue-i18n' }))
 
+const { t } = useI18n()
+const route = useRoute()
+const snackbar = useSnackbar()
 const global = useGlobalStore()
+const userStore = useUserStore()
 const slides = ref([
   { key: 'slide-1', imgSrc: '/img/1.jpg' },
   { key: 'slide-2', imgSrc: '/img/2.jpg' },
@@ -44,4 +46,15 @@ const searchCabin = (data) => {
   navigateTo('/cabin-search')
   console.log(data)
 }
+const checkIfComesFromAuth = () => {
+  if (route.query.error === 'unauthorized_client') {
+    snackbar.error({ text: t('pages.index.invalidLink') })
+    return
+  }
+  if (route.query.code && userStore.user) {
+    const userName = userStore.profile.first_name || userStore.user.email
+    snackbar.success({ text: t('pages.index.welcome', { name: userName }) })
+  }
+}
+onMounted(checkIfComesFromAuth)
 </script>

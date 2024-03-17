@@ -2,10 +2,10 @@
   <div class="h-100 d-flex align-center">
     <WpContainer max-width="35rem">
       <h1 class="text-h4 text-center mb-10">
-        {{ $t('profile.title') }}
+        {{ $t('pages.profile.title') }}
       </h1>
       <WpConfirmDialog
-        :text="$t('profile.confirmChanges')"
+        :text="$t('pages.profile.confirmChanges')"
         @confirm="userStore.updateProfile({ firstName, lastName })"
         @cancel="unsavedChangesAlert()"
       >
@@ -57,7 +57,7 @@
       </WpConfirmDialog>
       <WpDivider class="py-4" />
       <WpConfirmDialog
-        :text="$t('profile.confirmLogout')"
+        :text="$t('pages.profile.confirmLogout')"
         @confirm="userStore.signOut"
       >
         <template #activator="{ props: slotProps }">

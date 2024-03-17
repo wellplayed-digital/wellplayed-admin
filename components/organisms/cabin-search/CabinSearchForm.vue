@@ -32,7 +32,7 @@
       <v-col cols="12" sm="6" md="3">
         <WpCounterField
           v-model="guests"
-          :label="capitalize($t('global.guests', 2))"
+          :label="$t('global.guests', 2)"
           :min="1"
           :max="5"
           hide-details
@@ -55,7 +55,6 @@
 
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
-import { capitalize } from 'lodash'
 
 defineProps({
   disabled: { type: Boolean, default: false }

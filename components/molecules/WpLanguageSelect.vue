@@ -1,7 +1,7 @@
 <template>
   <v-menu>
     <template #activator="{props: slotProps}">
-      <WpIconButton v-bind="slotProps" :tooltip-text="capitalize($t('global.language'))">
+      <WpIconButton v-bind="slotProps" :tooltip-text="$t('global.language')">
         <WpFlag :country-code="languages[locale].countryCode" />
       </WpIconButton>
     </template>
@@ -25,7 +25,6 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-import { capitalize } from 'lodash'
 const { locale, availableLocales } = useI18n()
 const languages = ref({
   en: { name: 'English', countryCode: 'us' },

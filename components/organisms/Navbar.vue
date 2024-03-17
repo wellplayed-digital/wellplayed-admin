@@ -45,12 +45,12 @@ const route = useRoute()
 const menuLeft = computed(() => [
   {
     key: 'search',
-    text: t('navbar.search'),
+    text: t('components.navbar.search'),
     to: '/cabin-search'
   },
   {
     key: 'gallery',
-    text: t('navbar.gallery'),
+    text: t('components.navbar.gallery'),
     click: async () => {
       globalStore.galleryMode = route.path !== '/' || !globalStore.galleryMode
       await navigateTo('/')
@@ -65,13 +65,13 @@ const menuLeft = computed(() => [
 const menuRight = computed(() => [
   {
     key: 'login',
-    text: t('actions.login'),
+    text: t('global.login'),
     to: '/auth/login',
     disabled: !!userStore.user
   },
   {
     key: 'profile',
-    text: t('navbar.profile'),
+    text: t('components.navbar.profile'),
     to: '/auth/profile',
     disabled: !userStore.user
   }

@@ -3,10 +3,10 @@
     <WpContainer max-width="32rem">
       <div class="text-center mb-14">
         <h1 class="text-h4 mb-2">
-          {{ $t('login.title') }}
+          {{ $t('pages.login.title') }}
         </h1>
         <p class="text-h5 text-disabled">
-          {{ $t('login.text') }}
+          {{ $t('pages.login.text') }}
         </p>
       </div>
       <WpForm :disabled="userStore.logginIn" @submit="userStore.login(email)">
@@ -28,7 +28,7 @@
                 :loading="userStore.logginIn"
                 :disabled="!valid"
               >
-                {{ $t('login.button') }}
+                {{ $t('pages.login.button') }}
               </WpButton>
             </v-col>
           </v-row>
