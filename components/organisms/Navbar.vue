@@ -29,7 +29,7 @@
         >
           {{ link.text }}
         </WpButton>
-        <LanguageSelect />
+        <WpLanguageSelect />
       </v-col>
     </v-row>
   </WpContainer>
