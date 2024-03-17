@@ -26,6 +26,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const fetchProfile = async () => {
+    console.log('fetchProfile')
     if (!user.value) { return }
     try {
       fetchingProfile.value = true

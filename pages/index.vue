@@ -4,7 +4,7 @@
       <WpSwiper
         :slides="slides"
         class="wp-overlay"
-        :class="{'wp-overlay-50': !global.galleryMode}"
+        :class="{'wp-overlay-50': !globalStore.galleryMode}"
       >
         <template #default="slide">
           <v-img :src="slide.imgSrc" cover />
@@ -12,7 +12,7 @@
       </WpSwiper>
     </WpBackground>
     <div class="wp-z-index-2 w-100">
-      <WpTransition :show="!global.galleryMode">
+      <WpTransition :show="!globalStore.galleryMode">
         <div class="wp-bg-glass py-6">
           <WpContainer>
             <h1 class="text-h5 text-center mb-8">
@@ -28,13 +28,7 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
-const route = useRoute()
-const snackbar = useSnackbar()
-const global = useGlobalStore()
-const userStore = useUserStore()
+const globalStore = useGlobalStore()
 const slides = ref([
   { key: 'slide-1', imgSrc: '/img/1.jpg' },
   { key: 'slide-2', imgSrc: '/img/2.jpg' },
@@ -46,15 +40,4 @@ const searchCabin = (data) => {
   navigateTo('/cabin-search')
   console.log(data)
 }
-const checkIfComesFromAuth = () => {
-  if (route.query.error === 'unauthorized_client') {
-    snackbar.error({ text: t('pages.index.invalidLink') })
-    return
-  }
-  if (route.query.code && userStore.user) {
-    const userName = userStore.profile.first_name || userStore.user.email
-    snackbar.success({ text: t('pages.index.welcome', { name: userName }) })
-  }
-}
-onMounted(checkIfComesFromAuth)
 </script>
