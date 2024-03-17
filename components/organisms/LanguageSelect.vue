@@ -28,13 +28,7 @@ import { useI18n } from 'vue-i18n'
 import { capitalize } from 'lodash'
 const { locale, availableLocales } = useI18n()
 const languages = ref({
-  en: {
-    name: 'English',
-    countryCode: 'us'
-  },
-  es: {
-    name: 'Español',
-    countryCode: 'ar'
-  }
+  en: { name: 'English', countryCode: 'us' },
+  es: { name: 'Español', countryCode: 'ar' }
 })
 </script>

@@ -30,7 +30,13 @@
         </WpDatePicker>
       </v-col>
       <v-col cols="12" sm="6" md="3">
-        <CabinSearchGuestsMenu v-model="guests" />
+        <WpCounterField
+          v-model="guests"
+          :label="capitalize($t('global.guests', 2))"
+          :min="1"
+          :max="5"
+          hide-details
+        />
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <WpButton
@@ -49,6 +55,7 @@
 
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
+import { capitalize } from 'lodash'
 
 defineProps({
   disabled: { type: Boolean, default: false }
@@ -78,24 +85,20 @@ const validateEndDate = () => {
     endDate.value = endLimit.value.max
   }
 }
-const setDefaultDates = () => {
-  startDate.value = ISO()
-  endDate.value = ISO({ plus: { months: 1 } })
-}
-const validateStoredStartDate = () => {
+const validateStoredDates = () => {
   const storedStartDate = localStorage.getItem('startDate')
   if (!storedStartDate || unitDiff(ISO(), storedStartDate, 'days') < 1) {
-    setDefaultDates()
+    startDate.value = ISO()
   }
+  validateEndDate()
 }
-validateStoredStartDate()
-const guests = ref(useLocalStorage('guests', { adults: 2, children: 0 }))
-const totalGuests = computed(() => guests.value.adults + guests.value.children)
+onMounted(validateStoredDates)
+const guests = ref(useLocalStorage('guests', 1))
 const submit = () => {
   emits('submit', {
-    startDate: toRaw(startDate.value),
-    endDate: toRaw(endDate.value),
-    guests: toRaw(totalGuests.value)
+    startDate: startDate.value,
+    endDate: endDate.value,
+    guests: guests.value
   })
 }
 </script>
