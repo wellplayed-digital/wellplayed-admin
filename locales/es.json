@@ -3,15 +3,17 @@
   "global": {
     "and": "y",
     "language": "lenguaje",
-    "save": "guardar",
-    "login": "iniciar sesion",
-    "logout": "cerrar sesion",
     "firstName": "nombre",
     "lastName": "apellido",
     "nights": "noche | noches",
-    "guests": "huesped | huespedes",
-    "adults": "adulto | adultos",
-    "children": "niño | niños"
+    "guests": "huesped | huespedes"
+  },
+  "actions": {
+    "save": "guardar",
+    "confirm": "confirmar",
+    "cancel": "cancelar",
+    "login": "iniciar sesión",
+    "logout": "cerrar sesión"
   },
   "navbar": {
     "search": "busqueda",

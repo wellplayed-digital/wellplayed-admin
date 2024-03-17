@@ -9,10 +9,10 @@
         @confirm="userStore.updateProfile({ firstName, lastName })"
         @cancel="unsavedChangesAlert()"
       >
-        <template #activator="{ open: openConfirmDialog }">
+        <template #activator="{ open }">
           <WpForm
             :disabled="userStore.updatingProfile"
-            @submit="openConfirmDialog"
+            @submit="open"
           >
             <template #default="{ valid }">
               <v-row dense>
@@ -47,7 +47,7 @@
                     :loading="userStore.updatingProfile"
                     :disabled="!valid || !hasUnsavedChanges"
                   >
-                    {{ $t('global.save') }}
+                    {{ $t('actions.save') }}
                   </WpButton>
                 </v-col>
               </v-row>
@@ -56,15 +56,22 @@
         </template>
       </WpConfirmDialog>
       <WpDivider class="py-4" />
-      <WpButton
-        variant="tonal"
-        size="x-large"
-        block
-        :loading="userStore.signingOut"
-        @click="userStore.signOut"
+      <WpConfirmDialog
+        text="¿Estas seguro que quieres cerrar tu sesión?"
+        @confirm="userStore.signOut"
       >
-        {{ $t('global.logout') }}
-      </WpButton>
+        <template #activator="{ props: slotProps }">
+          <WpButton
+            variant="tonal"
+            size="x-large"
+            block
+            :loading="userStore.signingOut"
+            v-bind="slotProps"
+          >
+            {{ $t('actions.logout') }}
+          </WpButton>
+        </template>
+      </WpConfirmDialog>
     </WpContainer>
   </div>
 </template>

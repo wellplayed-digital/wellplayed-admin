@@ -5,9 +5,7 @@
     </template>
     <WpCard>
       <v-card-text class="py-6">
-        <div class="text-h6 text-center pa-4 mb-4">
-          {{ text }}
-        </div>
+        <slot name="default" />
         <v-row dense>
           <v-col>
             <WpButton size="x-large" block variant="text" @click="cancel">

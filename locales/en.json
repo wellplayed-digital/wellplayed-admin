@@ -3,15 +3,17 @@
   "global": {
     "and": "&",
     "language": "language",
-    "save": "save",
-    "login": "login",
-    "logout": "log out",
     "firstName": "first name",
     "lastName": "last name",
     "nights": "night | nights",
-    "guests": "guest | guests",
-    "adults": "adult | adults",
-    "children": "child | children"
+    "guests": "guest | guests"
+  },
+  "actions": {
+    "save": "save",
+    "confirm": "confirm",
+    "cancel": "cancel",
+    "login": "login",
+    "logout": "log out"
   },
   "navbar": {
     "search": "search",

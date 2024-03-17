@@ -65,7 +65,7 @@ const menuLeft = computed(() => [
 const menuRight = computed(() => [
   {
     key: 'login',
-    text: t('global.login'),
+    text: t('actions.login'),
     to: '/auth/login',
     disabled: !!userStore.user
   },
