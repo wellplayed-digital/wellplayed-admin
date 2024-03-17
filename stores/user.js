@@ -16,7 +16,8 @@ export const useUserStore = defineStore('user', () => {
       logginIn.value = true
       const { error } = await supabase.auth.signInWithOtp({ email })
       if (error) { throw error }
-      snackbar.success({ text: 'Busca el link de ingreso en tu casilla de correo' })
+      // TODO: Replace with i18n (Busca el link de ingreso en tu casilla de correo)
+      snackbar.success({ text: 'Check your email for the login link.' })
       navigateTo('/')
     } catch (error) {
       snackbar.error({ text: error.error_description || error.message })
@@ -26,7 +27,6 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const fetchProfile = async () => {
-    console.log('fetchProfile')
     if (!user.value) { return }
     try {
       fetchingProfile.value = true
