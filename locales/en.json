@@ -1,7 +1,6 @@
 {
   "test": "Working {name}!",
   "global": {
-    "and": "&",
     "language": "language",
     "firstName": "first name",
     "lastName": "last name",
@@ -9,29 +8,29 @@
     "guests": "guest | guests"
   },
   "actions": {
-    "save": "save",
-    "confirm": "confirm",
-    "cancel": "cancel",
-    "login": "login",
-    "logout": "log out"
+    "save": "Save",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "login": "Login",
+    "logout": "Log Out"
   },
   "navbar": {
-    "search": "search",
-    "gallery": "gallery",
-    "profile": "my profile"
+    "search": "Search",
+    "gallery": "Gallery",
+    "profile": "My Profile"
   },
   "home": {
     "title": "Find your perfect stay"
   },
   "profile": {
-    "title": "This is your profile"
+    "title": "This is your profile",
+    "confirmChanges": "Are you sure you want to save the changes?",
+    "confirmLogout": "Are you sure you want to log out?",
+    "unsavedChanges": "You have unsaved changes"
   },
   "login": {
     "title": "Access with your email",
     "text": "We'll send an access link to your inbox",
-    "button": "send link"
-  },
-  "errors": {
-    "maxGuests": "Maximum number of guests reached"
+    "button": "Send link"
   }
 }

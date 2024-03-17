@@ -1,7 +1,6 @@
 {
   "test": "Funciona {name}!",
   "global": {
-    "and": "y",
     "language": "lenguaje",
     "firstName": "nombre",
     "lastName": "apellido",
@@ -9,29 +8,29 @@
     "guests": "huesped | huespedes"
   },
   "actions": {
-    "save": "guardar",
-    "confirm": "confirmar",
-    "cancel": "cancelar",
-    "login": "iniciar sesión",
-    "logout": "cerrar sesión"
+    "save": "Guardar",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión"
   },
   "navbar": {
-    "search": "busqueda",
-    "gallery": "galeria",
-    "profile": "mi perfil"
+    "search": "Busqueda",
+    "gallery": "Galeria",
+    "profile": "Mi Perfil"
   },
   "home": {
     "title": "¿Cuando deseas viajar?"
   },
   "profile": {
-    "title": "Este es tu perfil"
+    "title": "Este es tu perfil",
+    "confirmChanges": "¿Estás seguro que deseas guardar los cambios?",
+    "confirmLogout": "¿Estás seguro que deseas cerrar sesión?",
+    "unsavedChanges": "Tienes cambios sin guardar"
   },
   "login": {
     "title": "Ingresa con tu email",
     "text": "Enviaremos un link de acceso a tu inbox",
-    "button": "enviar link"
-  },
-  "errors": {
-    "maxGuests": "Ha alcanzado la cantidad máxima de huespedes"
+    "button": "Enviar link"
   }
 }

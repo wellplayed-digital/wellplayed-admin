@@ -9,12 +9,12 @@
         <v-row dense>
           <v-col>
             <WpButton size="x-large" block variant="text" @click="cancel">
-              {{ $t("global.cancel") }}
+              {{ $t("actions.cancel") }}
             </WpButton>
           </v-col>
           <v-col>
             <WpButton size="x-large" block color="primary" @click="confirm">
-              {{ $t("global.confirm") }}
+              {{ $t("actions.confirm") }}
             </WpButton>
           </v-col>
         </v-row>

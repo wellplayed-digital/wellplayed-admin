@@ -5,7 +5,7 @@
         {{ $t('profile.title') }}
       </h1>
       <WpConfirmDialog
-        text="¿Estas seguro que quieres guardar los cambios?"
+        :text="$t('profile.confirmChanges')"
         @confirm="userStore.updateProfile({ firstName, lastName })"
         @cancel="unsavedChangesAlert()"
       >
@@ -57,7 +57,7 @@
       </WpConfirmDialog>
       <WpDivider class="py-4" />
       <WpConfirmDialog
-        text="¿Estas seguro que quieres cerrar tu sesión?"
+        :text="$t('profile.confirmLogout')"
         @confirm="userStore.signOut"
       >
         <template #activator="{ props: slotProps }">
@@ -78,8 +78,10 @@
 
 <script setup>
 import { startCase } from 'lodash'
+import { useI18n } from 'vue-i18n'
 
 useHead({ title: 'Perfil' })
+const { t } = useI18n()
 const { required } = useRules()
 const userStore = useUserStore()
 const snackbar = useSnackbar()
@@ -92,7 +94,7 @@ const hasUnsavedChanges = computed(() => (
 ))
 const unsavedChangesAlert = () => {
   if (hasUnsavedChanges.value) {
-    snackbar.warning({ text: 'Tienes cambios sin guardar' })
+    snackbar.warning({ text: t('profile.unsavedChanges') })
   }
 }
 </script>

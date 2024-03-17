@@ -54,7 +54,7 @@ const checkAvailability = async () => {
     const { data, error } = await supabase.rpc('check_cabin_availability', {
       input_start_date: '2024-04-10',
       input_end_date: '2024-04-11',
-      guests_total: 3
+      guests: 3
     })
     if (error) { throw error }
     availableCabins.value = data
