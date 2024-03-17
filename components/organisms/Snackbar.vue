@@ -1,6 +1,7 @@
 <template>
   <v-snackbar
     v-model="show"
+    location="top"
     multi-line
     theme="light"
     :color="color"
