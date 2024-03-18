@@ -47,7 +47,7 @@
                     :loading="userStore.updatingProfile"
                     :disabled="!valid || !hasUnsavedChanges"
                   >
-                    {{ $t('actions.save') }}
+                    {{ $t('global.save') }}
                   </WpButton>
                 </v-col>
               </v-row>
@@ -68,7 +68,7 @@
             :loading="userStore.signingOut"
             v-bind="slotProps"
           >
-            {{ $t('actions.logout') }}
+            {{ $t('global.logout') }}
           </WpButton>
         </template>
       </WpConfirmDialog>

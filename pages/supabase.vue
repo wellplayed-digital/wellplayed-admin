@@ -59,8 +59,8 @@ onMounted(fetchData)
 
 const cabinId = ref(1)
 const guest = ref(2)
-const startDate = ref('2024-05-22')
-const endDate = ref('2024-05-23')
+const startDate = ref('2024-06-22')
+const endDate = ref('2024-06-23')
 const createBooking = async () => {
   try {
     const { error } = await supabase.rpc('book_cabin', {
