@@ -58,7 +58,7 @@ const fetchData = async () => {
 onMounted(fetchData)
 
 const cabinId = ref(1)
-const guest = ref(2)
+const guests = ref(2)
 const startDate = ref('2024-06-22')
 const endDate = ref('2024-06-23')
 const createBooking = async () => {
@@ -67,7 +67,7 @@ const createBooking = async () => {
       input_cabin_id: cabinId.value,
       input_start_date: startDate.value,
       input_end_date: endDate.value,
-      input_guests: guest.value
+      input_guests: guests.value
     })
     if (error) { throw error }
     fetchData()
