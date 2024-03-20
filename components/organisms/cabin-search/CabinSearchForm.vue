@@ -56,10 +56,10 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
 
+const { ISO, ISOtoISO, unitDiff } = useDates()
 defineProps({
   disabled: { type: Boolean, default: false }
 })
-const { ISO, ISOtoISO, unitDiff } = useDates()
 const emits = defineEmits(['submit'])
 const startDate = ref(useLocalStorage('startDate'))
 const MIN_START = ref(0)

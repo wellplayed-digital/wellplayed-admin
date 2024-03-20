@@ -36,8 +36,7 @@ const slides = ref([
   { key: 'slide-4', imgSrc: '/img/4.jpg' },
   { key: 'slide-5', imgSrc: '/img/5.jpg' }
 ])
-const searchCabin = (data) => {
-  navigateTo('/cabin-search')
-  console.log(data)
+const searchCabin = (query) => {
+  navigateTo({ path: '/cabin-search', query })
 }
 </script>
