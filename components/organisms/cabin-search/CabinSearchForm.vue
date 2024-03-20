@@ -56,12 +56,16 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
 
+const router = useRouter()
 const { ISO, ISOtoISO, unitDiff } = useDates()
-defineProps({
-  disabled: { type: Boolean, default: false }
+const props = defineProps({
+  disabled: { type: Boolean, default: false },
+  watchQuery: { type: Boolean, default: false }
 })
 const emits = defineEmits(['submit'])
 const startDate = ref(useLocalStorage('startDate'))
+const endDate = ref(useLocalStorage('endDate'))
+const guests = ref(useLocalStorage('guests', 1))
 const MIN_START = ref(0)
 const MAX_START = ref(365)
 const MIN_NIGHTS = ref(1)
@@ -70,7 +74,6 @@ const startLimit = computed(() => ({
   min: ISO({ plus: { days: MIN_START.value } }),
   max: ISO({ plus: { days: MAX_START.value } })
 }))
-const endDate = ref(useLocalStorage('endDate'))
 const endLimit = computed(() => ({
   min: ISOtoISO(startDate.value, { plus: { days: MIN_NIGHTS.value } }),
   max: ISOtoISO(startDate.value, { plus: { days: MAX_NIGHTS.value } })
@@ -91,8 +94,23 @@ const validateStoredDates = () => {
   }
   validateEndDate()
 }
-onMounted(validateStoredDates)
-const guests = ref(useLocalStorage('guests', 1))
+const updateQuery = () => {
+  if (!props.watchQuery) { return }
+  router.push({
+    query: {
+      startDate: startDate.value,
+      endDate: endDate.value,
+      guests: guests.value
+    }
+  })
+}
+watch(startDate, updateQuery)
+watch(endDate, updateQuery)
+watch(guests, updateQuery)
+onMounted(() => {
+  validateStoredDates()
+  updateQuery()
+})
 const submit = () => {
   emits('submit', {
     startDate: startDate.value,

@@ -1,6 +1,6 @@
 <template>
   <WpContainer>
-    <CabinSearchForm :disabled="loading" @submit="updateQueryAndSearchCabin" />
+    <CabinSearchForm :disabled="loading" watch-query @submit="searchCabin" />
     <CabinResultsList :loading="loading" :cabins="cabins" />
   </WpContainer>
 </template>
@@ -8,7 +8,6 @@
 <script setup>
 useHead({ title: 'Busqueda' })
 const route = useRoute()
-const router = useRouter()
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
 const cabins = ref([])
@@ -28,10 +27,6 @@ const searchCabin = async ({ startDate, endDate, guests }) => {
   } finally {
     loading.value = false
   }
-}
-const updateQueryAndSearchCabin = (query) => {
-  router.push({ path: '/cabin-search', query })
-  searchCabin(query)
 }
 onMounted(() => {
   if (route.query.startDate && route.query.endDate && route.query.guests) {
