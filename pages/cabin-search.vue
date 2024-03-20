@@ -14,10 +14,10 @@ const loading = ref(false)
 const searchCabin = async ({ startDate, endDate, guests }) => {
   try {
     loading.value = true
-    const { data, error } = await supabase.rpc('check_cabin_availability', {
-      input_start_date: startDate,
-      input_end_date: endDate,
-      input_guests: guests
+    const { data, error } = await supabase.rpc('get_available_cabins', {
+      start_date: startDate,
+      end_date: endDate,
+      guests
     })
     if (error) { throw error }
     cabins.value = data

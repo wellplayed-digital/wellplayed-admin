@@ -22,35 +22,14 @@
         </v-img>
       </v-col>
       <v-col cols="6">
-        <v-card-text class="h-100 d-flex flex-column justify-space-between">
-          <div>
-            {{ cabin }}
+        <v-card-text class="text-white">
+          <div class="text-h6 mb-4">
+            {{ cabin.name }}
           </div>
-          <!-- <div>
-            <v-row
-              v-for="(detail, detailIndex) in cabinDetails"
-              :key="`detail${detailIndex}`"
-            >
-              <v-col class="d-flex align-center">
-                <v-icon :icon="detail.icon" color="grey" />
-                <div class="text-medium-emphasis text-body-2 mx-2">
-                  {{ detail.title }}
-                </div>
-              </v-col>
-              <v-col>
-                <div class="text-white text-body-1">
-                  {{ detail.getValue(cabin[detail.key]) }}
-                </div>
-              </v-col>
-            </v-row>
+          <div v-for="detail in details" :key="detail.key" class="text-body-1">
+            <span>{{ detail.title }}: </span>
+            <span>{{ detail.getValue(get(cabin, detail.key)) }}</span>
           </div>
-          <div class="text-end">
-            <div class="">
-              <span class="text-h3 font-weight-bold">{{ cabin.pricePerNight }}</span>
-              <span class="text-h5 ml-1">USD</span>
-            </div>
-            <div>precio por noche</div>
-          </div> -->
         </v-card-text>
       </v-col>
     </v-row>
@@ -58,41 +37,31 @@
 </template>
 
 <script setup>
-// const { ISOtoFormat } = useDates()
+import { get } from 'lodash'
 defineProps({
   cabin: { type: Object, required: true },
   featured: { type: Boolean, default: false }
 })
-// const cabinDetails = ref([
-//   {
-//     key: 'startDate',
-//     title: 'Fecha de Llegada',
-//     icon: 'mdi-calendar-start',
-//     getValue: value => ISOtoFormat(value)
-//   },
-//   {
-//     key: 'endDate',
-//     title: 'Fecha de Salida',
-//     icon: 'mdi-calendar-end',
-//     getValue: value => ISOtoFormat(value)
-//   },
-//   {
-//     key: 'nights',
-//     title: 'Estadia',
-//     icon: 'mdi-clock',
-//     getValue: value => `${value} noche/s`
-//   }
-//   // {
-//   //   key: 'pricePerNight',
-//   //   title: 'priceo por Noche',
-//   //   getValue: value => value + ' USD'
-//   // },
-//   // {
-//   //   key: 'priceTotal',
-//   //   title: 'priceo total',
-//   //   getValue: value => value + ' USD'
-//   // }
-// ])
+const details = ref([
+  {
+    icon: 'mdi-account-group',
+    title: 'Capacidad',
+    key: 'capacity',
+    getValue: value => value
+  },
+  {
+    icon: 'mdi-currency-usd',
+    title: 'Precio por noche',
+    key: 'price_details.adjusted_price_per_night',
+    getValue: value => value
+  },
+  {
+    icon: 'mdi-currency-usd',
+    title: 'Precio total',
+    key: 'price_details.adjusted_total_price',
+    getValue: value => value
+  }
+])
 const startCheckout = () => {
   console.log('startCheckout')
 }
