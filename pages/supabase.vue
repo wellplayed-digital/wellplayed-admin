@@ -1,35 +1,37 @@
 <template>
   <WpContainer>
-    <div class="mb-4">
-      <div>Cabins:</div>
-      <div v-for="cabin in cabins" :key="`cabin-${cabin.id}`">
-        {{ cabin }}
+    <div class="d-flex align-center mb-4">
+      <div class="mr-4">
+        cabinId: {{ cabinId }}
+      </div>
+      <div class="mr-4">
+        startDate: {{ startDate }}
+      </div>
+      <div class="mr-4">
+        endDate: {{ endDate }},
+      </div>
+      <div class="mr-4">
+        guests: {{ guests }}
+      </div>
+      <div>
+        <WpButton @click="createBooking">
+          Create Booking
+        </WpButton>
       </div>
     </div>
-    <div class="mb-4">
-      <div>Bookings:</div>
-      <div v-for="booking in bookings" :key="`booking-${booking.id}`">
-        {{ booking }}
-      </div>
-    </div>
-    <div>
-      <div>New Book:</div>
-      <div>
-        CabinId: {{ cabinId }}
-      </div>
-      <div>
-        StartDate: {{ startDate }}
-      </div>
-      <div>
-        EndDate: {{ endDate }},
-      </div>
-      <div>
-        Guests: {{ guest }}
-      </div>
-      <WpButton @click="createBooking">
-        Create Booking
-      </WpButton>
-    </div>
+    <v-row>
+      <v-col v-for="booking in bookings" :key="`booking-${booking.id}`" cols="4">
+        <WpCard>
+          <v-card-text>
+            <pre>
+<code>
+{{ JSON.stringify(booking, null, 4) }}
+</code>
+</pre>
+          </v-card-text>
+        </WpCard>
+      </v-col>
+    </v-row>
   </WpContainer>
 </template>
 
@@ -57,17 +59,17 @@ const fetchData = async () => {
 }
 onMounted(fetchData)
 
-const cabinId = ref(1)
+const cabinId = ref(4)
 const guests = ref(2)
-const startDate = ref('2024-06-22')
-const endDate = ref('2024-06-23')
+const startDate = ref('2024-03-22')
+const endDate = ref('2024-03-23')
 const createBooking = async () => {
   try {
     const { error } = await supabase.rpc('book_cabin', {
-      input_cabin_id: cabinId.value,
-      input_start_date: startDate.value,
-      input_end_date: endDate.value,
-      input_guests: guests.value
+      cabin_id: cabinId.value,
+      start_date: startDate.value,
+      end_date: endDate.value,
+      guests: guests.value
     })
     if (error) { throw error }
     fetchData()
