@@ -1,25 +1,12 @@
 <template>
-  <WpCard
-    :variant="featured ? 'outlined' : 'elevated'"
-    :color="featured ? 'amber' : null"
-    @click="startCheckout"
-  >
+  <WpCard @click="startCheckout">
     <v-row no-gutters>
       <v-col cols="6">
         <v-img
           height="250"
           src="https://cdn.vuetifyjs.com/docs/images/cards/purple-flowers.jpg"
           cover
-        >
-          <v-card-text v-if="featured">
-            <v-chip variant="elevated" color="amber">
-              <v-icon icon="mdi-star" />
-              <div class="ml-1">
-                Mejor opción
-              </div>
-            </v-chip>
-          </v-card-text>
-        </v-img>
+        />
       </v-col>
       <v-col cols="6">
         <v-card-text class="text-white">
@@ -39,8 +26,7 @@
 <script setup>
 import { get } from 'lodash'
 defineProps({
-  cabin: { type: Object, required: true },
-  featured: { type: Boolean, default: false }
+  cabin: { type: Object, required: true }
 })
 const details = ref([
   {
