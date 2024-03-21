@@ -8,7 +8,7 @@
         startDate: {{ startDate }}
       </div>
       <div class="mr-4">
-        endDate: {{ endDate }},
+        endDate: {{ endDate }}
       </div>
       <div class="mr-4">
         guests: {{ guests }}
@@ -61,8 +61,8 @@ onMounted(fetchData)
 
 const cabinId = ref(4)
 const guests = ref(2)
-const startDate = ref('2024-03-22')
-const endDate = ref('2024-03-23')
+const startDate = ref('2024-04-22')
+const endDate = ref('2024-04-23')
 const createBooking = async () => {
   try {
     const { error } = await supabase.rpc('book_cabin', {
