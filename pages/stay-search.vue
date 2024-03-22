@@ -1,6 +1,6 @@
 <template>
   <WpContainer>
-    <StaySearchForm :disabled="loading" watch-query @submit="searchStay" />
+    <StaySearchForm :disabled="loading" update-query @submit="searchStay" />
     <StaySearchResultsList :loading="loading" :results="results" />
   </WpContainer>
 </template>

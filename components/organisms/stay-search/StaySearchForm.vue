@@ -61,7 +61,7 @@ const router = useRouter()
 const { ISO, ISOtoISO, unitDiff } = useDates()
 const props = defineProps({
   disabled: { type: Boolean, default: false },
-  watchQuery: { type: Boolean, default: false }
+  updateQuery: { type: Boolean, default: false }
 })
 const emits = defineEmits(['submit'])
 const startDate = ref(useLocalStorage('startDate'))
@@ -96,7 +96,7 @@ const validateStoredDates = () => {
   validateEndDate()
 }
 const submit = async () => {
-  if (props.watchQuery) {
+  if (props.updateQuery) {
     await router.push({
       query: {
         startDate: startDate.value,
@@ -109,7 +109,7 @@ const submit = async () => {
 }
 onMounted(() => {
   validateStoredDates()
-  if (props.watchQuery) {
+  if (props.updateQuery) {
     startDate.value = route.query.startDate || startDate.value
     endDate.value = route.query.endDate || endDate.value
     guests.value = route.query.guests || guests.value
