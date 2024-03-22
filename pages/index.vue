@@ -36,7 +36,7 @@ const slides = ref([
   { key: 'slide-4', imgSrc: '/img/4.jpg' },
   { key: 'slide-5', imgSrc: '/img/5.jpg' }
 ])
-const searchStay = (query) => {
-  navigateTo({ path: '/stay-search', query })
+const searchStay = async () => {
+  await navigateTo('/stay-search')
 }
 </script>

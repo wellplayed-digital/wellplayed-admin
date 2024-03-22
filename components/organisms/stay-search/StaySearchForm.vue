@@ -1,5 +1,5 @@
 <template>
-  <WpForm :disabled="disabled" @submit="emits('submit')">
+  <WpForm :disabled="disabled" @submit="submit">
     <v-row dense>
       <v-col cols="12" sm="6" md="3">
         <WpDatePicker
@@ -56,6 +56,7 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
 
+const route = useRoute()
 const router = useRouter()
 const { ISO, ISOtoISO, unitDiff } = useDates()
 const props = defineProps({
@@ -94,21 +95,25 @@ const validateStoredDates = () => {
   }
   validateEndDate()
 }
-const updateQuery = async () => {
-  if (!props.watchQuery) { return }
-  await router.push({
-    query: {
-      startDate: startDate.value,
-      endDate: endDate.value,
-      guests: guests.value
-    }
-  })
+const submit = async () => {
+  if (props.watchQuery) {
+    await router.push({
+      query: {
+        startDate: startDate.value,
+        endDate: endDate.value,
+        guests: guests.value
+      }
+    })
+  }
+  emits('submit')
 }
-watch(startDate, updateQuery)
-watch(endDate, updateQuery)
-watch(guests, updateQuery)
 onMounted(() => {
   validateStoredDates()
-  updateQuery()
+  if (props.watchQuery) {
+    startDate.value = route.query.startDate || startDate.value
+    endDate.value = route.query.endDate || endDate.value
+    guests.value = route.query.guests || guests.value
+    submit()
+  }
 })
 </script>
