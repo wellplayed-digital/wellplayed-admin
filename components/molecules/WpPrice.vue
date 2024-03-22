@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="discount" class="text-disabled cross">
+    <div v-if="discount" class="text-disabled custom-line-through">
       <span class="text-h5 mr-1">{{ USD(basePrice) }}</span>
       <span class="text-body-1">USD</span>
     </div>
@@ -21,7 +21,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.cross {
+.custom-line-through {
   display: inline-block;
   position: relative;
   &::after {
