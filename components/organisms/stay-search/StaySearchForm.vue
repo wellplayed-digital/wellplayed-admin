@@ -103,7 +103,6 @@ const updateQuery = async () => {
       guests: guests.value
     }
   })
-  emits('submit')
 }
 watch(startDate, updateQuery)
 watch(endDate, updateQuery)
