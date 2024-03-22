@@ -32,8 +32,7 @@ export default defineNuxtConfig({
   supabase: {
     redirectOptions: {
       login: '/auth/login',
-      callback: '/',
-      exclude: ['/stay-search']
+      callback: '/'
     }
   },
   // Autoimport components

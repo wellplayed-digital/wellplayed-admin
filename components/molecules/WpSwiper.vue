@@ -33,7 +33,7 @@ const pagination = ref({
 :deep(.swiper-pagination) {
   --size: 5rem;
   left: 84.3% !important;
-  top: 40% !important;
+  top: 35% !important;
   bottom: unset !important;
   right: unset !important;
   &::before {
@@ -45,12 +45,13 @@ const pagination = ref({
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(black, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 }
 :deep(.swiper-pagination-bullet) {
   font-size: 2rem;
-  opacity: 0.5;
   width: var(--size);
   height: var(--size);
   background: none;

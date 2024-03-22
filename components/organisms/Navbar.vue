@@ -46,7 +46,10 @@ const menuLeft = computed(() => [
   {
     key: 'search',
     text: t('components.navbar.search'),
-    to: '/stay-search'
+    click: async () => {
+      globalStore.galleryMode = false
+      await navigateTo('/')
+    }
   },
   {
     key: 'gallery',

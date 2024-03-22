@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex flex-column align-end">
     <div v-if="discount" class="text-disabled custom-line-through">
       <span class="text-h5 mr-1">{{ USD(basePrice) }}</span>
       <span class="text-body-1">USD</span>

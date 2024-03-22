@@ -16,10 +16,12 @@
         <div class="wp-bg-glass py-6">
           <WpContainer>
             <h1 class="text-h5 text-center mb-8">
-              <!-- ¿Cuando deseas viajar? -->
               {{ $t('pages.index.title') }}
             </h1>
-            <StaySearchForm @submit="searchStay" />
+            <StayForm :loading="loading" @submit="searchStay" />
+            <WpTransition :show="firstSearch">
+              <StayResultsList :loading="loading" :results="results" />
+            </WpTransition>
           </WpContainer>
         </div>
       </WpTransition>
@@ -28,6 +30,8 @@
 </template>
 
 <script setup>
+const supabase = useSupabaseClient()
+const snackbar = useSnackbar()
 const globalStore = useGlobalStore()
 const slides = ref([
   { key: 'slide-1', imgSrc: '/img/1.jpg' },
@@ -36,7 +40,24 @@ const slides = ref([
   { key: 'slide-4', imgSrc: '/img/4.jpg' },
   { key: 'slide-5', imgSrc: '/img/5.jpg' }
 ])
-const searchStay = async () => {
-  await navigateTo('/stay-search')
+const results = ref([])
+const loading = ref(false)
+const firstSearch = ref(false)
+const searchStay = async ({ startDate, endDate, guests }) => {
+  try {
+    loading.value = true
+    const { data, error } = await supabase.rpc('search_stay', {
+      start_date: startDate,
+      end_date: endDate,
+      guests
+    })
+    if (error) { throw error }
+    results.value = data
+  } catch (error) {
+    snackbar.error({ text: error.message })
+  } finally {
+    firstSearch.value = true
+    loading.value = false
+  }
 }
 </script>

@@ -19,6 +19,9 @@
       "search": "Busqueda",
       "gallery": "Galeria",
       "profile": "Mi Perfil"
+    },
+    "stayResultCard": {
+      "capacity": "Capacidad"
     }
   },
   "pages": {

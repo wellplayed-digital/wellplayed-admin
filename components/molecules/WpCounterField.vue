@@ -17,7 +17,7 @@
 
 <script setup>
 const props = defineProps({
-  modelValue: { type: Number, required: true },
+  modelValue: { type: [Number, String], required: true },
   min: { type: Number, default: -Infinity },
   max: { type: Number, default: Infinity }
 })
