@@ -1,5 +1,5 @@
 <template>
-  <WpForm :disabled="disabled" @submit="submit">
+  <WpForm :disabled="disabled" @submit="emits('submit')">
     <v-row dense>
       <v-col cols="12" sm="6" md="3">
         <WpDatePicker
@@ -94,15 +94,16 @@ const validateStoredDates = () => {
   }
   validateEndDate()
 }
-const updateQuery = () => {
+const updateQuery = async () => {
   if (!props.watchQuery) { return }
-  router.push({
+  await router.push({
     query: {
       startDate: startDate.value,
       endDate: endDate.value,
       guests: guests.value
     }
   })
+  emits('submit')
 }
 watch(startDate, updateQuery)
 watch(endDate, updateQuery)
@@ -111,11 +112,4 @@ onMounted(() => {
   validateStoredDates()
   updateQuery()
 })
-const submit = () => {
-  emits('submit', {
-    startDate: startDate.value,
-    endDate: endDate.value,
-    guests: guests.value
-  })
-}
 </script>

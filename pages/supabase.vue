@@ -64,17 +64,17 @@ const guests = ref(2)
 const startDate = ref('2024-04-22')
 const endDate = ref('2024-04-23')
 const createBooking = async () => {
-  try {
-    const { error } = await supabase.rpc('book_cabin', {
-      cabin_id: cabinId.value,
-      start_date: startDate.value,
-      end_date: endDate.value,
-      guests: guests.value
-    })
-    if (error) { throw error }
-    fetchData()
-  } catch (error) {
-    snackbar.error({ text: error.message })
-  }
+  // try {
+  //   const { error } = await supabase.rpc('book_cabin', {
+  //     cabin_id: cabinId.value,
+  //     start_date: startDate.value,
+  //     end_date: endDate.value,
+  //     guests: guests.value
+  //   })
+  //   if (error) { throw error }
+  //   fetchData()
+  // } catch (error) {
+  //   snackbar.error({ text: error.message })
+  // }
 }
 </script>

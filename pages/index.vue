@@ -19,7 +19,7 @@
               <!-- ¿Cuando deseas viajar? -->
               {{ $t('pages.index.title') }}
             </h1>
-            <CabinSearchForm @submit="searchCabin" />
+            <StaySearchForm @submit="searchStay" />
           </WpContainer>
         </div>
       </WpTransition>
@@ -36,7 +36,7 @@ const slides = ref([
   { key: 'slide-4', imgSrc: '/img/4.jpg' },
   { key: 'slide-5', imgSrc: '/img/5.jpg' }
 ])
-const searchCabin = (query) => {
-  navigateTo({ path: '/cabin-search', query })
+const searchStay = (query) => {
+  navigateTo({ path: '/stay-search', query })
 }
 </script>

@@ -33,7 +33,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/auth/login',
       callback: '/',
-      exclude: ['/cabin-search']
+      exclude: ['/stay-search']
     }
   },
   // Autoimport components
