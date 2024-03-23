@@ -58,12 +58,12 @@ const menuLeft = computed(() => [
       globalStore.galleryMode = route.path !== '/' || !globalStore.galleryMode
       await navigateTo('/')
     }
-  },
-  {
-    key: 'supabase',
-    text: 'Supabase',
-    to: '/supabase'
   }
+  // {
+  //   key: 'supabase',
+  //   text: 'Supabase',
+  //   to: '/supabase'
+  // }
 ])
 const menuRight = computed(() => [
   {
