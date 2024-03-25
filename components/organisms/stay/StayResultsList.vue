@@ -1,7 +1,13 @@
 <template>
   <div class="py-10">
     <v-row dense>
-      <v-col v-for="(result, index) in results" :key="`result-${index}`" cols="12" md="3">
+      <v-col
+        v-for="(result, index) in results"
+        :key="`result-${index}`"
+        cols="12"
+        sm="6"
+        lg="3"
+      >
         <CheckoutDialog
           :start-date="startDate"
           :end-date="endDate"

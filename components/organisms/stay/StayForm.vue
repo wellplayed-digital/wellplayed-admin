@@ -1,7 +1,7 @@
 <template>
   <WpForm :disabled="loading" @submit="submit">
     <v-row dense>
-      <v-col cols="12" sm="6" md="3">
+      <v-col cols="12" sm="6" lg="3">
         <WpDatePicker
           v-model="startDate"
           :min="startLimit.min"
@@ -12,7 +12,7 @@
           @update:model-value="validateEndDate"
         />
       </v-col>
-      <v-col cols="12" sm="6" md="3">
+      <v-col cols="12" sm="6" lg="3">
         <WpDatePicker
           v-model="endDate"
           :min="endLimit.min"
@@ -29,7 +29,7 @@
           </template>
         </WpDatePicker>
       </v-col>
-      <v-col cols="12" sm="6" md="3">
+      <v-col cols="12" sm="6" lg="3">
         <WpCounterField
           v-model="guests"
           :label="$t('global.guests', 2)"
@@ -38,7 +38,7 @@
           hide-details
         />
       </v-col>
-      <v-col cols="12" sm="6" md="3">
+      <v-col cols="12" sm="6" lg="3">
         <WpButton
           type="submit"
           size="x-large"

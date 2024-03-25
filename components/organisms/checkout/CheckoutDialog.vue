@@ -3,13 +3,26 @@
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="slotAttrs" />
     </template>
-    <div v-for="(detail, index) in details" :key="`detail-${index}`">
-      {{ detail.title }}: {{ detail.value }}
-    </div>
+    <v-row dense>
+      <v-col
+        v-for="(detail, index) in details"
+        :key="`detail-${index}`"
+        :cols="detail.cols || 12"
+      >
+        <div class="text-body-1">
+          <span class="text-medium-emphasis mr-2">
+            {{ detail.title }}
+          </span>
+          <strong>{{ detail.value }}</strong>
+        </div>
+      </v-col>
+    </v-row>
   </WpDialog>
 </template>
 
 <script setup>
+const { ISOtoFormat } = useDates()
+const { USD } = useCurrency()
 const props = defineProps({
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
@@ -17,12 +30,12 @@ const props = defineProps({
   result: { type: Object, required: true }
 })
 const details = ref([
-  { title: 'Check-in', value: props.startDate },
-  { title: 'Check-out', value: props.endDate },
+  { title: 'Check In', value: ISOtoFormat(props.startDate), cols: 4 },
+  { title: 'Check Out', value: ISOtoFormat(props.endDate), cols: 4 },
+  { title: 'Nights', value: props.result.price_details.total_nights, cols: 4 },
   { title: 'Guests', value: props.guests },
   { title: 'Cabin', value: props.result.cabin.name },
-  { title: 'Capacity', value: props.result.cabin.capacity },
-  { title: 'Base price', value: props.result.price_details.base_total_price },
-  { title: 'Final price', value: props.result.price_details.final_total_price }
+  { title: 'Price per night', value: `${USD(props.result.price_details.final_price_per_night)} USD`, cols: 4 },
+  { title: 'Total price', value: `${USD(props.result.price_details.final_total_price)} USD`, cols: 4 }
 ])
 </script>
