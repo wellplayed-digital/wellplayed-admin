@@ -1,44 +1,37 @@
 <template>
-  <div class="h-100 d-flex align-end">
-    <WpBackground class="wp-z-index-1">
-      <WpSwiper
-        :slides="slides"
-        class="wp-overlay"
-        :class="{'wp-overlay-50': !globalStore.galleryMode}"
-      >
+  <WpPage>
+    <template #background>
+      <WpSwiper name="home" :slides="slides" class="h-100">
         <template #default="slide">
-          <v-img :src="slide.imgSrc" cover />
+          <v-img :src="slide.imgSrc" height="100%" cover />
         </template>
       </WpSwiper>
-    </WpBackground>
-    <div class="wp-z-index-2 w-100">
-      <WpTransition :show="!globalStore.galleryMode">
-        <div class="wp-bg-glass py-6">
-          <WpContainer>
-            <h1 class="text-h5 text-center mb-8">
-              {{ $t('pages.index.title') }}
-            </h1>
-            <StayForm
-              v-model:start-date="startDate"
-              v-model:end-date="endDate"
-              v-model:guests="guests"
-              :loading="loading"
-              @submit="searchStay"
-            />
-            <WpTransition :show="firstSearch">
-              <StayResultsList
-                :loading="loading"
-                :start-date="startDate"
-                :end-date="endDate"
-                :guests="guests"
-                :results="results"
-              />
-            </WpTransition>
-          </WpContainer>
-        </div>
-      </WpTransition>
+    </template>
+    <div class="wp-bg-glass py-6">
+      <WpContainer>
+        <h1 class="text-h5 text-center mb-8">
+          {{ $t('pages.index.title') }}
+        </h1>
+        <StayForm
+          v-model:start-date="startDate"
+          v-model:end-date="endDate"
+          v-model:guests="guests"
+          :loading="loading"
+          @submit="searchStay"
+        />
+        <WpTransition :show="firstSearch">
+          <StayResultsList
+            :loading="loading"
+            :start-date="startDate"
+            :end-date="endDate"
+            :guests="guests"
+            :results="results"
+            class="mt-10"
+          />
+        </WpTransition>
+      </WpContainer>
     </div>
-  </div>
+  </WpPage>
 </template>
 
 <script setup>
@@ -46,7 +39,6 @@ import { useLocalStorage } from '@vueuse/core'
 
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
-const globalStore = useGlobalStore()
 const slides = ref([
   { key: 'slide-1', imgSrc: '/img/1.jpg' },
   { key: 'slide-2', imgSrc: '/img/2.jpg' },

@@ -15,7 +15,7 @@
         </WpButton>
       </v-col>
       <v-col cols="2" class="text-center">
-        <WpBrandLogo to="/" @click="globalStore.galleryMode = false" />
+        <WpBrandLogo to="/" />
       </v-col>
       <v-col cols="5" class="d-flex justify-end align-center">
         <WpButton
@@ -40,25 +40,17 @@ import { useI18n } from 'vue-i18n'
 
 const config = useRuntimeConfig()
 const { t } = useI18n()
-const globalStore = useGlobalStore()
 const userStore = useUserStore()
-const route = useRoute()
 const linksLeft = computed(() => [
   {
     key: 'search',
     text: t('components.navbar.search'),
-    click: async () => {
-      globalStore.galleryMode = false
-      await navigateTo('/')
-    }
+    to: '/'
   },
   {
     key: 'gallery',
-    text: t('components.navbar.gallery'),
-    click: async () => {
-      globalStore.galleryMode = route.path !== '/' || !globalStore.galleryMode
-      await navigateTo('/')
-    }
+    text: t('components.navbar.gallery')
+    // to: '/'
   },
   {
     key: 'supabase',

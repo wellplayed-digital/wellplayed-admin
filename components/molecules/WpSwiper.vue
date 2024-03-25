@@ -1,14 +1,14 @@
 <template>
   <Swiper
-    :modules="[SwiperAutoplay, SwiperEffectFade, SwiperPagination]"
+    :modules="[SwiperAutoplay, SwiperEffectFade]"
     effect="fade"
+    :speed="5000"
     :slides-per-view="1"
     :loop="true"
-    :autoplay="{ delay }"
-    :pagination="pagination"
+    :autoplay="{ delay: 5000 }"
     v-bind="$attrs"
   >
-    <SwiperSlide v-for="(slide, index) in slides" :key="`slides-${index}`" class="wp-swiper-slide">
+    <SwiperSlide v-for="(slide, index) in slides" :key="`swiper-${name}-slide-${index}`">
       <slot v-bind="slide" />
     </SwiperSlide>
   </Swiper>
@@ -16,51 +16,7 @@
 
 <script setup>
 defineProps({
-  slides: { type: Array, required: true },
-  delay: { type: Number, default: 2000 }
-})
-const pagination = ref({
-  clickable: true,
-  dynamicBullets: true,
-  className: 'wp-swiper-pagination',
-  renderBullet: (index, className) => {
-    return `<div class="${className} wp-font-brand font-weight-bold">${index + 1}</div>`
-  }
+  name: { type: String, required: true },
+  slides: { type: Array, required: true }
 })
 </script>
-
-<style lang="scss" scoped>
-:deep(.swiper-pagination) {
-  --size: 5rem;
-  left: 84.3% !important;
-  top: 35% !important;
-  bottom: unset !important;
-  right: unset !important;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: var(--size);
-    height: var(--size);
-    border-radius: 50%;
-    background: rgba(black, 0.3);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-}
-:deep(.swiper-pagination-bullet) {
-  font-size: 2rem;
-  width: var(--size);
-  height: var(--size);
-  background: none;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-}
-:deep(.swiper-pagination-bullet-active-main) {
-  opacity: 0.75;
-}
-</style>
