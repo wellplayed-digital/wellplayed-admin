@@ -2,10 +2,10 @@
   <Swiper
     :modules="[SwiperAutoplay, SwiperEffectFade]"
     effect="fade"
-    :speed="5000"
+    :speed="2000"
     :slides-per-view="1"
     :loop="true"
-    :autoplay="{ delay: 5000 }"
+    :autoplay="{ delay: 4000 }"
     v-bind="$attrs"
   >
     <SwiperSlide v-for="(slide, index) in slides" :key="`swiper-${name}-slide-${index}`">
