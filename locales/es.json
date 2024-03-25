@@ -5,9 +5,7 @@
     "firstName": "Nombre",
     "lastName": "Apellido",
     "nights": "Noche | Noches",
-    "guests": "Huesped | Huespedes"
-  },
-  "actions": {
+    "guests": "Huesped | Huespedes",
     "save": "Guardar",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
