@@ -9,7 +9,9 @@
     </template>
     <WpCard>
       <v-card-text class="py-6">
-        <slot name="default" />
+        <div class="mb-4">
+          <slot name="default" />
+        </div>
         <v-row dense>
           <v-col>
             <WpButton size="x-large" block variant="text" @click="cancel">

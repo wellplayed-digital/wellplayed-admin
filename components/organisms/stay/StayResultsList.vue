@@ -2,7 +2,20 @@
   <div class="py-10">
     <v-row dense>
       <v-col v-for="(result, index) in results" :key="`result-${index}`" cols="12" md="3">
-        <StayResultCard :result="result" :result-index="index" />
+        <CheckoutDialog
+          :start-date="startDate"
+          :end-date="endDate"
+          :guests="guests"
+          :result="result"
+        >
+          <template #activator="{ props: slotProps }">
+            <StayResultCard
+              :result="result"
+              :result-index="index"
+              v-bind="slotProps"
+            />
+          </template>
+        </CheckoutDialog>
       </v-col>
     </v-row>
   </div>
@@ -11,6 +24,9 @@
 <script setup>
 defineProps({
   loading: { type: Boolean, required: true },
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  guests: { type: Number, required: true },
   results: { type: Array, required: true }
 })
 </script>

@@ -55,15 +55,27 @@
 </template>
 
 <script setup>
-import { useLocalStorage } from '@vueuse/core'
+
 const { ISO, ISOtoISO, unitDiff } = useDates()
-defineProps({
+const props = defineProps({
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  guests: { type: Number, required: true },
   loading: { type: Boolean, default: false }
 })
-const emits = defineEmits(['submit'])
-const startDate = ref(useLocalStorage('startDate'))
-const endDate = ref(useLocalStorage('endDate'))
-const guests = ref(useLocalStorage('guests', 1))
+const emits = defineEmits(['update:startDate', 'update:endDate', 'update:guests', 'submit'])
+const startDate = computed({
+  get: () => props.startDate,
+  set: value => emits('update:startDate', value)
+})
+const endDate = computed({
+  get: () => props.endDate,
+  set: value => emits('update:endDate', value)
+})
+const guests = computed({
+  get: () => props.guests,
+  set: value => emits('update:guests', value)
+})
 const MIN_START = ref(0)
 const MAX_START = ref(365)
 const MIN_NIGHTS = ref(1)
