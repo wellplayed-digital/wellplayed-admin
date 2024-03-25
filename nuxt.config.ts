@@ -3,6 +3,12 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      // eslint-disable-next-line eqeqeq
+      develop: process.env.DEVELOP == 'true'
+    }
+  },
   devtools: { enabled: false },
   ssr: false,
   build: {

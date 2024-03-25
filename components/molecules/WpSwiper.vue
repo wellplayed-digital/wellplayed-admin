@@ -8,7 +8,7 @@
     :pagination="pagination"
     v-bind="$attrs"
   >
-    <SwiperSlide v-for="slide in slides" :key="slide.key" class="wp-swiper-slide">
+    <SwiperSlide v-for="(slide, index) in slides" :key="`slides-${index}`" class="wp-swiper-slide">
       <slot v-bind="slide" />
     </SwiperSlide>
   </Swiper>

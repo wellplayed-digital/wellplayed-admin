@@ -1,13 +1,15 @@
 <template>
-  <v-dialog v-model="show" width="auto" persistent>
+  <v-dialog
+    v-model="show"
+    :width="width"
+    transition="scale-transition"
+  >
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="{ ...slotAttrs, open }" />
     </template>
     <WpCard>
       <v-card-text class="py-6">
-        <div class="text-h6 text-center pa-4 mb-4">
-          {{ text }}
-        </div>
+        <slot name="default" />
         <v-row dense>
           <v-col>
             <WpButton size="x-large" block variant="text" @click="cancel">
@@ -27,7 +29,7 @@
 
 <script setup>
 defineProps({
-  text: { type: String, required: true }
+  width: { type: String, default: 'auto' }
 })
 const emits = defineEmits(['confirm', 'cancel'])
 const show = ref(false)

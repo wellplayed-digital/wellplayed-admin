@@ -7,15 +7,15 @@
     </template>
     <v-list>
       <v-list-item
-        v-for="(option, index) in availableLocales"
-        :key="index"
-        :active="locale === option"
-        @click="locale = option"
+        v-for="(availableLocale, index) in availableLocales"
+        :key="`availableLocale-${index}`"
+        :active="locale === availableLocale"
+        @click="locale = availableLocale"
       >
         <div class="d-flex align-center">
-          <WpFlag :country-code="languages[option].countryCode" />
+          <WpFlag :country-code="languages[availableLocale].countryCode" />
           <div class="text-body-2 ml-2">
-            {{ languages[option].name }}
+            {{ languages[availableLocale].name }}
           </div>
         </div>
       </v-list-item>

@@ -3,15 +3,15 @@
     <v-row align="center">
       <v-col cols="5">
         <WpButton
-          v-for="link in menuLeft"
-          :key="link.key"
+          v-for="(linkLeft, index) in linksLeftEnabled"
+          :key="`linkLeft-${index}`"
           size="small"
           variant="text"
           class="mr-4"
-          :to="link.to"
-          @click="link.click"
+          :to="linkLeft.to"
+          @click="linkLeft.click"
         >
-          {{ link.text }}
+          {{ linkLeft.text }}
         </WpButton>
       </v-col>
       <v-col cols="2" class="text-center">
@@ -19,15 +19,15 @@
       </v-col>
       <v-col cols="5" class="d-flex justify-end align-center">
         <WpButton
-          v-for="link in menuRightEnabled"
-          :key="link.key"
+          v-for="(linkRight, index) in linksRightEnabled"
+          :key="`linkRight-${index}`"
           variant="text"
           size="small"
           class="mr-4"
-          :to="link.to"
-          @click="link.click"
+          :to="linkRight.to"
+          @click="linkRight.click"
         >
-          {{ link.text }}
+          {{ linkRight.text }}
         </WpButton>
         <WpLanguageSelect />
       </v-col>
@@ -38,11 +38,12 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
+const config = useRuntimeConfig()
 const { t } = useI18n()
 const globalStore = useGlobalStore()
 const userStore = useUserStore()
 const route = useRoute()
-const menuLeft = computed(() => [
+const linksLeft = computed(() => [
   {
     key: 'search',
     text: t('components.navbar.search'),
@@ -62,10 +63,12 @@ const menuLeft = computed(() => [
   {
     key: 'supabase',
     text: 'Supabase',
-    to: '/supabase'
+    to: '/supabase',
+    disabled: !config.public.develop
   }
 ])
-const menuRight = computed(() => [
+const linksLeftEnabled = computed(() => linksLeft.value.filter(link => !link.disabled))
+const linksRight = computed(() => [
   {
     key: 'login',
     text: t('global.login'),
@@ -79,5 +82,5 @@ const menuRight = computed(() => [
     disabled: !userStore.user
   }
 ])
-const menuRightEnabled = computed(() => menuRight.value.filter(link => !link.disabled))
+const linksRightEnabled = computed(() => linksRight.value.filter(link => !link.disabled))
 </script>

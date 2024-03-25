@@ -1,11 +1,18 @@
 <template>
-  <v-dialog v-model="show" width="auto" persistent>
+  <v-dialog
+    v-model="show"
+    width="auto"
+    persistent
+    transition="scale-transition"
+  >
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="{ ...slotAttrs, open }" />
     </template>
     <WpCard>
       <v-card-text class="py-6">
-        <slot name="default" />
+        <div class="text-h6 text-center pa-4 mb-4">
+          {{ text }}
+        </div>
         <v-row dense>
           <v-col>
             <WpButton size="x-large" block variant="text" @click="cancel">

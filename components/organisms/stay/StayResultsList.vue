@@ -1,8 +1,8 @@
 <template>
   <div class="py-10">
     <v-row dense>
-      <v-col v-for="result in results" :key="result.cabin.id" cols="12" md="3">
-        <StayResultCard :result="result" />
+      <v-col v-for="(result, index) in results" :key="`result-${index}`" cols="12" md="3">
+        <StayResultCard :result="result" :result-index="index" />
       </v-col>
     </v-row>
   </div>

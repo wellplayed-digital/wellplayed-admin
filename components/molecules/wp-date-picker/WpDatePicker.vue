@@ -3,6 +3,7 @@
     v-if="display.xs"
     v-model="show"
     fullscreen
+    transition="scale-transition"
   >
     <template #activator="{props: slotProps}">
       <WpDatePickerField
