@@ -1,5 +1,5 @@
 <template>
-  <WpDialog width="600">
+  <WpDialog width="600" :confirm-function="startPayment" @confirm="test">
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="slotAttrs" />
     </template>
@@ -58,4 +58,36 @@ const rightDetails = ref([
   { title: 'Price per night', value: `${USD(props.result.price_details.final_price_per_night)} USD` },
   { title: 'Total price', value: `${USD(props.result.price_details.final_total_price)} USD` }
 ])
+const startPayment = () => {
+  return useFetch('/api/create-order', {
+    method: 'POST',
+    body: {
+      product_name: 'Nuxt Course',
+      price: 100,
+      payment_method: 'mercadopago'
+    }
+  })
+}
+const test = (response) => {
+  console.log(response)
+}
+
+// const pay = async () => {
+//   const response = await useFetch('/api/create-order', {
+//     method: 'POST',
+//     body: {
+//       product_name: 'Nuxt Course',
+//       price: 100,
+//       payment_method: 'mercadopago'
+//     }
+//   })
+
+//   pending.value = false
+
+//   if (response.url) {
+//     window.location.href = response.url
+//   } else {
+//     alert('Something went wrong')
+//   }
+// }
 </script>

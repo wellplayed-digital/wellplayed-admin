@@ -4,9 +4,12 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
   runtimeConfig: {
+    mercadopagoAccessToken: '',
+    mercadopagoWebhookSecret: '',
     public: {
-      // eslint-disable-next-line eqeqeq
-      develop: process.env.DEVELOP == 'true'
+      enviroment: '',
+      baseUrl: '',
+      mercadopagoKey: ''
     }
   },
   devtools: { enabled: false },
