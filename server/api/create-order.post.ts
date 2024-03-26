@@ -12,14 +12,14 @@ export default defineEventHandler(async (event) => {
       body: {
         auto_return: 'approved',
         back_urls: {
-          success: `${runtimeConfig.public.baseURL}/thank-you`
+          success: `${runtimeConfig.public.baseUrl}/thank-you`
         },
         items: [
           {
             id: body.product_name.toLowerCase().replace(' ', '_'),
             quantity: 1,
             title: body.product_name,
-            unit_price: body.proce * dollar.blue.ask
+            unit_price: body.price * dollar.blue.ask
           }
         ]
       }

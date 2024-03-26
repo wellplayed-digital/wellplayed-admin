@@ -38,9 +38,6 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
-const runtimeConfig = useRuntimeConfig()
-console.log(runtimeConfig)
-
 const { t } = useI18n()
 const userStore = useUserStore()
 const linksLeft = computed(() => [
@@ -58,7 +55,6 @@ const linksLeft = computed(() => [
     key: 'supabase',
     text: 'Supabase',
     to: '/supabase'
-    // disabled: !config.develop
   }
 ])
 const linksLeftEnabled = computed(() => linksLeft.value.filter(link => !link.disabled))

@@ -1,5 +1,5 @@
 <template>
-  <WpDialog width="600" :confirm-function="startPayment" @confirm="test">
+  <WpAsyncDialog width="600" :confirm-function="startPayment" @confirm="redirectToPayment">
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="slotAttrs" />
     </template>
@@ -35,7 +35,7 @@
         </v-row>
       </div>
     </template>
-  </WpDialog>
+  </WpAsyncDialog>
 </template>
 
 <script setup>
@@ -68,26 +68,7 @@ const startPayment = () => {
     }
   })
 }
-const test = (response) => {
-  console.log(response)
+const redirectToPayment = ({ url }) => {
+  window.location.href = url
 }
-
-// const pay = async () => {
-//   const response = await useFetch('/api/create-order', {
-//     method: 'POST',
-//     body: {
-//       product_name: 'Nuxt Course',
-//       price: 100,
-//       payment_method: 'mercadopago'
-//     }
-//   })
-
-//   pending.value = false
-
-//   if (response.url) {
-//     window.location.href = response.url
-//   } else {
-//     alert('Something went wrong')
-//   }
-// }
 </script>
