@@ -21,11 +21,8 @@
         />
         <WpTransition :show="firstSearch">
           <StayResultsList
-            :loading="loading"
-            :start-date="startDate"
-            :end-date="endDate"
-            :guests="guests"
             :results="results"
+            :loading="loading"
             class="mt-10"
           />
         </WpTransition>
@@ -62,10 +59,10 @@ const searchStay = async () => {
     })
     if (error) { throw error }
     results.value = data
+    firstSearch.value = true
   } catch (error) {
     snackbar.error({ text: error.message })
   } finally {
-    firstSearch.value = true
     loading.value = false
   }
 }

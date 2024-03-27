@@ -42,9 +42,6 @@
 const { ISOtoFormat } = useDates()
 const { USD } = useCurrency()
 const props = defineProps({
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  guests: { type: Number, required: true },
   result: { type: Object, required: true }
 })
 const leftDetails = ref([
@@ -59,14 +56,19 @@ const rightDetails = ref([
   { title: 'Total price', value: `${USD(props.result.price_details.final_total_price)} USD` }
 ])
 const startPayment = () => {
-  return useFetch('/api/create-order', {
+  return useFetch('/api/book-stay', {
     method: 'POST',
     body: {
-      product_name: 'Nuxt Course',
-      price: 100,
-      payment_method: 'mercadopago'
+      payment_method: 'mercadopago',
+      start_date: props.result.stay_start_date,
+      end_date: props.result.stay_end_date,
+      guests: props.result.stay_guests,
+      cabin_id: props.result.cabin.id
     }
-  })
+  }).then(({ data, error }) => ({
+    data: data.value,
+    error: error.value.data
+  }))
 }
 const redirectToPayment = ({ url }) => {
   window.location.href = url

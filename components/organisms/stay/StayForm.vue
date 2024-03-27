@@ -57,25 +57,13 @@
 <script setup>
 
 const { ISO, ISOtoISO, unitDiff } = useDates()
-const props = defineProps({
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  guests: { type: Number, required: true },
+defineProps({
   loading: { type: Boolean, default: false }
 })
+const startDate = defineModel('startDate', { type: String, default: null })
+const endDate = defineModel('endDate', { type: String, default: null })
+const guests = defineModel('guests', { type: Number, default: null })
 const emits = defineEmits(['update:startDate', 'update:endDate', 'update:guests', 'submit'])
-const startDate = computed({
-  get: () => props.startDate,
-  set: value => emits('update:startDate', value)
-})
-const endDate = computed({
-  get: () => props.endDate,
-  set: value => emits('update:endDate', value)
-})
-const guests = computed({
-  get: () => props.guests,
-  set: value => emits('update:guests', value)
-})
 const MIN_START = ref(0)
 const MAX_START = ref(365)
 const MIN_NIGHTS = ref(1)
@@ -90,17 +78,18 @@ const endLimit = computed(() => ({
 }))
 const totalNights = computed(() => unitDiff(startDate.value, endDate.value, 'days'))
 const validateEndDate = () => {
-  if (totalNights.value < MIN_NIGHTS.value) {
+  if (!endDate.value || totalNights.value < MIN_NIGHTS.value) {
     endDate.value = endLimit.value.min
   }
   if (totalNights.value > MAX_NIGHTS.value) {
     endDate.value = endLimit.value.max
   }
 }
-const validateStoredDates = () => {
+const validateStoredDates = async () => {
   const storedStartDate = localStorage.getItem('startDate')
-  if (!storedStartDate || unitDiff(ISO(), storedStartDate, 'days') < 1) {
+  if (!storedStartDate || unitDiff(ISO(), storedStartDate, 'days') < 0) {
     startDate.value = ISO()
+    await nextTick()
   }
   validateEndDate()
 }

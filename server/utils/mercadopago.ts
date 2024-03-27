@@ -1,7 +1,7 @@
 import { MercadoPagoConfig } from 'mercadopago'
 
-const runtimeConfig = useRuntimeConfig()
+const config = useRuntimeConfig()
 
 export const mercadopago = new MercadoPagoConfig({
-  accessToken: runtimeConfig.mercadopagoAccessToken
+  accessToken: config.mercadopagoAccessToken
 })

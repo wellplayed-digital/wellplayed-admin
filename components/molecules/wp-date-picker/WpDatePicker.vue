@@ -7,7 +7,7 @@
   >
     <template #activator="{props: slotProps}">
       <WpDatePickerField
-        :model-value="modelValue"
+        :model-value="date"
         :label="label"
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
@@ -45,7 +45,7 @@
   >
     <template #activator="{props: slotProps}">
       <WpDatePickerField
-        :model-value="modelValue"
+        :model-value="date"
         :label="label"
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
@@ -74,19 +74,14 @@
 import { useDisplay } from 'vuetify'
 const display = ref(useDisplay())
 const props = defineProps({
-  modelValue: { type: String, default: null },
   label: { type: String, default: 'Date' },
   rules: { type: Array, default: () => [] },
   prependInnerIcon: { type: String, default: 'mdi-calendar' },
   hideDetails: { type: Boolean, default: false },
   autofocus: { type: Boolean, default: false }
 })
-const emits = defineEmits(['update:modelValue'])
+const date = defineModel({ type: String, default: null })
 const show = ref(props.autofocus)
-const date = computed({
-  get: () => props.modelValue,
-  set: value => emits('update:modelValue', value)
-})
 </script>
 
 <style lang="scss" scoped>

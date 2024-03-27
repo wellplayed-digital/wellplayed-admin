@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', () => {
       snackbar.success({ text: 'Check your email for the login link.' })
       navigateTo('/')
     } catch (error) {
-      snackbar.error({ text: error.error_description || error.message })
+      snackbar.error({ text: error.message })
     } finally {
       logginIn.value = false
     }
