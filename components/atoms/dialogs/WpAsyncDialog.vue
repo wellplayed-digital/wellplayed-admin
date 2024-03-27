@@ -30,6 +30,7 @@
               block
               color="primary"
               :loading="loading"
+              :disabled="!canConfirm"
               @click="confirm"
             >
               {{ $t("global.confirm") }}
@@ -45,7 +46,8 @@
 const snackbar = useSnackbar()
 const props = defineProps({
   width: { type: String, default: 'auto' },
-  confirmFunction: { type: Function, default: () => {} }
+  confirmFunction: { type: Function, default: () => {} },
+  canConfirm: { type: Boolean, default: true }
 })
 const emits = defineEmits(['confirm', 'cancel'])
 const show = ref(false)
@@ -53,9 +55,8 @@ const loading = ref(false)
 const confirm = async () => {
   try {
     loading.value = true
-    const { data, error } = await props.confirmFunction()
-    if (error) { throw error }
-    emits('confirm', data)
+    await props.confirmFunction()
+    emits('confirm')
     show.value = false
   } catch (error) {
     snackbar.error({ text: error.message })

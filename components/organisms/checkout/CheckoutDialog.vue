@@ -2,8 +2,8 @@
   <WpAsyncDialog
     width="600"
     :confirm-function="bookStay"
-    @confirm="redirectToPayment"
   >
+    <!-- :can-confirm="!!userStore.user" -->
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="slotAttrs" />
     </template>
@@ -98,22 +98,25 @@ const rightDetails = computed(() => [
   }
 ])
 
-const bookStay = () => useFetch('/api/book-stay', {
-  method: 'POST',
-  body: {
-    payment_method: 'mercadopago',
-    cabin_id: props.result.cabin.id,
-    start_date: props.result.stay_start_date,
-    end_date: props.result.stay_end_date,
-    guests: props.result.stay_guests,
-    access_token: userStore.session.access_token,
-    refresh_token: userStore.session.refresh_token
+const bookStay = async () => {
+  const { data, error } = await useFetch('/api/book-stay', {
+    method: 'POST',
+    body: {
+      payment_method: 'mercadopago',
+      cabin_id: props.result.cabin.id,
+      start_date: props.result.stay_start_date,
+      end_date: props.result.stay_end_date,
+      guests: props.result.stay_guests,
+      access_token: userStore.session?.access_token,
+      refresh_token: userStore.session?.refresh_token
+    }
+  })
+  if (error.value) {
+    throw new Error(error.value.data.message)
   }
-}).then(({ data, error }) => ({
-  data: data?.value,
-  error: error?.value?.data
-}))
-const redirectToPayment = ({ url }) => {
+  redirectToPayment(data.value.url)
+}
+const redirectToPayment = (url) => {
   window.location.href = url
 }
 </script>
