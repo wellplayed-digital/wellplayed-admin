@@ -60,10 +60,10 @@ const startPayment = () => {
     method: 'POST',
     body: {
       payment_method: 'mercadopago',
+      cabin_id: props.result.cabin.id,
       start_date: props.result.stay_start_date,
       end_date: props.result.stay_end_date,
-      guests: props.result.stay_guests,
-      cabin_id: props.result.cabin.id
+      guests: props.result.stay_guests
     }
   }).then(({ data, error }) => ({
     data: data.value,

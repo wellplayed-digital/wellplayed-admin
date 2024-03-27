@@ -3,11 +3,14 @@ import { Preference } from 'mercadopago'
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   const body = await readBody(event)
-  // payment_method
-  // start_date
-  // end_date
-  // guests
-  // cabin_id
+
+  const { data, error } = await supabase.rpc('book_stay', {
+    cabin_id: body.cabin_id,
+    start_date: body.start_date,
+    end_date: body.end_date,
+    guests: body.guests
+  })
+  if (error) { throw createError(error) }
 
   if (body.payment_method === 'mercadopago') {
     const dollar = await criptoya.dollar()
@@ -15,20 +18,19 @@ export default defineEventHandler(async (event) => {
     if (!dollarPrice) {
       throw createError({
         statusCode: 500,
-        statusMessage: 'Error getting dollar value'
+        statusMessage: 'Cannot get dollar price'
       })
     }
-
+    const priceInARS = data.final_total_price * dollarPrice
     const preference = new Preference(mercadopago)
-
     const response = await preference.create({
       body: {
         items: [
           {
-            id: body.product_name.toLowerCase().replace(' ', '_'),
+            id: data.id,
             quantity: 1,
-            title: body.product_name,
-            unit_price: body.price * dollarPrice
+            title: 'Ayrampo',
+            unit_price: priceInARS
           }
         ],
         auto_return: 'approved',

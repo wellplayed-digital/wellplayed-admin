@@ -77,7 +77,8 @@ const endLimit = computed(() => ({
   max: ISOtoISO(startDate.value, { plus: { days: MAX_NIGHTS.value } })
 }))
 const totalNights = computed(() => unitDiff(startDate.value, endDate.value, 'days'))
-const validateEndDate = () => {
+const validateEndDate = async () => {
+  await nextTick()
   if (!endDate.value || totalNights.value < MIN_NIGHTS.value) {
     endDate.value = endLimit.value.min
   }
@@ -85,11 +86,10 @@ const validateEndDate = () => {
     endDate.value = endLimit.value.max
   }
 }
-const validateStoredDates = async () => {
+const validateStoredDates = () => {
   const storedStartDate = localStorage.getItem('startDate')
   if (!storedStartDate || unitDiff(ISO(), storedStartDate, 'days') < 0) {
     startDate.value = ISO()
-    await nextTick()
   }
   validateEndDate()
 }
