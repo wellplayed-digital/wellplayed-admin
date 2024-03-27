@@ -50,11 +50,6 @@ const linksLeft = computed(() => [
     key: 'gallery',
     text: t('components.navbar.gallery'),
     to: null
-  },
-  {
-    key: 'supabase',
-    text: 'Supabase',
-    to: '/supabase'
   }
 ])
 const linksLeftEnabled = computed(() => linksLeft.value.filter(link => !link.disabled))

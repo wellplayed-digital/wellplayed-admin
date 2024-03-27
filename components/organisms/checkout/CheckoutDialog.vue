@@ -1,5 +1,9 @@
 <template>
-  <WpAsyncDialog width="600" :confirm-function="startPayment" @confirm="redirectToPayment">
+  <WpAsyncDialog
+    width="600"
+    :confirm-function="startPayment"
+    @confirm="redirectToPayment"
+  >
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="slotAttrs" />
     </template>
@@ -45,31 +49,50 @@ const props = defineProps({
   result: { type: Object, required: true }
 })
 const leftDetails = ref([
-  { title: 'Check In', value: ISOtoFormat(props.startDate) },
-  { title: 'Check Out', value: ISOtoFormat(props.endDate) },
-  { title: 'Nights', value: props.result.price_details.total_nights },
-  { title: 'Guests', value: props.guests }
+  {
+    title: 'Check In',
+    value: ISOtoFormat(props.result.stay_start_date)
+  },
+  {
+    title: 'Check Out',
+    value: ISOtoFormat(props.result.stay_end_date)
+  },
+  {
+    title: 'Nights',
+    value: props.result.price_details.total_nights
+  },
+  {
+    title: 'Guests',
+    value: props.result.stay_guests
+  }
 ])
 const rightDetails = ref([
-  { title: 'Cabin', value: props.result.cabin.name },
-  { title: 'Price per night', value: `${USD(props.result.price_details.final_price_per_night)} USD` },
-  { title: 'Total price', value: `${USD(props.result.price_details.final_total_price)} USD` }
+  {
+    title: 'Cabin',
+    value: props.result.cabin.name
+  },
+  {
+    title: 'Price per night',
+    value: `${USD(props.result.price_details.final_price_per_night)} USD`
+  },
+  {
+    title: 'Total price',
+    value: `${USD(props.result.price_details.final_total_price)} USD`
+  }
 ])
-const startPayment = () => {
-  return useFetch('/api/book-stay', {
-    method: 'POST',
-    body: {
-      payment_method: 'mercadopago',
-      cabin_id: props.result.cabin.id,
-      start_date: props.result.stay_start_date,
-      end_date: props.result.stay_end_date,
-      guests: props.result.stay_guests
-    }
-  }).then(({ data, error }) => ({
-    data: data.value,
-    error: error.value.data
-  }))
-}
+const startPayment = () => useFetch('/api/book-stay', {
+  method: 'POST',
+  body: {
+    payment_method: 'mercadopago',
+    cabin_id: props.result.cabin.id,
+    start_date: props.result.stay_start_date,
+    end_date: props.result.stay_end_date,
+    guests: props.result.stay_guests
+  }
+}).then(({ data, error }) => ({
+  data: data.value,
+  error: error.value.data
+}))
 const redirectToPayment = ({ url }) => {
   window.location.href = url
 }
