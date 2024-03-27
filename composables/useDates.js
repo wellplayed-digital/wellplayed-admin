@@ -1,8 +1,8 @@
-import { useI18n } from 'vue-i18n'
+// import { useI18n } from 'vue-i18n'
 import { DateTime } from 'luxon'
 
 export default () => {
-  const { locale } = useI18n()
+  const languageStore = useLanguageStore()
 
   const ISO = (options = { plus: {} }) => {
     return DateTime.local().plus(options.plus).toISODate()
@@ -18,7 +18,7 @@ export default () => {
   const ISOtoFormat = (date, options = { format: 'DATE_MED' }) => {
     if (!date) { return null }
     return DateTime
-      .fromISO(date, { locale: locale.value })
+      .fromISO(date, { locale: languageStore.userLanguage.locale })
       .toLocaleString(DateTime[options.format])
   }
 
@@ -29,7 +29,7 @@ export default () => {
   const JStoFormat = (date, options = { format: 'DATE_MED' }) => {
     if (!date) { return null }
     return DateTime
-      .fromJSDate(date, { locale: locale.value })
+      .fromJSDate(date, { locale: languageStore.userLanguage.locale })
       .toLocaleString(DateTime[options.format])
   }
 

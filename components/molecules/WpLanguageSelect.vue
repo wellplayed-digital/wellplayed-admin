@@ -8,8 +8,8 @@
     <v-list>
       <v-list-item
         v-for="language in languageStore.availableLanguages"
-        :key="`language-${language.code}`"
-        :active="languageStore.userLanguage.code === language.code"
+        :key="`language-${language.locale}`"
+        :active="languageStore.userLanguage.locale === language.locale"
         @click="languageStore.userLanguage = language"
       >
         <div class="d-flex align-center">

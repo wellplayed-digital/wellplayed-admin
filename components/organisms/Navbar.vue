@@ -50,12 +50,20 @@ const leftLinks = computed(() => [
   {
     key: 'search',
     text: t('components.navbar.search'),
-    to: '/'
+    to: '/',
+    visible: true
+  },
+  {
+    key: 'aboutUs',
+    text: t('components.navbar.aboutUs'),
+    to: null,
+    visible: true
   },
   {
     key: 'gallery',
     text: t('components.navbar.gallery'),
-    to: null
+    to: null,
+    visible: true
   }
 ])
 const visibleLeftLinks = computed(() => {

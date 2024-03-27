@@ -4,8 +4,8 @@ export const useLanguageStore = defineStore('language', () => {
   const { locale, availableLocales } = useI18n()
 
   const LANGUAGES = {
-    es: { code: 'es', name: 'Español', countryCode: 'ar' },
-    en: { code: 'en', name: 'English', countryCode: 'us' }
+    es: { locale: 'es', name: 'Español', countryCode: 'ar' },
+    en: { locale: 'en', name: 'English', countryCode: 'us' }
   }
 
   const availableLanguages = computed(() => {
@@ -21,7 +21,7 @@ export const useLanguageStore = defineStore('language', () => {
   const userLanguage = computed({
     get: () => availableLanguages.value[locale.value],
     set: (value) => {
-      locale.value = value.code
+      locale.value = value.locale
     }
   })
 

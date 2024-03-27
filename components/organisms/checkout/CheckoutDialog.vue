@@ -85,6 +85,10 @@ const rightDetails = computed(() => [
     value: props.result.cabin.name
   },
   {
+    title: 'Capacity',
+    value: props.result.cabin.capacity
+  },
+  {
     title: 'Price per night',
     value: `${pricePerNight.value} ${currencyStore.userCurrency.code}`
   },

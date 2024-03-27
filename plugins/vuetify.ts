@@ -31,12 +31,12 @@ export default defineNuxtPlugin(({ vueApp }) => {
     }
   }
 
-  const storedLocale = ref(useLocalStorage('locale', 'en'))
+  const storedLocale = ref(useLocalStorage('locale', 'es'))
 
   const i18n = createI18n({
     legacy: false, // Vuetify does not support the legacy mode of vue-i18n
     locale: storedLocale.value.toString(),
-    fallbackLocale: 'en',
+    fallbackLocale: 'es',
     messages
   })
 

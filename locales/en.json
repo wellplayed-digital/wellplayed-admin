@@ -17,7 +17,8 @@
     "navbar": {
       "search": "Search",
       "gallery": "Gallery",
-      "profile": "My Profile"
+      "profile": "My Profile",
+      "aboutUs": "About Us"
     },
     "stayResultCard": {
       "capacity": "Capacity"
