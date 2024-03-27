@@ -2,8 +2,8 @@
   <WpAsyncDialog
     width="600"
     :confirm-function="bookStay"
+    :can-confirm="!!userStore.user"
   >
-    <!-- :can-confirm="!!userStore.user" -->
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="slotAttrs" />
     </template>
