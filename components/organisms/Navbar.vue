@@ -3,33 +3,39 @@
     <v-row align="center">
       <v-col cols="5">
         <WpButton
-          v-for="(linkLeft, index) in linksLeftEnabled"
-          :key="`linkLeft-${index}`"
+          v-for="link in visibleLeftLinks"
+          :key="link.key"
           size="small"
           variant="text"
           class="mr-4"
-          :to="linkLeft.to"
-          @click="linkLeft.click"
+          :to="link.to"
+          @click="link.click"
         >
-          {{ linkLeft.text }}
+          {{ link.text }}
         </WpButton>
       </v-col>
       <v-col cols="2" class="text-center">
         <WpBrandLogo to="/" />
       </v-col>
       <v-col cols="5" class="d-flex justify-end align-center">
-        <WpButton
-          v-for="(linkRight, index) in linksRightEnabled"
-          :key="`linkRight-${index}`"
-          variant="text"
-          size="small"
-          class="mr-4"
-          :to="linkRight.to"
-          @click="linkRight.click"
-        >
-          {{ linkRight.text }}
-        </WpButton>
-        <WpLanguageSelect />
+        <div class="mr-4">
+          <WpButton
+            v-for="link in visibleRightLinks"
+            :key="link.key"
+            variant="text"
+            size="small"
+            :to="link.to"
+            @click="link.click"
+          >
+            {{ link.text }}
+          </WpButton>
+        </div>
+        <div class="mr-4">
+          <WpCurrencySelect />
+        </div>
+        <div>
+          <WpLanguageSelect />
+        </div>
       </v-col>
     </v-row>
   </WpContainer>
@@ -40,7 +46,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const userStore = useUserStore()
-const linksLeft = computed(() => [
+const leftLinks = computed(() => [
   {
     key: 'search',
     text: t('components.navbar.search'),
@@ -52,20 +58,24 @@ const linksLeft = computed(() => [
     to: null
   }
 ])
-const linksLeftEnabled = computed(() => linksLeft.value.filter(link => !link.disabled))
-const linksRight = computed(() => [
+const visibleLeftLinks = computed(() => {
+  return leftLinks.value.filter(link => link.visible)
+})
+const rightLinks = computed(() => [
   {
     key: 'login',
     text: t('global.login'),
     to: '/auth/login',
-    disabled: !!userStore.user
+    visible: !userStore.user
   },
   {
     key: 'profile',
     text: t('components.navbar.profile'),
     to: '/auth/profile',
-    disabled: !userStore.user
+    visible: !!userStore.user
   }
 ])
-const linksRightEnabled = computed(() => linksRight.value.filter(link => !link.disabled))
+const visibleRightLinks = computed(() => {
+  return rightLinks.value.filter(link => link.visible)
+})
 </script>

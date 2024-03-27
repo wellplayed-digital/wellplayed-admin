@@ -72,7 +72,8 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
-const display = ref(useDisplay())
+
+const date = defineModel({ type: String, default: null })
 const props = defineProps({
   label: { type: String, default: 'Date' },
   rules: { type: Array, default: () => [] },
@@ -80,7 +81,7 @@ const props = defineProps({
   hideDetails: { type: Boolean, default: false },
   autofocus: { type: Boolean, default: false }
 })
-const date = defineModel({ type: String, default: null })
+const display = ref(useDisplay())
 const show = ref(props.autofocus)
 </script>
 

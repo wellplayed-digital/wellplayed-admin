@@ -2,6 +2,7 @@
   "test": "Working {name}!",
   "global": {
     "language": "Language",
+    "currency": "Currency",
     "firstName": "First Name",
     "lastName": "Last Name",
     "nights": "Night | Nights",

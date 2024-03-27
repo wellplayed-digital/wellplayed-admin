@@ -1,18 +1,18 @@
 <template>
   <div class="d-flex flex-column align-end">
     <div v-if="discount" class="text-disabled custom-line-through">
-      <span class="text-h5 mr-1">{{ USD(basePrice) }}</span>
-      <span class="text-body-1">USD</span>
+      <span class="text-h5 mr-1">{{ currencyStore.getPrice(basePrice) }}</span>
+      <span class="text-body-1">{{ currencyStore.userCurrency.code }}</span>
     </div>
     <div class="text-primary">
-      <span class="text-h4 mr-1">{{ USD(finalPrice) }}</span>
-      <span class="text-body-1">USD</span>
+      <span class="text-h4 mr-1">{{ currencyStore.getPrice(finalPrice) }}</span>
+      <span class="text-body-1">{{ currencyStore.userCurrency.code }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-const { USD } = useCurrency()
+const currencyStore = useCurrencyStore()
 defineProps({
   basePrice: { type: Number, required: true },
   finalPrice: { type: Number, required: true },

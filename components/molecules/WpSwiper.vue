@@ -8,7 +8,10 @@
     :autoplay="{ delay: 4000 }"
     v-bind="$attrs"
   >
-    <SwiperSlide v-for="(slide, index) in slides" :key="`swiper-${name}-slide-${index}`">
+    <SwiperSlide
+      v-for="(slide, index) in slides"
+      :key="`swiper-${name}-slide-${index}`"
+    >
       <slot v-bind="slide" />
     </SwiperSlide>
   </Swiper>

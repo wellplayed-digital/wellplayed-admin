@@ -1,28 +1,25 @@
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
-  const supabase = useSupabaseClient()
-  const user = useSupabaseUser()
   const snackbar = useSnackbar()
+  const supabase = useSupabaseClient()
 
+  const user = useSupabaseUser()
+  const session = ref(null)
   const profile = ref(null)
+
   const logginIn = ref(false)
   const fetchingProfile = ref(false)
   const updatingProfile = ref(false)
   const signingOut = ref(false)
 
-  const login = async (email) => {
+  const fetchSession = async () => {
     try {
-      logginIn.value = true
-      const { error } = await supabase.auth.signInWithOtp({ email })
+      const { data, error } = await supabase.auth.getSession()
       if (error) { throw error }
-      // TODO: Replace with i18n (Busca el link de ingreso en tu casilla de correo)
-      snackbar.success({ text: 'Check your email for the login link.' })
-      navigateTo('/')
+      session.value = data.session
     } catch (error) {
       snackbar.error({ text: error.message })
-    } finally {
-      logginIn.value = false
     }
   }
 
@@ -65,13 +62,36 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const login = async (email) => {
+    try {
+      logginIn.value = true
+      const { error } = await supabase.auth.signInWithOtp({ email })
+      if (error) { throw error }
+      await Promise.all([
+        fetchSession(),
+        fetchProfile()
+      ])
+      // TODO: Replace with i18n (Busca el link de ingreso en tu casilla de correo)
+      snackbar.success({ text: 'Check your email for the login link.' })
+      navigateTo('/')
+    } catch (error) {
+      snackbar.error({ text: error.message })
+    } finally {
+      logginIn.value = false
+    }
+  }
+
+  const reset = () => {
+    session.value = null
+    profile.value = null
+  }
+
   const signOut = async () => {
     try {
       signingOut.value = true
       const { error } = await supabase.auth.signOut()
       if (error) { throw error }
-      user.value = null
-      profile.value = null
+      reset()
       navigateTo('/')
     } catch (error) {
       snackbar.error({ text: error.message })
@@ -82,13 +102,15 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     user,
+    session,
     profile,
     logginIn,
     fetchingProfile,
     updatingProfile,
     signingOut,
-    login,
     fetchProfile,
+    fetchSession,
+    login,
     updateProfile,
     signOut
   }

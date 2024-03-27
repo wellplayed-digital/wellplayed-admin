@@ -1,19 +1,15 @@
 <template>
   <v-row dense>
     <v-col
-      v-for="(result, index) in results"
-      :key="`result-${index}`"
+      v-for="result in results"
+      :key="`result-${result.id}`"
       cols="12"
       sm="6"
       lg="3"
     >
       <CheckoutDialog :result="result">
         <template #activator="{ props: slotProps }">
-          <StayResultCard
-            :result="result"
-            :result-index="index"
-            v-bind="slotProps"
-          />
+          <StayResultCard :result="result" v-bind="slotProps" />
         </template>
       </CheckoutDialog>
     </v-col>

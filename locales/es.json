@@ -2,6 +2,7 @@
   "test": "Funciona {name}!",
   "global": {
     "language": "Lenguaje",
+    "currency": "Divisa",
     "firstName": "Nombre",
     "lastName": "Apellido",
     "nights": "Noche | Noches",

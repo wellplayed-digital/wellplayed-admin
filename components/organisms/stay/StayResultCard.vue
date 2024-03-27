@@ -13,7 +13,7 @@
             <div class="mx-1">
               <v-icon
                 v-for="index in result.cabin.capacity"
-                :key="`result-${resultIndex}-capacity-${index}`"
+                :key="`result-${result.id}-capacity-${index}`"
               >
                 mdi-account
               </v-icon>
@@ -35,7 +35,6 @@
 
 <script setup>
 defineProps({
-  result: { type: Object, required: true },
-  resultIndex: { type: Number, required: true }
+  result: { type: Object, required: true }
 })
 </script>

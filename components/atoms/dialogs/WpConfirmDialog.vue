@@ -15,7 +15,12 @@
         </div>
         <v-row dense>
           <v-col>
-            <WpButton size="x-large" block variant="text" @click="cancel">
+            <WpButton
+              size="x-large"
+              block
+              variant="text"
+              @click="cancel"
+            >
               {{ $t("global.cancel") }}
             </WpButton>
           </v-col>

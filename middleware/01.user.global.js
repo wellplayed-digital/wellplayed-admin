@@ -1,9 +1,15 @@
 export default defineNuxtRouteMiddleware(async (to) => {
+  // TODO: i18n not working
   // const { $i18n } = useNuxtApp()
   const userStore = useUserStore()
+  const currencyStore = useCurrencyStore()
   const snackbar = useSnackbar()
 
-  await userStore.fetchProfile()
+  await Promise.all([
+    userStore.fetchSession(),
+    userStore.fetchProfile(),
+    currencyStore.fetchDollarPrice()
+  ])
 
   // Check if comes from magic link
   if (to.query.error === 'unauthorized_client') {

@@ -2,20 +2,20 @@
   <v-menu>
     <template #activator="{props: slotProps}">
       <WpIconButton v-bind="slotProps" :tooltip-text="$t('global.language')">
-        <WpFlag :country-code="languages[locale].countryCode" />
+        <WpFlag :country-code="languageStore.userLanguage.countryCode" />
       </WpIconButton>
     </template>
     <v-list>
       <v-list-item
-        v-for="(availableLocale, index) in availableLocales"
-        :key="`availableLocale-${index}`"
-        :active="locale === availableLocale"
-        @click="locale = availableLocale"
+        v-for="language in languageStore.availableLanguages"
+        :key="`language-${language.code}`"
+        :active="languageStore.userLanguage.code === language.code"
+        @click="languageStore.userLanguage = language"
       >
         <div class="d-flex align-center">
-          <WpFlag :country-code="languages[availableLocale].countryCode" />
+          <WpFlag :country-code="language.countryCode" />
           <div class="text-body-2 ml-2">
-            {{ languages[availableLocale].name }}
+            {{ language.name }}
           </div>
         </div>
       </v-list-item>
@@ -24,10 +24,5 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
-const { locale, availableLocales } = useI18n()
-const languages = ref({
-  en: { name: 'English', countryCode: 'us' },
-  es: { name: 'Español', countryCode: 'ar' }
-})
+const languageStore = useLanguageStore()
 </script>

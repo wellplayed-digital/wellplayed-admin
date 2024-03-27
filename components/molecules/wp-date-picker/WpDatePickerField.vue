@@ -27,5 +27,7 @@ const props = defineProps({
   hideDetails: { type: Boolean, default: false },
   autofocus: { type: Boolean, default: false }
 })
-const formattedDate = computed(() => ISOtoFormat(props.modelValue, { format: 'DATE_MED_WITH_WEEKDAY' }))
+const formattedDate = computed(() => {
+  return ISOtoFormat(props.modelValue, { format: 'DATE_MED_WITH_WEEKDAY' })
+})
 </script>

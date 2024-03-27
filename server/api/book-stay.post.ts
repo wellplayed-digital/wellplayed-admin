@@ -3,6 +3,7 @@ import { Preference } from 'mercadopago'
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   const body = await readBody(event)
+
   await supabase.auth.setSession({
     access_token: body.access_token,
     refresh_token: body.refresh_token
@@ -16,14 +17,7 @@ export default defineEventHandler(async (event) => {
   if (error) { throw createError(error) }
 
   if (body.payment_method === 'mercadopago') {
-    const dollar = await criptoya.dollar()
-    const dollarPrice = dollar?.blue?.ask
-    if (!dollarPrice) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Cannot get dollar price'
-      })
-    }
+    const dollarPrice = await $fetch('/api/dollar')
     const priceInARS = data.final_total_price * dollarPrice
     const preference = new Preference(mercadopago)
     const response = await preference.create({
@@ -38,7 +32,8 @@ export default defineEventHandler(async (event) => {
         ],
         auto_return: 'approved',
         back_urls: {
-          success: `${config.public.baseUrl}/thank-you`
+          // TODO: create success url
+          success: `${config.public.baseUrl}`
         }
       }
     })

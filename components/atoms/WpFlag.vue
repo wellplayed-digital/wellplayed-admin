@@ -1,6 +1,6 @@
 <template>
   <img
-    src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
+    src="/img/flag/flag_placeholder.png"
     :alt="`flag-${countryCode}`"
     :class="`flag flag-${countryCode}`"
     :style="{ width: '1.5rem' }"
@@ -15,7 +15,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .flag {
-  background: url(https://primefaces.org/cdn/primevue/images/flag/flags_responsive.png) no-repeat;
+  background: url("/img/flag/flags_responsive.png") no-repeat;
   background-size: 100%;
   vertical-align: middle
 

@@ -55,34 +55,33 @@
 </template>
 
 <script setup>
-
 const { ISO, ISOtoISO, unitDiff } = useDates()
-defineProps({
-  loading: { type: Boolean, default: false }
-})
 const startDate = defineModel('startDate', { type: String, default: null })
 const endDate = defineModel('endDate', { type: String, default: null })
 const guests = defineModel('guests', { type: Number, default: null })
+defineProps({
+  loading: { type: Boolean, default: false }
+})
 const emits = defineEmits(['update:startDate', 'update:endDate', 'update:guests', 'submit'])
-const MIN_START = ref(0)
-const MAX_START = ref(365)
-const MIN_NIGHTS = ref(1)
-const MAX_NIGHTS = ref(30)
+const MIN_START = 0
+const MAX_START = 365
+const MIN_NIGHTS = 1
+const MAX_NIGHTS = 30
 const startLimit = computed(() => ({
-  min: ISO({ plus: { days: MIN_START.value } }),
-  max: ISO({ plus: { days: MAX_START.value } })
+  min: ISO({ plus: { days: MIN_START } }),
+  max: ISO({ plus: { days: MAX_START } })
 }))
 const endLimit = computed(() => ({
-  min: ISOtoISO(startDate.value, { plus: { days: MIN_NIGHTS.value } }),
-  max: ISOtoISO(startDate.value, { plus: { days: MAX_NIGHTS.value } })
+  min: ISOtoISO(startDate.value, { plus: { days: MIN_NIGHTS } }),
+  max: ISOtoISO(startDate.value, { plus: { days: MAX_NIGHTS } })
 }))
 const totalNights = computed(() => unitDiff(startDate.value, endDate.value, 'days'))
 const validateEndDate = async () => {
   await nextTick()
-  if (!endDate.value || totalNights.value < MIN_NIGHTS.value) {
+  if (!endDate.value || totalNights.value < MIN_NIGHTS) {
     endDate.value = endLimit.value.min
   }
-  if (totalNights.value > MAX_NIGHTS.value) {
+  if (totalNights.value > MAX_NIGHTS) {
     endDate.value = endLimit.value.max
   }
 }

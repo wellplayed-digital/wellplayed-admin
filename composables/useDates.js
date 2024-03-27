@@ -15,21 +15,30 @@ export default () => {
     if (!date) { return null }
     return DateTime.fromISO(date).plus(options.plus).toJSDate()
   }
+  const ISOtoFormat = (date, options = { format: 'DATE_MED' }) => {
+    if (!date) { return null }
+    return DateTime
+      .fromISO(date, { locale: locale.value })
+      .toLocaleString(DateTime[options.format])
+  }
+
   const JStoISO = (date, options = { plus: {} }) => {
     if (!date) { return null }
     return DateTime.fromJSDate(date).plus(options.plus).toISODate()
   }
-  const ISOtoFormat = (date, options = { format: 'DATE_MED' }) => {
-    if (!date) { return null }
-    return DateTime.fromISO(date, { locale: locale.value }).toLocaleString(DateTime[options.format])
-  }
   const JStoFormat = (date, options = { format: 'DATE_MED' }) => {
     if (!date) { return null }
-    return DateTime.fromJSDate(date, { locale: locale.value }).toLocaleString(DateTime[options.format])
+    return DateTime
+      .fromJSDate(date, { locale: locale.value })
+      .toLocaleString(DateTime[options.format])
   }
+
   const unitDiff = (startDate, endDate, unit) => {
     if (!startDate || !endDate) { return null }
-    return DateTime.fromISO(endDate).diff(DateTime.fromISO(startDate), unit).toObject()[unit]
+    return DateTime
+      .fromISO(endDate)
+      .diff(DateTime.fromISO(startDate), unit)
+      .toObject()[unit]
   }
 
   return {
