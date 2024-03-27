@@ -3,7 +3,10 @@ import { Preference } from 'mercadopago'
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   const body = await readBody(event)
-
+  await supabase.auth.setSession({
+    access_token: body.access_token,
+    refresh_token: body.refresh_token
+  })
   const { data, error } = await supabase.rpc('book_stay', {
     cabin_id: body.cabin_id,
     start_date: body.start_date,

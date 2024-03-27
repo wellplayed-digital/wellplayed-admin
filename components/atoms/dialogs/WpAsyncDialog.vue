@@ -55,7 +55,7 @@ const confirm = async () => {
     loading.value = true
     const { data, error } = await props.confirmFunction()
     if (error) { throw error }
-    emits('confirm', data.value)
+    emits('confirm', data)
     show.value = false
   } catch (error) {
     snackbar.error({ text: error.message })

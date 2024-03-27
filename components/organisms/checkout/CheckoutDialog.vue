@@ -43,6 +43,7 @@
 </template>
 
 <script setup>
+// const supabase = useSupabaseClient()
 const { ISOtoFormat } = useDates()
 const { USD } = useCurrency()
 const props = defineProps({
@@ -80,19 +81,25 @@ const rightDetails = ref([
     value: `${USD(props.result.price_details.final_total_price)} USD`
   }
 ])
-const startPayment = () => useFetch('/api/book-stay', {
-  method: 'POST',
-  body: {
-    payment_method: 'mercadopago',
-    cabin_id: props.result.cabin.id,
-    start_date: props.result.stay_start_date,
-    end_date: props.result.stay_end_date,
-    guests: props.result.stay_guests
-  }
-}).then(({ data, error }) => ({
-  data: data.value,
-  error: error.value.data
-}))
+const supabase = useSupabaseClient()
+const startPayment = async () => {
+  const { data } = await supabase.auth.getSession()
+  return useFetch('/api/book-stay', {
+    method: 'POST',
+    body: {
+      payment_method: 'mercadopago',
+      cabin_id: props.result.cabin.id,
+      start_date: props.result.stay_start_date,
+      end_date: props.result.stay_end_date,
+      guests: props.result.stay_guests,
+      access_token: data.session.access_token,
+      refresh_token: data.session.refresh_token
+    }
+  }).then(({ data, error }) => ({
+    data: data?.value,
+    error: error?.value?.data
+  }))
+}
 const redirectToPayment = ({ url }) => {
   window.location.href = url
 }
