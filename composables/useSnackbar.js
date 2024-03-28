@@ -33,8 +33,8 @@ export default () => {
     log({ text, color: 'warning' })
   }
 
-  const success = ({ text }) => {
-    log({ text, color: 'success' })
+  const success = ({ text, description }) => {
+    log({ text, description, color: 'success' })
   }
 
   return {

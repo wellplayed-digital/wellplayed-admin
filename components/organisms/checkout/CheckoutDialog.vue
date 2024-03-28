@@ -8,13 +8,14 @@
       <slot name="activator" v-bind="slotAttrs" />
     </template>
     <template #default>
-      <h3 class="text-h4">
-        Booking Confirmation
+      <h3 class="text-h5">
+        {{ $t('components.checkoutDialog.title') }}
       </h3>
       <p class="text-h6 text-medium-emphasis mb-4">
-        Do you want to book this cabin?
+        {{ $t('components.checkoutDialog.subtitle') }}
       </p>
-      <div class="border pa-2">
+
+      <v-alert class="mb-4">
         <v-row dense>
           <v-col sm="6">
             <div
@@ -43,7 +44,13 @@
             </div>
           </v-col>
         </v-row>
-      </div>
+      </v-alert>
+      <v-alert color="primary" icon="mdi-alert" variant="outlined">
+        <span>{{ $t('components.checkoutDialog.loginWarning') }}</span>
+        <WpLink to="/auth/login">
+          {{ $t('global.login') }}
+        </WpLink>
+      </v-alert>
     </template>
   </WpAsyncDialog>
 </template>

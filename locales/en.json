@@ -22,6 +22,11 @@
     },
     "stayResultCard": {
       "capacity": "Capacity"
+    },
+    "checkoutDialog": {
+      "title": "Booking Confirmation",
+      "subtitle": "Do you want to book this cabin?",
+      "loginWarning": "To book a cabin you have to "
     }
   },
   "pages": {
@@ -34,7 +39,7 @@
       "title": "This is your profile",
       "confirmChanges": "Are you sure you want to save the changes?",
       "confirmLogout": "Are you sure you want to log out?",
-      "unsavedChanges": "You have unsaved changes"
+      "unsavedChangesWarning": "You have unsaved changes"
     },
     "login": {
       "title": "Access with your email",

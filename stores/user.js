@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
   const snackbar = useSnackbar()
+
   const supabase = useSupabaseClient()
 
   const user = useSupabaseUser()
@@ -53,9 +54,9 @@ export const useUserStore = defineStore('user', () => {
         .from('profiles')
         .upsert(updates)
       if (error) { throw error }
-      snackbar.success({ text: 'Tu perfil ha sido actualizado correctamente' })
+      snackbar.success({ text: $t('stores.user.updateProfileSuccess') })
     } catch (error) {
-      snackbar.error({ text: error.message })
+      snackbar.error({ text: $t('stores.user.updateProfileError') })
     } finally {
       await fetchProfile()
       updatingProfile.value = false
@@ -71,11 +72,10 @@ export const useUserStore = defineStore('user', () => {
         fetchSession(),
         fetchProfile()
       ])
-      // TODO: Replace with i18n (Busca el link de ingreso en tu casilla de correo)
-      snackbar.success({ text: 'Check your email for the login link.' })
+      snackbar.success({ text: $t('stores.user.loginSuccess') })
       navigateTo('/')
     } catch (error) {
-      snackbar.error({ text: error.message })
+      snackbar.error({ text: $t('stores.user.loginError') })
     } finally {
       logginIn.value = false
     }
@@ -94,7 +94,10 @@ export const useUserStore = defineStore('user', () => {
       reset()
       navigateTo('/')
     } catch (error) {
-      snackbar.error({ text: error.message })
+      snackbar.error({
+        text: t('stores.user.signOutError'),
+        description: error.message
+      })
     } finally {
       signingOut.value = false
     }

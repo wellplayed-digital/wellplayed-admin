@@ -1,5 +1,9 @@
 <template>
-  <NuxtLink class="wp-font-brand wp-reset-link" :to="to" :style="{ fontSize }">
+  <NuxtLink
+    class="wp-font-brand wp-reset-link"
+    :to="to"
+    :style="{ fontSize }"
+  >
     Ayrampo
   </NuxtLink>
 </template>

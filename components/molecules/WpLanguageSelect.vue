@@ -1,5 +1,5 @@
 <template>
-  <v-menu>
+  <v-menu location="bottom center">
     <template #activator="{props: slotProps}">
       <WpIconButton v-bind="slotProps" :tooltip-text="$t('global.language')">
         <WpFlag :country-code="languageStore.userLanguage.countryCode" />
@@ -12,11 +12,9 @@
         :active="languageStore.userLanguage.locale === language.locale"
         @click="languageStore.userLanguage = language"
       >
-        <div class="d-flex align-center">
+        <div class="d-flex align-center text-body-2">
           <WpFlag :country-code="language.countryCode" />
-          <div class="text-body-2 ml-2">
-            {{ language.name }}
-          </div>
+          <span class="ml-2">{{ language.name }}</span>
         </div>
       </v-list-item>
     </v-list>

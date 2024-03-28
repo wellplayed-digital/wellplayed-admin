@@ -10,8 +10,8 @@
     "save": "Guardar",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
-    "login": "Iniciar sesión",
-    "logout": "Cerrar sesión"
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión"
   },
   "components": {
     "navbar": {
@@ -22,6 +22,20 @@
     },
     "stayResultCard": {
       "capacity": "Capacidad"
+    },
+    "checkoutDialog": {
+      "title": "Confirmación de Reserva",
+      "subtitle": "¿Deseas reservar esta cabaña?",
+      "loginWarning": "Para reservar una cabaña tienes que "
+    }
+  },
+  "stores": {
+    "user": {
+      "updateProfileSuccess": "Tu perfil ha sido actualizado correctamente",
+      "updateProfileError": "Hubo un error al actualizar tu perfil",
+      "loginSuccess": "Enviamos un link de acceso a tu email",
+      "loginError": "Hubo un error al enviar el link de acceso",
+      "signOutError": "Hubo un error al cerrar sesión"
     }
   },
   "pages": {
@@ -34,7 +48,7 @@
       "title": "Este es tu perfil",
       "confirmChanges": "¿Estás seguro que deseas guardar los cambios?",
       "confirmLogout": "¿Estás seguro que deseas cerrar sesión?",
-      "unsavedChanges": "Tienes cambios sin guardar"
+      "unsavedChangesWarning": "Tienes cambios sin guardar"
     },
     "login": {
       "title": "Ingresa con tu email",

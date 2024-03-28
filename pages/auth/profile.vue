@@ -7,7 +7,7 @@
       <WpConfirmDialog
         :text="$t('pages.profile.confirmChanges')"
         @confirm="userStore.updateProfile({ firstName, lastName })"
-        @cancel="unsavedChangesAlert()"
+        @cancel="unsavedChangesWarning"
       >
         <template #activator="{ open }">
           <WpForm
@@ -92,9 +92,9 @@ const hasUnsavedChanges = computed(() => (
   firstName.value !== userStore.profile.first_name ||
   lastName.value !== userStore.profile.last_name
 ))
-const unsavedChangesAlert = () => {
+const unsavedChangesWarning = () => {
   if (hasUnsavedChanges.value) {
-    snackbar.warning({ text: t('profile.unsavedChanges') })
+    snackbar.warning({ text: t('pages.profile.unsavedChangesWarning') })
   }
 }
 </script>
