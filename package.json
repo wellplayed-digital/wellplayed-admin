@@ -39,6 +39,6 @@
     "pinia": "^2.1.7"
   },
   "resolutions": {
-    "vue": "3.3.13"
+    "string-width": "4.2.3"
   }
 }
