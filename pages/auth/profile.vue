@@ -28,14 +28,14 @@
                   <WpTextField
                     v-model="firstName"
                     :rules="[required]"
-                    :label="startCase($t('global.firstName'))"
+                    :label="$t('global.firstName')"
                   />
                 </v-col>
                 <v-col cols="12" sm="6">
                   <WpTextField
                     v-model="lastName"
                     :rules="[required]"
-                    :label="startCase($t('global.lastName'))"
+                    :label="$t('global.lastName')"
                   />
                 </v-col>
                 <v-col>
@@ -77,9 +77,6 @@
 </template>
 
 <script setup>
-import { startCase } from 'lodash'
-import { useI18n } from 'vue-i18n'
-
 useHead({ title: 'Perfil' })
 const { t } = useI18n()
 const { required } = useRules()

@@ -29,6 +29,15 @@
       "loginWarning": "To book a cabin you have to "
     }
   },
+  "stores": {
+    "user": {
+      "updateProfileSuccess": "Your profile has been updated successfully",
+      "updateProfileError": "There was an error updating your profile",
+      "loginSuccess": "We sent an access link to your email",
+      "loginError": "There was an error sending the access link",
+      "signOutError": "There was an error logging out"
+    }
+  },
   "pages": {
     "index": {
       "title": "Find your perfect stay",
