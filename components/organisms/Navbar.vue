@@ -48,8 +48,8 @@ const { t } = useI18n()
 const userStore = useUserStore()
 const leftLinks = computed(() => [
   {
-    key: 'search',
-    text: t('components.navbar.search'),
+    key: 'book',
+    text: t('components.navbar.book'),
     to: '/',
     visible: true
   },
