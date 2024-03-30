@@ -21,12 +21,12 @@
               variant="text"
               @click="cancel"
             >
-              {{ t("global.cancel") }}
+              {{ $t("global.cancel") }}
             </WpButton>
           </v-col>
           <v-col>
             <WpButton size="x-large" block color="primary" @click="confirm">
-              {{ t("global.confirm") }}
+              {{ $t("global.confirm") }}
             </WpButton>
           </v-col>
         </v-row>
@@ -36,7 +36,6 @@
 </template>
 
 <script setup>
-const { t } = useI18n()
 defineProps({
   text: { type: String, required: true }
 })

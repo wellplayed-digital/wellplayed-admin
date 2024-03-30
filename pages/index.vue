@@ -10,7 +10,7 @@
     <div class="wp-bg-glass py-6">
       <WpContainer>
         <h1 class="text-h5 text-center mb-8">
-          {{ t('pages.index.title') }}
+          {{ $t('pages.index.title') }}
         </h1>
         <StayForm
           v-model:start-date="startDate"
@@ -34,7 +34,6 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
 
-const { t } = useI18n()
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
 const slides = ref([

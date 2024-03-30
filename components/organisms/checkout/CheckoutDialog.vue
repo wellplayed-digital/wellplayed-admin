@@ -9,10 +9,10 @@
     </template>
     <template #default>
       <h3 class="text-h5">
-        {{ t('components.checkoutDialog.title') }}
+        {{ $t('components.checkoutDialog.title') }}
       </h3>
       <p class="text-h6 text-medium-emphasis mb-4">
-        {{ t('components.checkoutDialog.subtitle') }}
+        {{ $t('components.checkoutDialog.subtitle') }}
       </p>
 
       <v-alert class="mb-4">
@@ -46,9 +46,9 @@
         </v-row>
       </v-alert>
       <v-alert color="primary" icon="mdi-alert" variant="outlined">
-        <span>{{ t('components.checkoutDialog.loginWarning') }}</span>
-        <WpLink :to="$localePath('/auth/login')">
-          {{ t('global.login') }}
+        <span>{{ $t('components.checkoutDialog.loginWarning') }}</span>
+        <WpLink to="/auth/login">
+          {{ $t('global.login') }}
         </WpLink>
       </v-alert>
     </template>
@@ -56,7 +56,6 @@
 </template>
 
 <script setup>
-const { t } = useI18n()
 const userStore = useUserStore()
 const currencyStore = useCurrencyStore()
 const { ISOtoFormat } = useDates()

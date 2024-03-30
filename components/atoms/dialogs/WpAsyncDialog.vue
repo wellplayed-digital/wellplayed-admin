@@ -21,7 +21,7 @@
               variant="text"
               @click="cancel"
             >
-              {{ t("global.cancel") }}
+              {{ $t("global.cancel") }}
             </WpButton>
           </v-col>
           <v-col>
@@ -33,7 +33,7 @@
               :disabled="!canConfirm"
               @click="confirm"
             >
-              {{ t("global.confirm") }}
+              {{ $t("global.confirm") }}
             </WpButton>
           </v-col>
         </v-row>
@@ -43,7 +43,6 @@
 </template>
 
 <script setup>
-const { t } = useI18n()
 const snackbar = useSnackbar()
 const props = defineProps({
   width: { type: String, default: 'auto' },

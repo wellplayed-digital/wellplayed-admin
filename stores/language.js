@@ -1,9 +1,9 @@
 // TODO: solve hydration issue (ssr not the same as client)
 
-// import { useLocalStorage } from '@vueuse/core'
+import { useLocalStorage } from '@vueuse/core'
 
 export const useLanguageStore = defineStore('language', () => {
-  const { locale, setLocale, availableLocales } = useI18n()
+  const { locale, availableLocales } = useI18n()
 
   const LANGUAGES = {
     'es-ES': { locale: 'es-ES', name: 'Español', countryCode: 'ar' },
@@ -20,16 +20,8 @@ export const useLanguageStore = defineStore('language', () => {
     }, {})
   })
 
-  // const userLanguage = ref(useLocalStorage('userLanguage', availableLanguages.value[locale.value]))
-  const userLanguage = computed({
-    get: () => process.client ? localStorage.getItem('userLanguage') || availableLanguages.value[locale.value] : availableLanguages.value[locale.value],
-    set: (value) => {
-      localStorage.setItem('userLanguage', value)
-      setLocale(value)
-    }
-  })
-
-  watch(userLanguage, () => { setLocale(userLanguage.value.locale) })
+  const userLanguage = ref(useLocalStorage('userLanguage', availableLanguages.value[locale.value]))
+  watch(userLanguage, () => { locale.value = userLanguage.value.locale })
 
   return {
     availableLanguages,

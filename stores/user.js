@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
-  const localePath = useLocalePath()
-  const { t } = useI18n()
-
   const snackbar = useSnackbar()
 
   const supabase = useSupabaseClient()
@@ -57,9 +54,9 @@ export const useUserStore = defineStore('user', () => {
         .from('profiles')
         .upsert(updates)
       if (error) { throw error }
-      snackbar.success({ text: t('stores.user.updateProfileSuccess') })
+      snackbar.success({ text: $t('stores.user.updateProfileSuccess') })
     } catch (error) {
-      snackbar.error({ text: t('stores.user.updateProfileError') })
+      snackbar.error({ text: $t('stores.user.updateProfileError') })
     } finally {
       await fetchProfile()
       updatingProfile.value = false
@@ -75,10 +72,10 @@ export const useUserStore = defineStore('user', () => {
         fetchSession(),
         fetchProfile()
       ])
-      snackbar.success({ text: t('stores.user.loginSuccess') })
-      navigateTo(localePath('/'))
+      snackbar.success({ text: $t('stores.user.loginSuccess') })
+      navigateTo('/')
     } catch (error) {
-      snackbar.error({ text: t('stores.user.loginError') })
+      snackbar.error({ text: $t('stores.user.loginError') })
     } finally {
       logginIn.value = false
     }
@@ -95,7 +92,7 @@ export const useUserStore = defineStore('user', () => {
       const { error } = await supabase.auth.signOut()
       if (error) { throw error }
       reset()
-      navigateTo(localePath('/'))
+      navigateTo('/')
     } catch (error) {
       snackbar.error({
         text: t('stores.user.signOutError'),

@@ -24,7 +24,7 @@
           <template #append-inner>
             <v-icon icon="mdi-clock" size="small" color="primary" />
             <div class="text-body-2 text-primary px-1 text-no-wrap">
-              {{ totalNights }} {{ t('global.nights', totalNights) }}
+              {{ totalNights }} {{ $t('global.nights', totalNights) }}
             </div>
           </template>
         </WpDatePicker>
@@ -32,7 +32,7 @@
       <v-col cols="12" sm="6" lg="3">
         <WpCounterField
           v-model="guests"
-          :label="t('global.guests', 2)"
+          :label="$t('global.guests', 2)"
           :min="1"
           :max="5"
           hide-details
@@ -55,7 +55,6 @@
 </template>
 
 <script setup>
-const { t } = useI18n()
 const { ISO, ISOtoISO, unitDiff } = useDates()
 const startDate = defineModel('startDate', { type: String, default: null })
 const endDate = defineModel('endDate', { type: String, default: null })
