@@ -3,10 +3,10 @@
     <WpContainer max-width="32rem">
       <div class="text-center mb-14">
         <h1 class="text-h4 mb-2">
-          {{ $t('pages.login.title') }}
+          {{ t('pages.login.title') }}
         </h1>
         <p class="text-h5 text-disabled">
-          {{ $t('pages.login.text') }}
+          {{ t('pages.login.text') }}
         </p>
       </div>
       <WpForm :disabled="userStore.logginIn" @submit="userStore.login(email)">
@@ -28,7 +28,7 @@
                 :loading="userStore.logginIn"
                 :disabled="!valid"
               >
-                {{ $t('pages.login.button') }}
+                {{ t('pages.login.button') }}
               </WpButton>
             </v-col>
           </v-row>
@@ -40,6 +40,7 @@
 
 <script setup>
 useHead({ title: 'Iniciar Sesión' })
+const { t } = useI18n()
 const { required, validEmail } = useRules()
 const userStore = useUserStore()
 const email = ref(null)

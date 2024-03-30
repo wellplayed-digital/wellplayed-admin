@@ -2,10 +2,10 @@
   <div class="h-100 d-flex align-center">
     <WpContainer max-width="35rem">
       <h1 class="text-h4 text-center mb-10">
-        {{ $t('pages.profile.title') }}
+        {{ t('pages.profile.title') }}
       </h1>
       <WpConfirmDialog
-        :text="$t('pages.profile.confirmChanges')"
+        :text="t('pages.profile.confirmChanges')"
         @confirm="userStore.updateProfile({ firstName, lastName })"
         @cancel="unsavedChangesWarning"
       >
@@ -28,14 +28,14 @@
                   <WpTextField
                     v-model="firstName"
                     :rules="[required]"
-                    :label="$t('global.firstName')"
+                    :label="t('global.firstName')"
                   />
                 </v-col>
                 <v-col cols="12" sm="6">
                   <WpTextField
                     v-model="lastName"
                     :rules="[required]"
-                    :label="$t('global.lastName')"
+                    :label="t('global.lastName')"
                   />
                 </v-col>
                 <v-col>
@@ -47,7 +47,7 @@
                     :loading="userStore.updatingProfile"
                     :disabled="!valid || !hasUnsavedChanges"
                   >
-                    {{ $t('global.save') }}
+                    {{ t('global.save') }}
                   </WpButton>
                 </v-col>
               </v-row>
@@ -57,7 +57,7 @@
       </WpConfirmDialog>
       <WpDivider class="py-4" />
       <WpConfirmDialog
-        :text="$t('pages.profile.confirmLogout')"
+        :text="t('pages.profile.confirmLogout')"
         @confirm="userStore.signOut"
       >
         <template #activator="{ props: slotProps }">
@@ -68,7 +68,7 @@
             :loading="userStore.signingOut"
             v-bind="slotProps"
           >
-            {{ $t('global.logout') }}
+            {{ t('global.logout') }}
           </WpButton>
         </template>
       </WpConfirmDialog>

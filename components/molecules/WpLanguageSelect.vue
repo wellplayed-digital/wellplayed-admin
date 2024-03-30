@@ -1,7 +1,7 @@
 <template>
   <v-menu location="bottom center">
     <template #activator="{props: slotProps}">
-      <WpIconButton v-bind="slotProps" :tooltip-text="$t('global.language')">
+      <WpIconButton v-bind="slotProps" :tooltip-text="t('global.language')">
         <WpFlag :country-code="languageStore.userLanguage.countryCode" />
       </WpIconButton>
     </template>
@@ -22,5 +22,6 @@
 </template>
 
 <script setup>
+const { t } = useI18n()
 const languageStore = useLanguageStore()
 </script>

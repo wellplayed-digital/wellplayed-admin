@@ -15,7 +15,7 @@
         </WpButton>
       </v-col>
       <v-col cols="2" class="text-center">
-        <WpBrandLogo to="/" />
+        <WpBrandLogo :to="$localePath('/')" />
       </v-col>
       <v-col cols="5" class="d-flex justify-end align-center">
         <div class="mr-4">
@@ -45,6 +45,8 @@
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+const localePath = useLocalePath()
+
 const userStore = useUserStore()
 const leftLinks = computed(() => [
   {
@@ -73,13 +75,13 @@ const rightLinks = computed(() => [
   {
     key: 'login',
     text: t('global.login'),
-    to: '/auth/login',
+    to: localePath('/auth/login'),
     visible: !userStore.user
   },
   {
     key: 'profile',
     text: t('components.navbar.profile'),
-    to: '/auth/profile',
+    to: localePath('/auth/profile'),
     visible: !!userStore.user
   }
 ])

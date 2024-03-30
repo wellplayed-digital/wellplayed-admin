@@ -6,7 +6,7 @@
         size="small"
         prepend-icon="mdi-cash-multiple"
         prepend-icon-color="primary"
-        :tooltip-text="$t('global.currency')"
+        :tooltip-text="t('global.currency')"
         v-bind="slotProps"
       >
         {{ currencyStore.userCurrency.code }}
@@ -28,5 +28,6 @@
 </template>
 
 <script setup>
+const { t } = useI18n()
 const currencyStore = useCurrencyStore()
 </script>

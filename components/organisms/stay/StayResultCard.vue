@@ -8,7 +8,7 @@
         <div class="flex-grow-1">
           <div class="d-flex align-center">
             <div class="text-body-1 text-medium-emphasis">
-              {{ $t('components.stayResultCard.capacity') }}
+              {{ t('components.stayResultCard.capacity') }}
             </div>
             <div class="mx-1">
               <v-icon
@@ -34,6 +34,7 @@
 </template>
 
 <script setup>
+const { t } = useI18n()
 defineProps({
   result: { type: Object, required: true }
 })
