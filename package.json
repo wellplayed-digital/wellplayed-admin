@@ -34,8 +34,6 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@pinia/nuxt": "^0.5.1",
-    "@supabase/ssr": "^0.1.0",
-    "@supabase/supabase-js": "^2.41.1",
     "@vueuse/core": "^10.7.1",
     "luxon": "^3.4.4",
     "nuxt-swiper": "^1.2.2",

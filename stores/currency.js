@@ -10,8 +10,8 @@ export const useCurrencyStore = defineStore('currency', () => {
   const dollarPrice = ref(null)
 
   const fetchDollarPrice = async () => {
-    const { data } = await useFetch('/api/dollar')
-    dollarPrice.value = data.value
+    const data = await $fetch('/api/dollar')
+    dollarPrice.value = data
   }
 
   const formatPrice = (price, decimals = 2) => new Intl.NumberFormat('en-US', {
