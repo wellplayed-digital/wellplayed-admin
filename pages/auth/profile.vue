@@ -77,8 +77,7 @@
 </template>
 
 <script setup>
-useHead({ title: 'Perfil' })
-const { t } = useI18n()
+definePageMeta({ title: 'pages.profile.headTitle' })
 const { required } = useRules()
 const userStore = useUserStore()
 const snackbar = useSnackbar()

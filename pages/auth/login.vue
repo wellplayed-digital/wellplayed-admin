@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-useHead({ title: 'Iniciar Sesión' })
+definePageMeta({ title: 'pages.login.headTitle' })
 const { required, validEmail } = useRules()
 const userStore = useUserStore()
 const email = ref(null)

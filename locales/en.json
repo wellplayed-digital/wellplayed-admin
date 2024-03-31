@@ -1,5 +1,7 @@
 {
-  "test": "Working {name}!",
+  "layouts": {
+    "title": "{title}"
+  },
   "global": {
     "language": "Language",
     "currency": "Currency",
@@ -12,6 +14,27 @@
     "cancel": "Cancel",
     "login": "Login",
     "logout": "Log Out"
+  },
+  "pages": {
+    "index": {
+      "headTitle": "Home",
+      "title": "Find your perfect stay",
+      "welcome": "Welcome {name}",
+      "invalidLink": "The link is invalid or has expired"
+    },
+    "profile": {
+      "headTitle": "Profile",
+      "title": "This is your profile",
+      "confirmChanges": "Are you sure you want to save the changes?",
+      "confirmLogout": "Are you sure you want to log out?",
+      "unsavedChangesWarning": "You have unsaved changes"
+    },
+    "login": {
+      "headTitle": "Login",
+      "title": "Access with your email",
+      "text": "We'll send an access link to your inbox",
+      "button": "Send link"
+    }
   },
   "components": {
     "navbar": {
@@ -36,24 +59,6 @@
       "loginSuccess": "We sent an access link to your email",
       "loginError": "There was an error sending the access link",
       "signOutError": "There was an error logging out"
-    }
-  },
-  "pages": {
-    "index": {
-      "title": "Find your perfect stay",
-      "welcome": "Welcome {name}",
-      "invalidLink": "The link is invalid or has expired"
-    },
-    "profile": {
-      "title": "This is your profile",
-      "confirmChanges": "Are you sure you want to save the changes?",
-      "confirmLogout": "Are you sure you want to log out?",
-      "unsavedChangesWarning": "You have unsaved changes"
-    },
-    "login": {
-      "title": "Access with your email",
-      "text": "We'll send an access link to your inbox",
-      "button": "Send link"
     }
   }
 }

@@ -24,14 +24,14 @@ export default defineNuxtConfig({
     baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
     locales: [
       {
-        code: 'es-ES',
+        code: 'es',
         iso: 'en-US',
         dir: 'ltr',
         name: 'Español',
         countryCode: 'ar'
       },
       {
-        code: 'en-US',
+        code: 'en',
         iso: 'en-US',
         dir: 'ltr',
         name: 'English',
@@ -39,13 +39,13 @@ export default defineNuxtConfig({
       }
     ],
     strategy: 'prefix',
-    experimental: {
-      switchLocalePathLinkSSR: true
-    },
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'all'
+      redirectOn: 'root'
+    },
+    experimental: {
+      switchLocalePathLinkSSR: true
     },
     vueI18n: './i18n.config.ts'
   },
@@ -79,11 +79,11 @@ export default defineNuxtConfig({
   components: [
     { path: '~/components', prefix: '', pathPrefix: false }
   ],
-  css: ['~/styles/main.scss'],
-  app: {
-    head: {
-      titleTemplate: 'Ayrampo | %s',
-      title: 'Home'
-    }
-  }
+  css: ['~/styles/main.scss']
+  // app: {
+  //   head: {
+  //     titleTemplate: 'Ayrampo | %s',
+  //     title: 'Home'
+  //   }
+  // }
 })

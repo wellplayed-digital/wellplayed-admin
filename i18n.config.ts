@@ -1,13 +1,13 @@
 // import { useLocalStorage } from '@vueuse/core'
 import { en as vuetifyEn, es as vuetifyEs } from 'vuetify/locale'
-import esEs from '~/locales/es-ES.json'
-import enUS from '~/locales/en-US.json'
+import es from '~/locales/es.json'
+import en from '~/locales/en.json'
 
 export default {
   legacy: false,
   messages: {
-    'es-ES': {
-      ...esEs,
+    es: {
+      ...es,
       $vuetify: {
         ...vuetifyEs,
         dataIterator: {
@@ -16,8 +16,8 @@ export default {
         }
       }
     },
-    'en-US': {
-      ...enUS,
+    en: {
+      ...en,
       $vuetify: {
         ...vuetifyEn,
         dataIterator: {

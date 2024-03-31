@@ -1,5 +1,4 @@
 {
-  "test": "Funciona {name}!",
   "global": {
     "language": "Lenguaje",
     "currency": "Divisa",
@@ -12,6 +11,27 @@
     "cancel": "Cancelar",
     "login": "Iniciar Sesión",
     "logout": "Cerrar Sesión"
+  },
+  "pages": {
+    "index": {
+      "headTitle": "Home",
+      "title": "¿Cuando deseas viajar?",
+      "welcome": "Bienvenido {name}",
+      "invalidLink": "El link es invalido o ha expirado"
+    },
+    "profile": {
+      "headTitle": "Perfil",
+      "title": "Este es tu perfil",
+      "confirmChanges": "¿Estás seguro que deseas guardar los cambios?",
+      "confirmLogout": "¿Estás seguro que deseas cerrar sesión?",
+      "unsavedChangesWarning": "Tienes cambios sin guardar"
+    },
+    "login": {
+      "headTitle": "Iniciar Sesión",
+      "title": "Ingresa con tu email",
+      "text": "Enviaremos un link de acceso a tu inbox",
+      "button": "Enviar link"
+    }
   },
   "components": {
     "navbar": {
@@ -36,24 +56,6 @@
       "loginSuccess": "Enviamos un link de acceso a tu email",
       "loginError": "Hubo un error al enviar el link de acceso",
       "signOutError": "Hubo un error al cerrar sesión"
-    }
-  },
-  "pages": {
-    "index": {
-      "title": "¿Cuando deseas viajar?",
-      "welcome": "Bienvenido {name}",
-      "invalidLink": "El link es invalido o ha expirado"
-    },
-    "profile": {
-      "title": "Este es tu perfil",
-      "confirmChanges": "¿Estás seguro que deseas guardar los cambios?",
-      "confirmLogout": "¿Estás seguro que deseas cerrar sesión?",
-      "unsavedChangesWarning": "Tienes cambios sin guardar"
-    },
-    "login": {
-      "title": "Ingresa con tu email",
-      "text": "Enviaremos un link de acceso a tu inbox",
-      "button": "Enviar link"
     }
   }
 }

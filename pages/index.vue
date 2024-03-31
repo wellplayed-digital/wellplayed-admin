@@ -34,6 +34,7 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core'
 
+definePageMeta({ title: 'pages.index.headTitle' })
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
 const slides = ref([

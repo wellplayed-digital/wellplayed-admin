@@ -73,7 +73,7 @@ export const useUserStore = defineStore('user', () => {
         fetchProfile()
       ])
       snackbar.success({ text: $t('stores.user.loginSuccess') })
-      navigateTo('/')
+      // navigateTo('/')
     } catch (error) {
       snackbar.error({ text: $t('stores.user.loginError') })
     } finally {
@@ -92,7 +92,7 @@ export const useUserStore = defineStore('user', () => {
       const { error } = await supabase.auth.signOut()
       if (error) { throw error }
       reset()
-      navigateTo('/')
+      // navigateTo('/')
     } catch (error) {
       snackbar.error({
         text: t('stores.user.signOutError'),
