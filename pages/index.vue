@@ -46,8 +46,8 @@ const slides = ref([
 const results = ref([])
 const loading = ref(false)
 const firstSearch = ref(false)
-const startDate = ref(useLocalStorage('startDate'))
-const endDate = ref(useLocalStorage('endDate'))
+const startDate = ref(useLocalStorage('startDate', null))
+const endDate = ref(useLocalStorage('endDate', null))
 const guests = ref(useLocalStorage('guests', 1))
 const searchStay = async () => {
   try {

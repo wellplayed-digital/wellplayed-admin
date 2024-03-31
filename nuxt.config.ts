@@ -14,42 +14,46 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: false },
   modules: [
-    '@pinia/nuxt',
     '@nuxtjs/i18n',
+    '@nuxtjs/supabase',
+    '@pinia/nuxt',
     'vuetify-nuxt-module',
-    'nuxt-swiper',
-    '@nuxtjs/supabase'
+    'nuxt-swiper'
   ],
+  i18n: {
+    baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
+    locales: [
+      {
+        code: 'es-ES',
+        iso: 'en-US',
+        dir: 'ltr',
+        name: 'Español',
+        countryCode: 'ar'
+      },
+      {
+        code: 'en-US',
+        iso: 'en-US',
+        dir: 'ltr',
+        name: 'English',
+        countryCode: 'us'
+      }
+    ],
+    strategy: 'prefix',
+    experimental: {
+      switchLocalePathLinkSSR: true
+    },
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'all'
+    },
+    vueI18n: './i18n.config.ts'
+  },
+  supabase: {
+    redirect: false
+  },
   pinia: {
     storesDirs: ['./stores/**']
-  },
-  i18n: {
-    vueI18n: './i18n.config.ts'
-    // locales: [
-    //   {
-    //     code: 'en',
-    //     iso: 'en-US',
-    //     file: 'en.json',
-    //     name: 'English',
-    //     dir: 'ltr'
-    //   },
-    //   {
-    //     code: 'es',
-    //     iso: 'es-ES',
-    //     file: 'es.json',
-    //     name: 'Español',
-    //     dir: 'ltr'
-    //   }
-    // ],
-    // lazy: true,
-    // strategy: 'no_prefix',
-    // detectBrowserLanguage: false,
-    // langDir: './locales',
-    // defaultLocale: 'en',
-    // types: 'composition',
-    // pages: undefined,
-    // dynamicRouteParams: false,
-    // skipSettingLocaleOnNavigate: true,
   },
   vuetify: {
     vuetifyOptions: {
@@ -70,24 +74,12 @@ export default defineNuxtConfig({
       }
     }
   },
-  supabase: {
-    redirectOptions: {
-      login: '/auth/login',
-      callback: '/'
-    }
-  },
+
   // Autoimport components
   components: [
     { path: '~/components', prefix: '', pathPrefix: false }
   ],
-  css: [
-    // Vuetify & Icons
-    // 'vuetify/styles',
-    // '@mdi/font/css/materialdesignicons.css',
-
-    // Custom SCSS: Overrides / Utilities
-    '~/styles/main.scss'
-  ],
+  css: ['~/styles/main.scss'],
   app: {
     head: {
       titleTemplate: 'Ayrampo | %s',

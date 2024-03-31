@@ -47,7 +47,7 @@
       </v-alert>
       <v-alert color="primary" icon="mdi-alert" variant="outlined">
         <span>{{ $t('components.checkoutDialog.loginWarning') }}</span>
-        <WpLink to="/auth/login">
+        <WpLink :to="localePath('/auth/login')">
           {{ $t('global.login') }}
         </WpLink>
       </v-alert>
@@ -56,6 +56,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath()
 const userStore = useUserStore()
 const currencyStore = useCurrencyStore()
 const { ISOtoFormat } = useDates()

@@ -2,7 +2,7 @@
 import { DateTime } from 'luxon'
 
 export default () => {
-  const languageStore = useLanguageStore()
+  // const languageStore = useLanguageStore()
 
   const ISO = (options = { plus: {} }) => {
     return DateTime.local().plus(options.plus).toISODate()
@@ -18,7 +18,8 @@ export default () => {
   const ISOtoFormat = (date, options = { format: 'DATE_MED' }) => {
     if (!date) { return null }
     return DateTime
-      .fromISO(date, { locale: languageStore.userLanguage.locale })
+      // .fromISO(date, { locale: languageStore.userLanguage.locale })
+      .fromISO(date, { locale: 'en-US' })
       .toLocaleString(DateTime[options.format])
   }
 
