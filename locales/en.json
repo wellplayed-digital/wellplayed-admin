@@ -1,7 +1,4 @@
 {
-  "layouts": {
-    "title": "{title}"
-  },
   "global": {
     "language": "Language",
     "currency": "Currency",
@@ -19,8 +16,8 @@
     "index": {
       "headTitle": "Home",
       "title": "Find your perfect stay",
-      "welcome": "Welcome {name}",
-      "invalidLink": "The link is invalid or has expired"
+      "invalidLinkError": "The link is invalid or has expired",
+      "welcomeSuccess": "Welcome {name}!"
     },
     "profile": {
       "headTitle": "Profile",
@@ -59,6 +56,9 @@
       "loginSuccess": "We sent an access link to your email",
       "loginError": "There was an error sending the access link",
       "signOutError": "There was an error logging out"
+    },
+    "currency": {
+      "dollarError": "Cannot get dollar price"
     }
   }
 }

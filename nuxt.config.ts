@@ -14,11 +14,11 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: false },
   modules: [
-    '@nuxtjs/i18n',
-    '@nuxtjs/supabase',
     '@pinia/nuxt',
+    '@nuxtjs/i18n',
     'vuetify-nuxt-module',
-    'nuxt-swiper'
+    'nuxt-swiper',
+    '@nuxtjs/supabase'
   ],
   i18n: {
     baseUrl: process.env.NUXT_PUBLIC_BASE_URL,

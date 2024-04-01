@@ -13,9 +13,6 @@
           {{ $t('pages.index.title') }}
         </h1>
         <StayForm
-          v-model:start-date="startDate"
-          v-model:end-date="endDate"
-          v-model:guests="guests"
           :loading="loading"
           @submit="searchStay"
         />
@@ -32,11 +29,14 @@
 </template>
 
 <script setup>
-import { useLocalStorage } from '@vueuse/core'
-
-definePageMeta({ title: 'pages.index.headTitle' })
-const supabase = useSupabaseClient()
+definePageMeta({
+  title: 'pages.index.headTitle'
+})
+const route = useRoute()
+const userStore = useUserStore()
+const { t } = useI18n()
 const snackbar = useSnackbar()
+const supabase = useSupabaseClient()
 const slides = ref([
   { key: 'slide-1', imgSrc: '/img/1.jpg' },
   { key: 'slide-2', imgSrc: '/img/2.jpg' },
@@ -47,16 +47,13 @@ const slides = ref([
 const results = ref([])
 const loading = ref(false)
 const firstSearch = ref(false)
-const startDate = ref(useLocalStorage('startDate', null))
-const endDate = ref(useLocalStorage('endDate', null))
-const guests = ref(useLocalStorage('guests', 1))
-const searchStay = async () => {
+const searchStay = async ({ startDate, endDate, guests }) => {
   try {
     loading.value = true
     const { data, error } = await supabase.rpc('search_stay', {
-      start_date: startDate.value,
-      end_date: endDate.value,
-      guests: guests.value
+      start_date: startDate,
+      end_date: endDate,
+      guests
     })
     if (error) { throw error }
     results.value = data
@@ -67,4 +64,15 @@ const searchStay = async () => {
     loading.value = false
   }
 }
+onMounted(() => {
+  // Check if comes from magic link
+  if (route.query.error === 'unauthorized_client') {
+    snackbar.error({ text: t('pages.index.invalidLinkError') })
+    return
+  }
+  if (route.query.code && userStore.user) {
+    const userName = userStore.profile?.first_name || userStore.user.email
+    snackbar.success({ text: t('pages.index.welcomeSuccess', { name: userName }) })
+  }
+})
 </script>

@@ -1,10 +1,20 @@
 <template>
   <NuxtLink
-    class="wp-font-brand wp-reset-link"
+    class="wp-brand-logo wp-font-brand wp-reset-link d-inline-flex flex-column align-center"
     :to="to"
     :style="{ fontSize }"
   >
-    Ayrampo
+    <WpBrandISO
+      width="2.5rem"
+      :style="{
+        width: '4rem',
+        marginBottom: '-0.75rem',
+      }"
+      :loading="loading"
+    />
+    <span>
+      Ayrampo
+    </span>
   </NuxtLink>
 </template>
 
@@ -19,4 +29,5 @@ const fontSizePerSize = {
   large: '3rem'
 }
 const fontSize = computed(() => fontSizePerSize[props.size])
+const loading = ref(false)
 </script>

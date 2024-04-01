@@ -1,66 +1,66 @@
 <template>
-  <client-only>
-    <WpForm :disabled="loading" @submit="submit">
-      <v-row dense>
-        <v-col cols="12" sm="6" lg="3">
-          <WpDatePicker
-            v-model="startDate"
-            :min="startLimit.min"
-            :max="startLimit.max"
-            label="Check In"
-            prepend-inner-icon="mdi-calendar-start"
-            hide-details
-            @update:model-value="validateEndDate"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" lg="3">
-          <WpDatePicker
-            v-model="endDate"
-            :min="endLimit.min"
-            :max="endLimit.max"
-            label="Check Out"
-            prepend-inner-icon="mdi-calendar-end"
-            hide-details
-          >
-            <template #append-inner>
-              <v-icon icon="mdi-clock" size="small" color="primary" />
-              <div class="text-body-2 text-primary px-1 text-no-wrap">
-                {{ totalNights }} {{ $t('global.nights', totalNights) }}
-              </div>
-            </template>
-          </WpDatePicker>
-        </v-col>
-        <v-col cols="12" sm="6" lg="3">
-          <WpCounterField
-            v-model="guests"
-            :label="$t('global.guests', 2)"
-            :min="1"
-            :max="5"
-            hide-details
-          />
-        </v-col>
-        <v-col cols="12" sm="6" lg="3">
-          <WpButton
-            type="submit"
-            size="x-large"
-            :style="{marginTop: '2px'}"
-            block
-            color="primary"
-            :loading="loading"
-          >
-            <v-icon>mdi-magnify</v-icon>
-          </WpButton>
-        </v-col>
-      </v-row>
-    </WpForm>
-  </client-only>
+  <WpForm :disabled="loading" @submit="submit">
+    <v-row dense>
+      <v-col cols="12" sm="6" lg="3">
+        <WpDatePicker
+          v-model="startDate"
+          :min="startLimit.min"
+          :max="startLimit.max"
+          label="Check In"
+          prepend-inner-icon="mdi-calendar-start"
+          hide-details
+          @update:model-value="validateEndDate"
+        />
+      </v-col>
+      <v-col cols="12" sm="6" lg="3">
+        <WpDatePicker
+          v-model="endDate"
+          :min="endLimit.min"
+          :max="endLimit.max"
+          label="Check Out"
+          prepend-inner-icon="mdi-calendar-end"
+          hide-details
+        >
+          <template #append-inner>
+            <v-icon icon="mdi-clock" size="small" color="primary" />
+            <div class="text-body-2 text-primary px-1 text-no-wrap">
+              {{ totalNights }} {{ $t('global.nights', totalNights) }}
+            </div>
+          </template>
+        </WpDatePicker>
+      </v-col>
+      <v-col cols="12" sm="6" lg="3">
+        <WpCounterField
+          v-model="guests"
+          :label="$t('global.guests', 2)"
+          :min="1"
+          :max="5"
+          hide-details
+        />
+      </v-col>
+      <v-col cols="12" sm="6" lg="3">
+        <WpButton
+          type="submit"
+          size="x-large"
+          :style="{marginTop: '2px'}"
+          block
+          color="primary"
+          :loading="loading"
+        >
+          <v-icon>mdi-magnify</v-icon>
+        </WpButton>
+      </v-col>
+    </v-row>
+  </WpForm>
 </template>
 
 <script setup>
 const { ISO, ISOtoISO, unitDiff } = useDates()
-const startDate = defineModel('startDate', { type: String, default: null })
-const endDate = defineModel('endDate', { type: String, default: null })
-const guests = defineModel('guests', { type: Number, default: null })
+const getDefaultStartDate = () => ISO()
+const getDefaultEndDate = () => ISO({ plus: { days: 1 } })
+const startDate = useCookie('startDate', { default: getDefaultStartDate })
+const endDate = useCookie('endDate', { default: getDefaultEndDate })
+const guests = useCookie('guests', { default: () => 2 })
 defineProps({
   loading: { type: Boolean, default: false }
 })
@@ -80,7 +80,7 @@ const endLimit = computed(() => ({
 const totalNights = computed(() => unitDiff(startDate.value, endDate.value, 'days'))
 const validateEndDate = async () => {
   await nextTick()
-  if (!endDate.value || totalNights.value < MIN_NIGHTS) {
+  if (totalNights.value < MIN_NIGHTS) {
     endDate.value = endLimit.value.min
   }
   if (totalNights.value > MAX_NIGHTS) {
@@ -88,8 +88,9 @@ const validateEndDate = async () => {
   }
 }
 const validateStoredDates = () => {
-  if (!startDate.value || unitDiff(ISO(), startDate.value, 'days') < 0) {
-    startDate.value = ISO()
+  const isInThePast = unitDiff(ISO(), startDate.value, 'days') < 0
+  if (isInThePast) {
+    startDate.value = getDefaultStartDate()
   }
   validateEndDate()
 }

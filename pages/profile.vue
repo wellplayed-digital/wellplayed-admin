@@ -6,7 +6,7 @@
       </h1>
       <WpConfirmDialog
         :text="$t('pages.profile.confirmChanges')"
-        @confirm="userStore.updateProfile({ firstName, lastName })"
+        @confirm="userStore.updateProfile(firstName, lastName)"
         @cancel="unsavedChangesWarning"
       >
         <template #activator="{ open }">
@@ -77,7 +77,10 @@
 </template>
 
 <script setup>
-definePageMeta({ title: 'pages.profile.headTitle' })
+definePageMeta({
+  title: 'pages.profile.headTitle',
+  middleware: ['auth']
+})
 const { required } = useRules()
 const userStore = useUserStore()
 const snackbar = useSnackbar()

@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "update-types": "dotenv npx supabase gen types typescript --project-id  %SUPABASE_PROJECT_ID% --schema public > types/supabase.ts"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
@@ -35,6 +36,7 @@
     "@mdi/font": "^7.4.47",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/core": "^10.7.1",
+    "dotenv-cli": "^7.4.1",
     "luxon": "^3.4.4",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.1.7"

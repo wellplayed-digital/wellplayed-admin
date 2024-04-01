@@ -1,12 +1,11 @@
 export default defineEventHandler(async () => {
-  try {
-    const dollar = await criptoya.dollar()
-    const dollarPrice = dollar.blue.ask
-    return dollarPrice
-  } catch (error) {
+  const dollar = await criptoya.dollar()
+  const dollarPrice = dollar?.cripto?.usdt?.bid || dollar?.blue?.bid
+  if (!dollarPrice) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Cannot get dollar price'
+      message: 'Cannot get dollar price'
     })
   }
+  return dollarPrice
 })

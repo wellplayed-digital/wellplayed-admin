@@ -16,8 +16,8 @@
     "index": {
       "headTitle": "Home",
       "title": "¿Cuando deseas viajar?",
-      "welcome": "Bienvenido {name}",
-      "invalidLink": "El link es invalido o ha expirado"
+      "invalidLinkError": "El link es invalido o ha expirado",
+      "welcomeSuccess": "Bienvenido {name}!"
     },
     "profile": {
       "headTitle": "Perfil",
@@ -56,6 +56,9 @@
       "loginSuccess": "Enviamos un link de acceso a tu email",
       "loginError": "Hubo un error al enviar el link de acceso",
       "signOutError": "Hubo un error al cerrar sesión"
+    },
+    "currency": {
+      "dollarError": "No se puede obtener el precio del dolar"
     }
   }
 }

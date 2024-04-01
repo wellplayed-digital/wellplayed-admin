@@ -25,7 +25,9 @@
 const { locale: currentLocaleCode, locales } = useI18n()
 const router = useRouter()
 const switchLocalePath = useSwitchLocalePath()
-const currentLocale = computed(() => locales.value.find(locale => locale.code === currentLocaleCode.value))
+const currentLocale = computed(() => {
+  return locales.value.find(locale => locale.code === currentLocaleCode.value)
+})
 const changeLocale = (locale) => {
   const path = switchLocalePath(locale)
   router.push({ path })

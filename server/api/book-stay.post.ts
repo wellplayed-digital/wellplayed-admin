@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   const body = await readBody(event)
 
-  await supabase.auth.setSession({
+  await (supabase.auth as any).setSession({
     access_token: body.access_token,
     refresh_token: body.refresh_token
   })

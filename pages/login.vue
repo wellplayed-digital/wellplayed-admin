@@ -39,7 +39,10 @@
 </template>
 
 <script setup>
-definePageMeta({ title: 'pages.login.headTitle' })
+definePageMeta({
+  title: 'pages.login.headTitle',
+  middleware: ['guest']
+})
 const { required, validEmail } = useRules()
 const userStore = useUserStore()
 const email = ref(null)

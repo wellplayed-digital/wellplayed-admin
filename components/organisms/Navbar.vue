@@ -73,13 +73,13 @@ const rightLinks = computed(() => [
   {
     key: 'login',
     text: t('global.login'),
-    to: localePath('/auth/login'),
+    to: localePath('/login'),
     visible: !userStore.user
   },
   {
     key: 'profile',
     text: t('components.navbar.profile'),
-    to: localePath('/auth/profile'),
+    to: localePath('/profile'),
     visible: !!userStore.user
   }
 ])

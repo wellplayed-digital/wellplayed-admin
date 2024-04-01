@@ -47,7 +47,7 @@
       </v-alert>
       <v-alert color="primary" icon="mdi-alert" variant="outlined">
         <span>{{ $t('components.checkoutDialog.loginWarning') }}</span>
-        <WpLink :to="localePath('/auth/login')">
+        <WpLink :to="localePath('/login')">
           {{ $t('global.login') }}
         </WpLink>
       </v-alert>

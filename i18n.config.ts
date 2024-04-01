@@ -1,4 +1,3 @@
-// import { useLocalStorage } from '@vueuse/core'
 import { en as vuetifyEn, es as vuetifyEs } from 'vuetify/locale'
 import es from '~/locales/es.json'
 import en from '~/locales/en.json'

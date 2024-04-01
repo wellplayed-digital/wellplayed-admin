@@ -2,8 +2,11 @@ import { render } from 'vue'
 import Snackbar from '~/components/organisms/Snackbar.vue'
 
 export default () => {
-  const log = ({ text, color }) => {
-    let componentInstance = null
+  const log = ({ text, color }: {
+    text: string,
+    color?: 'info' | 'error' | 'warning' | 'success'
+  }) => {
+    let componentInstance: any = null
     const nuxtApp = useNuxtApp()
     const mountEl = document.createElement('div')
     document.body.appendChild(mountEl)
@@ -21,20 +24,20 @@ export default () => {
     snackbar?.log({ text, color })
   }
 
-  const info = ({ text }) => {
+  const info = ({ text }: { text: string }) => {
     log({ text })
   }
 
-  const error = ({ text }) => {
+  const error = ({ text }: { text: string }) => {
     log({ text, color: 'error' })
   }
 
-  const warning = ({ text }) => {
+  const warning = ({ text }: { text: string }) => {
     log({ text, color: 'warning' })
   }
 
-  const success = ({ text, description }) => {
-    log({ text, description, color: 'success' })
+  const success = ({ text }: { text: string }) => {
+    log({ text, color: 'success' })
   }
 
   return {

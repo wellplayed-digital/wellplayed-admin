@@ -11,12 +11,11 @@
     </Head>
     <Body>
       <v-app>
-        <client-only>
-          <Navbar />
-        </client-only>
+        <Navbar />
         <v-main>
           <NuxtPage />
         </v-main>
+        <WpLoaderFull :loading="loading" />
       </v-app>
     </Body>
   </Html>
@@ -31,4 +30,9 @@ const head = useLocaleHead({
   addSeoAttributes: true
 })
 const title = computed(() => `Ayrampo | ${t(route.meta.title)}`)
+const loading = ref(true)
+onMounted(async () => {
+  await nextTick()
+  loading.value = false
+})
 </script>

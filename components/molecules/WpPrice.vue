@@ -1,11 +1,11 @@
 <template>
   <div class="d-flex flex-column align-end">
     <div v-if="discount" class="text-disabled custom-line-through">
-      <span class="text-h5 mr-1">{{ currencyStore.getPrice(basePrice) }}</span>
+      <span class="text-h5 mr-1">{{ getBasePrice }}</span>
       <span class="text-body-1">{{ currencyStore.userCurrency.code }}</span>
     </div>
     <div class="text-primary">
-      <span class="text-h4 mr-1">{{ currencyStore.getPrice(finalPrice) }}</span>
+      <span class="text-h4 mr-1">{{ getFinalPrice }}</span>
       <span class="text-body-1">{{ currencyStore.userCurrency.code }}</span>
     </div>
   </div>
@@ -13,11 +13,13 @@
 
 <script setup>
 const currencyStore = useCurrencyStore()
-defineProps({
+const props = defineProps({
   basePrice: { type: Number, required: true },
   finalPrice: { type: Number, required: true },
   discount: { type: Boolean, default: false }
 })
+const getBasePrice = computed(() => currencyStore.getPrice(props.basePrice))
+const getFinalPrice = computed(() => currencyStore.getPrice(props.finalPrice))
 </script>
 
 <style lang="scss" scoped>
