@@ -7,9 +7,9 @@
   >
     <template #activator="{ props: slotProps }">
       <v-btn
+        v-bind="{ ...$attrs, ...slotProps }"
         :icon="icon"
         :variant="variant"
-        v-bind="{ ...$attrs, ...slotProps }"
       >
         <template v-for="(_, slotName) in $slots" #[slotName]>
           <slot :name="slotName" />
@@ -19,9 +19,9 @@
   </v-tooltip>
   <v-btn
     v-else
+    v-bind="$attrs"
     :icon="icon"
     :variant="variant"
-    v-bind="$attrs"
   >
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />

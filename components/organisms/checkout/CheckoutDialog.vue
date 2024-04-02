@@ -5,7 +5,7 @@
     :can-confirm="!!userStore.user"
   >
     <template #activator="slotAttrs">
-      <slot name="activator" v-bind="slotAttrs" />
+      <slot v-bind="slotAttrs" name="activator" />
     </template>
     <template #default>
       <h3 class="text-h5">

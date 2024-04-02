@@ -1,5 +1,5 @@
 <template>
-  <v-btn :color="color" elevation="0" v-bind="$attrs">
+  <v-btn v-bind="$attrs" :color="color" elevation="0">
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />
     </template>

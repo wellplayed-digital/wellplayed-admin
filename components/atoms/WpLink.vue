@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink class="wp-link" v-bind="$attrs">
+  <NuxtLink v-bind="$attrs" class="wp-link">
     <slot />
   </NuxtLink>
 </template>

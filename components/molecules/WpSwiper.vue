@@ -1,12 +1,12 @@
 <template>
   <Swiper
+    v-bind="$attrs"
     :modules="[SwiperAutoplay, SwiperEffectFade]"
     effect="fade"
     :speed="2000"
     :slides-per-view="1"
     :loop="true"
     :autoplay="{ delay: 4000 }"
-    v-bind="$attrs"
   >
     <SwiperSlide
       v-for="(slide, index) in slides"

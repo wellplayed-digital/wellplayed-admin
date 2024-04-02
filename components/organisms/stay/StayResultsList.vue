@@ -9,7 +9,7 @@
     >
       <CheckoutDialog :result="result">
         <template #activator="{ props: slotProps }">
-          <StayResultCard :result="result" v-bind="slotProps" />
+          <StayResultCard v-bind="slotProps" :result="result" />
         </template>
       </CheckoutDialog>
     </v-col>

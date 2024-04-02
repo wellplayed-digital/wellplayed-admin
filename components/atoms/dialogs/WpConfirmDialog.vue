@@ -6,7 +6,7 @@
     transition="scale-transition"
   >
     <template #activator="slotAttrs">
-      <slot name="activator" v-bind="{ ...slotAttrs, open }" />
+      <slot v-bind="{ ...slotAttrs, open }" name="activator" />
     </template>
     <WpCard>
       <v-card-text class="py-6">

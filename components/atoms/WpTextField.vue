@@ -1,5 +1,5 @@
 <template>
-  <v-text-field ref="$textField" v-bind="$attrs" :variant="variant">
+  <v-text-field v-bind="$attrs" ref="$textField">
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />
     </template>
@@ -7,9 +7,6 @@
 </template>
 
 <script setup>
-defineProps({
-  variant: { type: String, default: 'outlined' }
-})
 const $textField = ref()
 const focus = async () => {
   await nextTick()

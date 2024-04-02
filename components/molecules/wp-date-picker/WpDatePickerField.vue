@@ -1,5 +1,6 @@
 <template>
   <WpTextField
+    v-bind="$attrs"
     active
     :model-value="formattedDate"
     :label="label"
@@ -9,7 +10,6 @@
     :hide-details="hideDetails"
     :autofocus="autofocus"
     class="wp-cursor-pointer"
-    v-bind="$attrs"
   >
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />

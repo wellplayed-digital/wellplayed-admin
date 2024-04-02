@@ -1,11 +1,10 @@
 <template>
   <WpTextField
-    v-model="count"
     v-bind="$attrs"
+    v-model="count"
     type="number"
     hide-spin-buttons
     readonly
-    variant="outlined"
     class="wp-counter-field wp-cursor-pointer"
     :class="{ 'min-reached': minReached, 'max-reached': maxReached }"
     prepend-inner-icon="mdi-minus"

@@ -62,11 +62,11 @@
       >
         <template #activator="{ props: slotProps }">
           <WpButton
+            v-bind="slotProps"
             variant="tonal"
             size="x-large"
             block
             :loading="userStore.signingOut"
-            v-bind="slotProps"
           >
             {{ $t('global.logout') }}
           </WpButton>

@@ -7,7 +7,7 @@
         </template>
       </WpSwiper>
     </template>
-    <div class="wp-bg-glass py-6">
+    <WpBgGlass class="py-6">
       <WpContainer>
         <h1 class="text-h5 text-center mb-8">
           {{ $t('pages.index.title') }}
@@ -24,7 +24,7 @@
           />
         </WpTransition>
       </WpContainer>
-    </div>
+    </WpBgGlass>
   </WpPage>
 </template>
 

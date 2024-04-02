@@ -3,7 +3,7 @@
     <v-row align="center">
       <v-col cols="5">
         <WpButton
-          v-for="link in visibleLeftLinks"
+          v-for="link in leftLinks"
           :key="link.key"
           size="small"
           variant="text"
@@ -20,7 +20,7 @@
       <v-col cols="5" class="d-flex justify-end align-center">
         <div class="mr-4">
           <WpButton
-            v-for="link in visibleRightLinks"
+            v-for="link in rightLinks"
             :key="link.key"
             variant="text"
             size="small"
@@ -42,48 +42,9 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
 const localePath = useLocalePath()
-const userStore = useUserStore()
-const leftLinks = computed(() => [
-  {
-    key: 'book',
-    text: t('components.navbar.book'),
-    to: localePath('/'),
-    visible: true
-  },
-  {
-    key: 'aboutUs',
-    text: t('components.navbar.aboutUs'),
-    to: null,
-    visible: true
-  },
-  {
-    key: 'gallery',
-    text: t('components.navbar.gallery'),
-    to: null,
-    visible: true
-  }
-])
-const visibleLeftLinks = computed(() => {
-  return leftLinks.value.filter(link => link.visible)
-})
-const rightLinks = computed(() => [
-  {
-    key: 'login',
-    text: t('global.login'),
-    to: localePath('/login'),
-    visible: !userStore.user
-  },
-  {
-    key: 'profile',
-    text: t('components.navbar.profile'),
-    to: localePath('/profile'),
-    visible: !!userStore.user
-  }
-])
-const visibleRightLinks = computed(() => {
-  return rightLinks.value.filter(link => link.visible)
+defineProps({
+  leftLinks: { type: Array, required: true },
+  rightLinks: { type: Array, required: true }
 })
 </script>
