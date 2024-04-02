@@ -1,23 +1,23 @@
 <template>
   <WpAsyncDialog
-    width="600"
+    :width="display.xs ? '100%' : '40rem'"
     :confirm-function="bookStay"
     :can-confirm="!!userStore.user"
+    :fullscreen="display.xs"
   >
     <template #activator="slotAttrs">
       <slot v-bind="slotAttrs" name="activator" />
     </template>
     <template #default>
-      <h3 class="text-h5">
+      <h3 class="text-h6 text-medium-emphasis mb-2">
         {{ $t('components.checkoutDialog.title') }}
       </h3>
-      <p class="text-h6 text-medium-emphasis mb-4">
+      <p class="text-h4 mb-8">
         {{ $t('components.checkoutDialog.subtitle') }}
       </p>
-
       <v-alert class="mb-4">
-        <v-row dense>
-          <v-col sm="6">
+        <v-row dense :no-gutters="display.smAndDown">
+          <v-col cols="12" sm="6">
             <div
               v-for="(leftDetail, index) in leftDetails"
               :key="`leftDetail-${index}`"
@@ -30,7 +30,7 @@
               </div>
             </div>
           </v-col>
-          <v-col sm="6">
+          <v-col cols="12" sm="6">
             <div
               v-for="(rightDetail, index) in rightDetails"
               :key="`rightDetail-${index}`"
@@ -45,6 +45,8 @@
           </v-col>
         </v-row>
       </v-alert>
+    </template>
+    <template #append-footer>
       <v-alert color="primary" icon="mdi-alert" variant="outlined">
         <span>{{ $t('components.checkoutDialog.loginWarning') }}</span>
         <WpLink :to="localePath('/login')">
@@ -56,6 +58,7 @@
 </template>
 
 <script setup>
+const display = ref(useDisplay())
 const localePath = useLocalePath()
 const userStore = useUserStore()
 const currencyStore = useCurrencyStore()

@@ -31,10 +31,10 @@
           </WpButton>
         </div>
         <div class="mr-4">
-          <WpCurrencySelect />
+          <CurrencySelect />
         </div>
         <div>
-          <WpLanguageSelect />
+          <LanguageSelect />
         </div>
       </v-col>
     </v-row>

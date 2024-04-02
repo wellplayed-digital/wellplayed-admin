@@ -1,6 +1,6 @@
 <template>
   <div class="wp-page">
-    <div class="wp-page__background wp-overlay wp-overlay-50">
+    <div class="wp-page__background wp-overlay">
       <slot name="background" />
     </div>
     <slot />

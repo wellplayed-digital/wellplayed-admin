@@ -9,7 +9,7 @@
     :prepend-inner-icon="prependInnerIcon"
     :hide-details="hideDetails"
     :autofocus="autofocus"
-    class="wp-cursor-pointer"
+    class="wp-date-picker-field"
   >
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />
@@ -31,3 +31,9 @@ const formattedDate = computed(() => {
   return ISOtoFormat(props.modelValue, { format: 'DATE_MED_WITH_WEEKDAY' })
 })
 </script>
+
+<style lang="scss" scoped>
+.wp-date-picker-field:deep(.v-field) {
+  cursor: pointer;
+}
+</style>

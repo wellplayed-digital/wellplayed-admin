@@ -7,10 +7,10 @@
         </template>
       </WpSwiper>
     </template>
-    <WpBgGlass content-class="py-12" :inverted="true">
+    <WpBgGlass content-class="pb-12" :inverted="true">
       <WpContainer>
         <div class="pb-14">
-          <h1 class="text-h4 text-center text-medium-emphasis">
+          <h1 class="text-h4 text-center">
             {{ $t('pages.index.title') }}
           </h1>
         </div>

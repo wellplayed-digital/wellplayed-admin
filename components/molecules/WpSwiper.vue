@@ -7,6 +7,7 @@
     :slides-per-view="1"
     :loop="true"
     :autoplay="{ delay: 4000 }"
+    :allow-touch-move="false"
   >
     <SwiperSlide
       v-for="(slide, index) in slides"

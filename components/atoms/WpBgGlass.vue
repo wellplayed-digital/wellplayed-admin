@@ -18,7 +18,7 @@ defineProps({
 .wp-bg-glass {
   position: relative;
   &__background {
-    --opacity: 0.75;
+    --opacity: 1;
     position: absolute;
     z-index: 1;
     top: 0;
@@ -26,7 +26,7 @@ defineProps({
     width: 100%;
     height: 100%;
     backdrop-filter: blur(6px);
-    mask-image: linear-gradient(to bottom, rgba(black, 1), rgba(black, var(--opacity)), rgba(black, 0));
+    mask-image: linear-gradient(to top, rgba(black, 0), rgba(black, var(--opacity)), rgba(black, 1));
     &--inverted {
       mask-image: linear-gradient(to bottom, rgba(black, 0), rgba(black, var(--opacity)), rgba(black, 1));
     }
@@ -35,9 +35,9 @@ defineProps({
     --opacity: 0.5;
     position: relative;
     z-index: 2;
-    background: linear-gradient(to bottom, rgba(black, var(--opacity)), rgba(black, 0), rgba(black, 0));
+    background: linear-gradient(to top, rgba(black, 0), rgba(black, 0) 50%, rgba(black, var(--opacity)));
     &--inverted {
-      background: linear-gradient(to bottom, rgba(black, 0), rgba(black, 0), rgba(black, var(--opacity)));
+      background: linear-gradient(to bottom, rgba(black, 0), rgba(black, 0) 50%, rgba(black, var(--opacity)));
     }
   }
 }

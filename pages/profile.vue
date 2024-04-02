@@ -10,10 +10,7 @@
         @cancel="unsavedChangesWarning"
       >
         <template #activator="{ open }">
-          <WpForm
-            :disabled="userStore.updatingProfile"
-            @submit="open"
-          >
+          <WpForm :disabled="userStore.updatingProfile" @submit="open">
             <template #default="{ valid }">
               <v-row dense>
                 <v-col cols="12">

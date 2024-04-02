@@ -71,8 +71,6 @@
 </template>
 
 <script setup>
-import { useDisplay } from 'vuetify'
-
 const date = defineModel({ type: String, default: null })
 const props = defineProps({
   label: { type: String, default: 'Date' },

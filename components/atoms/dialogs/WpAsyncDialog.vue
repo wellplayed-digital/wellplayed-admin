@@ -9,34 +9,37 @@
       <slot name="activator" v-bind="{ ...slotAttrs, open }" />
     </template>
     <WpCard>
-      <v-card-text class="py-6">
-        <div class="mb-4">
+      <v-card-text class="py-6 d-flex flex-column">
+        <div class="flex-grow-1">
           <slot name="default" />
         </div>
-        <v-row dense>
-          <v-col>
-            <WpButton
-              size="x-large"
-              block
-              variant="text"
-              @click="cancel"
-            >
-              {{ $t("global.cancel") }}
-            </WpButton>
-          </v-col>
-          <v-col>
-            <WpButton
-              size="x-large"
-              block
-              color="primary"
-              :loading="loading"
-              :disabled="!canConfirm"
-              @click="confirm"
-            >
-              {{ $t("global.confirm") }}
-            </WpButton>
-          </v-col>
-        </v-row>
+        <div>
+          <slot name="append-footer" />
+          <v-row dense class="mt-6">
+            <v-col>
+              <WpButton
+                size="x-large"
+                block
+                variant="text"
+                @click="cancel"
+              >
+                {{ $t("global.cancel") }}
+              </WpButton>
+            </v-col>
+            <v-col>
+              <WpButton
+                size="x-large"
+                block
+                color="primary"
+                :loading="loading"
+                :disabled="!canConfirm"
+                @click="confirm"
+              >
+                {{ $t("global.confirm") }}
+              </WpButton>
+            </v-col>
+          </v-row>
+        </div>
       </v-card-text>
     </WpCard>
   </v-dialog>
