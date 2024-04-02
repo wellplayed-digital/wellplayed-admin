@@ -1,5 +1,7 @@
 <template>
   <WpAsyncDialog
+    :title="$t('components.checkoutDialog.title')"
+    :subtitle="$t('components.checkoutDialog.subtitle')"
     :width="display.xs ? '100%' : '40rem'"
     :confirm-function="bookStay"
     :can-confirm="!!userStore.user"
@@ -9,12 +11,6 @@
       <slot v-bind="slotAttrs" name="activator" />
     </template>
     <template #default>
-      <h3 class="text-h6 text-medium-emphasis mb-2">
-        {{ $t('components.checkoutDialog.title') }}
-      </h3>
-      <p class="text-h4 mb-8">
-        {{ $t('components.checkoutDialog.subtitle') }}
-      </p>
       <v-alert class="mb-4">
         <v-row dense :no-gutters="display.smAndDown">
           <v-col cols="12" sm="6">

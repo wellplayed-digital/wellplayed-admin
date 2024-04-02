@@ -1,7 +1,7 @@
 <template>
   <div class="wp-bg-glass">
     <div class="wp-bg-glass__background" :class="{ 'wp-bg-glass__background--inverted': inverted }" />
-    <div class="wp-bg-glass__content" :class="{ 'wp-bg-glass__content--inverted': inverted, [contentClass]: true }">
+    <div class="wp-bg-glass__content" :class="contentClass">
       <slot />
     </div>
   </div>
@@ -35,10 +35,6 @@ defineProps({
     --opacity: 0.5;
     position: relative;
     z-index: 2;
-    background: linear-gradient(to top, rgba(black, 0), rgba(black, 0) 50%, rgba(black, var(--opacity)));
-    &--inverted {
-      background: linear-gradient(to bottom, rgba(black, 0), rgba(black, 0) 50%, rgba(black, var(--opacity)));
-    }
   }
 }
 </style>
