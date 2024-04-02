@@ -69,10 +69,10 @@ body {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -50vh;
-    right: -50vh;
+    left: -30vh;
+    right: -30vh;
     z-index: 1;
-    pointer-events: none; 
+    pointer-events: none;
     background: radial-gradient(circle, rgba(black, 0.3) 0%, rgba(black, 1) 100%);
   }
 }
