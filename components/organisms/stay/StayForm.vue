@@ -9,7 +9,6 @@
           label="Check In"
           prepend-inner-icon="mdi-calendar-start"
           hide-details
-          variant="solo"
           @update:model-value="validateEndDate"
         />
       </v-col>
@@ -21,7 +20,6 @@
           label="Check Out"
           prepend-inner-icon="mdi-calendar-end"
           hide-details
-          variant="solo"
         >
           <template #append-inner>
             <v-icon icon="mdi-clock" size="small" color="primary" />

@@ -15,7 +15,7 @@
   "pages": {
     "index": {
       "headTitle": "Home",
-      "title": "¿Cuando deseas viajar?",
+      "title": "¿Cuando deseas venir?",
       "invalidLinkError": "El link es invalido o ha expirado",
       "welcomeSuccess": "Bienvenido {name}!"
     },

@@ -3,15 +3,17 @@
     <template #background>
       <WpSwiper name="home" :slides="slides" class="h-100">
         <template #default="slide">
-          <v-img :src="slide.imgSrc" height="100%" cover />
+          <WpImg :img-src="slide.imgSrc" />
         </template>
       </WpSwiper>
     </template>
-    <WpBgGlass class="py-6">
+    <WpBgGlass content-class="py-12" :inverted="true">
       <WpContainer>
-        <h1 class="text-h5 text-center mb-8">
-          {{ $t('pages.index.title') }}
-        </h1>
+        <div class="pb-14">
+          <h1 class="text-h4 text-center text-medium-emphasis">
+            {{ $t('pages.index.title') }}
+          </h1>
+        </div>
         <StayForm
           :loading="loading"
           @submit="searchStay"

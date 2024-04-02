@@ -1,5 +1,5 @@
 <template>
-  <WpContainer class="py-10 wp-z-index-10">
+  <WpContainer class="wp-z-index-10">
     <v-row align="center">
       <v-col cols="5">
         <WpButton

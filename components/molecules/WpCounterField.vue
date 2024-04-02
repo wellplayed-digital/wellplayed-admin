@@ -1,17 +1,30 @@
 <template>
-  <WpTextField
-    v-bind="$attrs"
-    v-model="count"
-    type="number"
-    hide-spin-buttons
-    readonly
-    class="wp-counter-field wp-cursor-pointer"
-    :class="{ 'min-reached': minReached, 'max-reached': maxReached }"
-    prepend-inner-icon="mdi-minus"
-    append-inner-icon="mdi-plus"
-    @click:prepend-inner="decrement"
-    @click:append-inner="increment"
-  />
+  <div class="d-flex align-center">
+    <WpTextField
+      v-bind="$attrs"
+      v-model="count"
+      type="number"
+      hide-spin-buttons
+      readonly
+      class="wp-counter-field wp-cursor-pointer"
+      :class="{ 'min-reached': minReached, 'max-reached': maxReached }"
+    >
+      <template #prepend-inner>
+        <WpIconButton
+          icon="mdi-minus"
+          size="small"
+          @click="decrement"
+        />
+      </template>
+      <template #append-inner>
+        <WpIconButton
+          icon="mdi-plus"
+          size="small"
+          @click="increment"
+        />
+      </template>
+    </WpTextField>
+  </div>
 </template>
 
 <script setup>

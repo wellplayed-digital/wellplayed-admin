@@ -1,7 +1,9 @@
 <template>
-  <WpContainer class="py-10 wp-z-index-10">
-    <NavbarDesktop :left-links="visibleLeftLinks" :right-links="visibleRightLinks" />
-  </WpContainer>
+  <WpBgGlass class="wp-z-index-10" content-class="py-8">
+    <WpContainer>
+      <NavbarDesktop :left-links="visibleLeftLinks" :right-links="visibleRightLinks" />
+    </WpContainer>
+  </WpBgGlass>
 </template>
 
 <script setup>
