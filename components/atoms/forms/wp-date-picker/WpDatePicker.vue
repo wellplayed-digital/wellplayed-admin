@@ -7,13 +7,13 @@
   >
     <template #activator="{props: slotProps}">
       <WpDatePickerField
+        v-bind="{...$attrs, ...slotProps}"
         :model-value="date"
         :label="label"
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
         :hide-details="hideDetails"
         :autofocus="autofocus"
-        v-bind="slotProps"
       >
         <template #append-inner>
           <slot name="append-inner" />
@@ -22,8 +22,8 @@
     </template>
     <WpCard class="pt-4">
       <WpDatePickerCalendar
-        v-model="date"
         v-bind="$attrs"
+        v-model="date"
         @update:model-value="show = false"
       >
         <template #title>
@@ -45,13 +45,13 @@
   >
     <template #activator="{props: slotProps}">
       <WpDatePickerField
+        v-bind="{...$attrs, ...slotProps}"
         :model-value="date"
         :label="label"
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
         :hide-details="hideDetails"
         :autofocus="autofocus"
-        v-bind="slotProps"
       >
         <template #append-inner>
           <slot name="append-inner" />
@@ -60,9 +60,9 @@
     </template>
     <WpCard class="pt-4 mb-4">
       <WpDatePickerCalendar
+        v-bind="$attrs"
         v-model="date"
         :title="label"
-        v-bind="$attrs"
         hide-header
         @update:model-value="show = false"
       />
@@ -71,8 +71,6 @@
 </template>
 
 <script setup>
-import { useDisplay } from 'vuetify'
-
 const date = defineModel({ type: String, default: null })
 const props = defineProps({
   label: { type: String, default: 'Date' },

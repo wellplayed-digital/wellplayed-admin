@@ -1,18 +1,31 @@
 <template>
-  <WpTextField
-    v-model="count"
-    v-bind="$attrs"
-    type="number"
-    hide-spin-buttons
-    readonly
-    variant="outlined"
-    class="wp-counter-field wp-cursor-pointer"
-    :class="{ 'min-reached': minReached, 'max-reached': maxReached }"
-    prepend-inner-icon="mdi-minus"
-    append-inner-icon="mdi-plus"
-    @click:prepend-inner="decrement"
-    @click:append-inner="increment"
-  />
+  <div class="d-flex align-center">
+    <WpTextField
+      v-bind="$attrs"
+      v-model="count"
+      type="number"
+      hide-spin-buttons
+      readonly
+      class="wp-counter-field"
+    >
+      <template #prepend-inner>
+        <WpIconButton
+          icon="mdi-minus"
+          size="small"
+          :disabled="minReached"
+          @click="decrement"
+        />
+      </template>
+      <template #append-inner>
+        <WpIconButton
+          icon="mdi-plus"
+          size="small"
+          :disabled="maxReached"
+          @click="increment"
+        />
+      </template>
+    </WpTextField>
+  </div>
 </template>
 
 <script setup>
@@ -44,10 +57,7 @@ const increment = () => {
 .wp-counter-field:deep(input) {
   text-align: center;
 }
-.min-reached:deep(.v-field__prepend-inner) {
-  opacity: 0;
-}
-.max-reached:deep(.v-field__append-inner) {
-  opacity: 0;
+.wp-counter-field:deep(.v-field) {
+  cursor: default;
 }
 </style>

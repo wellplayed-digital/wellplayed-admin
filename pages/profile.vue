@@ -10,10 +10,7 @@
         @cancel="unsavedChangesWarning"
       >
         <template #activator="{ open }">
-          <WpForm
-            :disabled="userStore.updatingProfile"
-            @submit="open"
-          >
+          <WpForm :disabled="userStore.updatingProfile" @submit="open">
             <template #default="{ valid }">
               <v-row dense>
                 <v-col cols="12">
@@ -62,11 +59,11 @@
       >
         <template #activator="{ props: slotProps }">
           <WpButton
+            v-bind="slotProps"
             variant="tonal"
             size="x-large"
             block
             :loading="userStore.signingOut"
-            v-bind="slotProps"
           >
             {{ $t('global.logout') }}
           </WpButton>

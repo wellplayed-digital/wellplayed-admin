@@ -1,28 +1,14 @@
 <template>
-  <v-tooltip
-    v-if="tooltipText"
-    :text="tooltipText"
-    :location="tooltipLocation"
-    theme="light"
-  >
+  <v-tooltip v-if="tooltipText" :text="tooltipText" :location="tooltipLocation" theme="light">
     <template #activator="{ props: slotProps }">
-      <v-btn
-        :icon="icon"
-        :variant="variant"
-        v-bind="{ ...$attrs, ...slotProps }"
-      >
+      <v-btn v-bind="{ ...$attrs, ...slotProps }" :icon="icon" :variant="variant">
         <template v-for="(_, slotName) in $slots" #[slotName]>
           <slot :name="slotName" />
         </template>
       </v-btn>
     </template>
   </v-tooltip>
-  <v-btn
-    v-else
-    :icon="icon"
-    :variant="variant"
-    v-bind="$attrs"
-  >
+  <v-btn v-else v-bind="$attrs" :icon="icon" :variant="variant">
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />
     </template>

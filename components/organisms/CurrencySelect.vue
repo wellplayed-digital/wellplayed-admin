@@ -2,12 +2,12 @@
   <v-menu location="bottom center">
     <template #activator="{props: slotProps}">
       <WpButton
+        v-bind="slotProps"
         variant="text"
         size="small"
         prepend-icon="mdi-cash-multiple"
         prepend-icon-color="primary"
         :tooltip-text="$t('global.currency')"
-        v-bind="slotProps"
       >
         {{ currencyStore.userCurrency.code }}
       </WpButton>

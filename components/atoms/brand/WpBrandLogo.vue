@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    class="wp-brand-logo wp-font-brand wp-reset-link d-inline-flex flex-column align-center"
+    class="wp-brand-logo wp-font-brand wp-reset-link d-inline-flex flex-column align-center wp-user-select-none"
     :to="to"
     :style="{ fontSize }"
   >

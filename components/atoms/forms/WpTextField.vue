@@ -1,5 +1,5 @@
 <template>
-  <v-text-field ref="$textField" v-bind="$attrs" :variant="variant">
+  <v-text-field v-bind="$attrs" ref="$textField" :variant="variant" class="wp-text-field">
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />
     </template>
@@ -17,3 +17,10 @@ const focus = async () => {
 }
 defineExpose({ focus })
 </script>
+
+<style lang="scss" scoped>
+.wp-text-field:deep(input) {
+  user-select: none !important;
+  pointer-events: none !important;
+}
+</style>

@@ -3,13 +3,12 @@ import type { Ref } from 'vue'
 import type { Database, Tables } from '~/types/supabase'
 
 export const useUserStore = defineStore('user', () => {
+  const localePath = useLocalePath()
   const snackbar = useSnackbar()
-
   const supabase = useSupabaseClient<Database>()
 
   const user = useSupabaseUser()
   const profile: Ref<Tables<'profiles'> | null> = ref(null)
-
   const logginIn = ref(false)
   const updatingProfile = ref(false)
   const signingOut = ref(false)
@@ -56,7 +55,7 @@ export const useUserStore = defineStore('user', () => {
       const { error } = await (supabase.auth as any).signInWithOtp({ email })
       if (error) { throw error }
       snackbar.success({ text: useT('stores.user.loginSuccess') })
-      // navigateTo('/')
+      navigateTo(localePath('/'))
     } catch (error) {
       snackbar.error({ text: useT('stores.user.loginError') })
     } finally {
@@ -69,8 +68,8 @@ export const useUserStore = defineStore('user', () => {
       signingOut.value = true
       const { error } = await (supabase.auth as any).signOut()
       if (error) { throw error }
+      navigateTo(localePath('/'))
       reset()
-      // navigateTo('/')
     } catch (error) {
       snackbar.error({ text: useT('stores.user.signOutError') })
     } finally {

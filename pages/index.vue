@@ -1,12 +1,10 @@
 <template>
   <WpPage>
-    <div class="wp-bg-glass py-6">
-      <WpContainer>
-        <h1 class="text-h5 text-center mb-8">
-          {{ $t('pages.index.title') }}
-        </h1>
-      </WpContainer>
-    </div>
+    <WpContainer>
+      <h1 class="text-h5 text-center mb-8">
+        {{ $t('pages.index.title') }}
+      </h1>
+    </WpContainer>
   </WpPage>
 </template>
 
