@@ -47,24 +47,24 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const userStore = useUserStore()
 const leftLinks = computed(() => [
-  {
-    key: 'book',
-    text: t('components.navbar.book'),
-    to: localePath('/'),
-    visible: true
-  },
-  {
-    key: 'aboutUs',
-    text: t('components.navbar.aboutUs'),
-    to: null,
-    visible: true
-  },
-  {
-    key: 'gallery',
-    text: t('components.navbar.gallery'),
-    to: null,
-    visible: true
-  }
+  // {
+  //   key: 'book',
+  //   text: t('components.navbar.book'),
+  //   to: localePath('/'),
+  //   visible: true
+  // },
+  // {
+  //   key: 'aboutUs',
+  //   text: t('components.navbar.aboutUs'),
+  //   to: null,
+  //   visible: true
+  // },
+  // {
+  //   key: 'gallery',
+  //   text: t('components.navbar.gallery'),
+  //   to: null,
+  //   visible: true
+  // }
 ])
 const visibleLeftLinks = computed(() => {
   return leftLinks.value.filter(link => link.visible)

@@ -15,7 +15,7 @@
   "pages": {
     "index": {
       "headTitle": "Home",
-      "title": "Find your perfect stay",
+      "title": "This is the Home Page",
       "invalidLinkError": "The link is invalid or has expired",
       "welcomeSuccess": "Welcome {name}!"
     },
@@ -35,18 +35,7 @@
   },
   "components": {
     "navbar": {
-      "book": "Book",
-      "gallery": "Gallery",
-      "profile": "My Profile",
-      "aboutUs": "About Us"
-    },
-    "stayResultCard": {
-      "capacity": "Capacity"
-    },
-    "checkoutDialog": {
-      "title": "Booking Confirmation",
-      "subtitle": "Do you want to book this cabin?",
-      "loginWarning": "To book a cabin you have to "
+      "profile": "My Profile"
     }
   },
   "stores": {

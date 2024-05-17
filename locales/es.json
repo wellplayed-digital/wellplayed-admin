@@ -14,8 +14,8 @@
   },
   "pages": {
     "index": {
-      "headTitle": "Home",
-      "title": "¿Cuando deseas viajar?",
+      "headTitle": "Inicio",
+      "title": "Esta es la página de inicio",
       "invalidLinkError": "El link es invalido o ha expirado",
       "welcomeSuccess": "Bienvenido {name}!"
     },
@@ -35,18 +35,7 @@
   },
   "components": {
     "navbar": {
-      "book": "Reservar",
-      "gallery": "Galeria",
-      "profile": "Mi Perfil",
-      "aboutUs": "Sobre Nosotros"
-    },
-    "stayResultCard": {
-      "capacity": "Capacidad"
-    },
-    "checkoutDialog": {
-      "title": "Confirmación de Reserva",
-      "subtitle": "¿Deseas reservar esta cabaña?",
-      "loginWarning": "Para reservar una cabaña tienes que "
+      "profile": "Mi Perfil"
     }
   },
   "stores": {
