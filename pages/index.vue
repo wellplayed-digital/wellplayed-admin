@@ -1,11 +1,9 @@
 <template>
-  <WpPage>
-    <WpContainer>
-      <h1 class="text-h5 text-center mb-8">
-        {{ $t('pages.index.title') }}
-      </h1>
-    </WpContainer>
-  </WpPage>
+  <WpContainer>
+    <h1 class="text-h5 text-center mb-8">
+      {{ $t('pages.index.title') }}
+    </h1>
+  </WpContainer>
 </template>
 
 <script setup>

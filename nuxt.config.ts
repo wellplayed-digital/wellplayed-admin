@@ -1,15 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import colors from 'vuetify/util/colors'
+// import colors from 'vuetify/util/colors'
 
 export default defineNuxtConfig({
   runtimeConfig: {
-    mercadopagoAccessToken: '',
-    mercadopagoWebhookSecret: '',
     public: {
       enviroment: '',
-      baseUrl: '',
-      mercadopagoKey: ''
+      baseUrl: ''
     }
   },
   devtools: { enabled: false },
@@ -55,16 +52,11 @@ export default defineNuxtConfig({
   vuetify: {
     vuetifyOptions: {
       theme: {
-        defaultTheme: 'dark',
         themes: {
-          dark: {
-            colors: {
-              primary: colors.amber.base
-            }
-          },
           light: {
             colors: {
-              primary: colors.amber.base
+              primary: '#764DF4',
+              secondary: '#F42557'
             }
           }
         }
@@ -77,10 +69,4 @@ export default defineNuxtConfig({
     { path: '~/components', prefix: '', pathPrefix: false }
   ],
   css: ['~/styles/main.scss']
-  // app: {
-  //   head: {
-  //     titleTemplate: 'Ayrampo | %s',
-  //     title: 'Home'
-  //   }
-  // }
 })

@@ -1,19 +1,15 @@
 <template>
   <NuxtLink
-    class="wp-brand-logo wp-font-brand wp-reset-link d-inline-flex flex-column align-center wp-user-select-none"
+    class="wp-brand-logo wp-font-brand wp-reset-link d-inline-flex align-center wp-user-select-none"
     :to="to"
     :style="{ fontSize }"
   >
     <WpBrandISO
-      width="2.5rem"
-      :style="{
-        width: '4rem',
-        marginBottom: '-0.75rem',
-      }"
+      :style="{ width: '1.5rem', marginBottom: '1rem' }"
       :loading="loading"
     />
-    <span>
-      Ayrampo
+    <span class="ml-4">
+      Wellplayed Admin
     </span>
   </NuxtLink>
 </template>
@@ -25,7 +21,7 @@ const props = defineProps({
 })
 const fontSizePerSize = {
   small: '1.5rem',
-  medium: '2rem',
+  medium: '1.5rem',
   large: '3rem'
 }
 const fontSize = computed(() => fontSizePerSize[props.size])

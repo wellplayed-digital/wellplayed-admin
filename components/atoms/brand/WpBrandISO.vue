@@ -1,16 +1,133 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 1000 1000"
-    fill="currentColor"
+    viewBox="0 0 1370.08 3424.03"
     class="wp-brand-iso"
-    :class="{ 'wp-brand-iso--loading': loading }"
   >
-    <path d="m462.61,804.46c-186.25,16.5-384.08-68.39-409.43-262.36,120.26-48.08,254.29,2.93,329.21,108.08,20.86,52.09,47.83,103.95,80.22,154.28Z" />
-    <path d="m356.85,573.89c-48.63-44.78-109.82-75.74-174.14-81.28-14.28-58.54-4.55-141.66,13.24-188.96,29.25,5.3,94.67,21.88,155.23,70.04-15.55,60.73-13.64,127.98,5.67,200.2Z" />
-    <path d="m626.32,458.04l-.06.5.02.59c.84,71.62-31.78,203.93-126.32,342.22-130.5-185.94-196.38-443.86.51-604.74,71.28,57.38,134.49,187.16,125.85,261.43Z" />
-    <path d="m817.27,492.6c-64.34,5.53-125.47,36.42-174.09,81.2,19.21-72.54,21.11-139.77,5.64-200.11,60.52-48.14,125.9-64.73,155.14-70.03,17.82,47.2,27.59,130.3,13.31,188.94Z" />
-    <path d="m946.81,542.12c-25.48,194.07-223.09,278.75-409.48,262.35,32.49-50.33,58.79-100.89,80.27-154.29,75.18-105.31,208.64-156.1,329.21-108.06Z" />
+    <defs>
+      <linearGradient
+        id="linear-gradient"
+        x1="500.92"
+        y1="756.92"
+        x2="861.72"
+        y2="548.61"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" stop-color="#5f32ce" />
+        <stop offset="1" stop-color="#f42557" />
+      </linearGradient>
+      <linearGradient
+        id="linear-gradient-2"
+        x1="802.83"
+        y1="922.95"
+        x2="1262.34"
+        y2="657.65"
+        xlink:href="#linear-gradient"
+      />
+      <linearGradient
+        id="linear-gradient-3"
+        x1="-168.75"
+        y1="717.76"
+        x2="568.19"
+        y2="292.28"
+        xlink:href="#linear-gradient"
+      />
+      <linearGradient
+        id="linear-gradient-4"
+        x1="242.85"
+        y1="1430.67"
+        x2="1124.31"
+        y2="921.76"
+        xlink:href="#linear-gradient"
+      />
+      <linearGradient
+        id="linear-gradient-5"
+        x1="711.03"
+        y1="963.24"
+        x2="1050.43"
+        y2="375.4"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" stop-color="#f42557" />
+        <stop offset="1" stop-color="#ff507a" />
+      </linearGradient>
+      <linearGradient
+        id="linear-gradient-6"
+        x1="92.72"
+        y1="3370.16"
+        x2="667.69"
+        y2="3038.2"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" stop-color="#bc1d52" />
+        <stop offset="1" stop-color="#764df4" />
+      </linearGradient>
+      <linearGradient
+        id="linear-gradient-7"
+        x1="741.58"
+        y1="2989.82"
+        x2="1245.57"
+        y2="2698.84"
+        xlink:href="#linear-gradient-6"
+      />
+      <linearGradient
+        id="linear-gradient-8"
+        x1="-409.68"
+        y1="2499.98"
+        x2="812.58"
+        y2="1794.31"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" stop-color="#bc1d52" />
+        <stop offset="1" stop-color="#764df4" />
+      </linearGradient>
+      <linearGradient
+        id="linear-gradient-9"
+        x1="546.59"
+        y1="2330.74"
+        x2="1217.97"
+        y2="1943.12"
+        xlink:href="#linear-gradient-6"
+      />
+      <linearGradient
+        id="linear-gradient-10"
+        x1="702.14"
+        y1="1605.92"
+        x2="943"
+        y2="1466.86"
+        xlink:href="#linear-gradient-6"
+      />
+      <linearGradient
+        id="linear-gradient-11"
+        x1="332.61"
+        y1="2948.84"
+        x2="1159.09"
+        y2="1517.34"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" stop-color="#764df4" />
+        <stop offset="1" stop-color="#8271ff" />
+      </linearGradient>
+    </defs>
+    <g id="Layer_3" data-name="Layer 3">
+      <g>
+        <g>
+          <polygon points="619.36 452.72 525.02 798.67 758.6 848.56 757.62 368.3 619.36 452.72" style="fill: url(#linear-gradient);" />
+          <polygon points="1123.85 417.79 980.22 499.79 865.02 1030.66 1124.76 1057.81 1123.85 417.79" style="fill: url(#linear-gradient-2);" />
+          <polygon points="395.96 781.33 399.44 0 5.61 229.73 0 1010.04 395.96 781.33" style="fill: url(#linear-gradient-3);" />
+          <polygon points="1363.51 1336.06 395.96 781.33 0 1010.04 962.73 1575.98 1363.51 1336.06" style="fill: url(#linear-gradient-4);" />
+          <polygon points="399.44 0 395.96 781.33 1363.51 1336.06 1363.19 556.42 1123.85 417.79 1124.56 1055.41 1003.1 985.28 1003.83 510.45 757.62 368.3 758.29 843.95 640.93 776.19 639.84 138.79 399.44 0" style="fill: url(#linear-gradient-5);" />
+        </g>
+        <g>
+          <polygon points="395.4 2985.1 756.95 3192.81 363.68 3424.03 3.44 3215.52 395.4 2985.1" style="fill: url(#linear-gradient-6);" />
+          <polygon points="758.63 2698 882.54 2633.7 1367.67 2910.33 968.55 3139.48 757.47 3017.34 758.63 2698" style="fill: url(#linear-gradient-7);" />
+          <polygon points="5.51 1314.2 399.46 1078.77 395.4 2985.1 3.44 3215.52 5.51 1314.2" style="fill: url(#linear-gradient-8);" />
+          <polygon points="882.54 2633.7 882.54 2494.7 1001.93 2562.13 1003.65 1571.9 761.94 1709.48 758.63 2698 882.54 2633.7" style="fill: url(#linear-gradient-9);" />
+          <polygon points="1003.65 1571.9 762.8 1430.84 761.94 1709.48 1003.65 1571.9" style="fill: url(#linear-gradient-10);" />
+          <polygon points="399.46 1078.77 395.4 2985.1 756.95 3192.81 762.8 1430.84 1003.65 1571.9 1001.93 2562.13 882.54 2494.7 882.54 2633.7 1367.67 2910.33 1370.08 1643.13 399.46 1078.77" style="fill: url(#linear-gradient-11);" />
+        </g>
+      </g>
+    </g>
   </svg>
 </template>
 

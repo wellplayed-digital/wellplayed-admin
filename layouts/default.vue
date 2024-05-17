@@ -29,7 +29,7 @@ const head = useLocaleHead({
   identifierAttribute: 'id',
   addSeoAttributes: true
 })
-const title = computed(() => `Ayrampo | ${t(route.meta.title)}`)
+const title = computed(() => `Wellplayed Admin | ${t(route.meta.title)}`)
 const loading = ref(true)
 onMounted(async () => {
   await nextTick()

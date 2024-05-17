@@ -20,7 +20,7 @@ defineProps({
   width: 100vw;
   height: 100dvh;
   height: 100vh;
-  background-color: black;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;

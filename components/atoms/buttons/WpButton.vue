@@ -1,5 +1,5 @@
 <template>
-  <v-tooltip v-if="tooltipText" :text="tooltipText" :location="tooltipLocation" theme="light">
+  <v-tooltip v-if="tooltipText" :text="tooltipText" :location="tooltipLocation">
     <template #activator="{ props: slotProps }">
       <v-btn v-bind="{ ...$attrs, ...slotProps }" :color="color" elevation="0">
         <template v-for="(_, slotName) in $slots" #[slotName]>
@@ -17,7 +17,7 @@
 
 <script setup>
 defineProps({
-  color: { type: String, default: 'white' },
+  color: { type: String, default: 'primary' },
   tooltipText: { type: String, default: null },
   tooltipLocation: { type: String, default: 'bottom' }
 })

@@ -3,7 +3,6 @@
     v-model="show"
     location="top"
     multi-line
-    theme="light"
     :color="color"
   >
     <div>

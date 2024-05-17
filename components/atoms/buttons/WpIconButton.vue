@@ -1,5 +1,5 @@
 <template>
-  <v-tooltip v-if="tooltipText" :text="tooltipText" :location="tooltipLocation" theme="light">
+  <v-tooltip v-if="tooltipText" :text="tooltipText" :location="tooltipLocation">
     <template #activator="{ props: slotProps }">
       <v-btn v-bind="{ ...$attrs, ...slotProps }" :icon="icon" :variant="variant">
         <template v-for="(_, slotName) in $slots" #[slotName]>
