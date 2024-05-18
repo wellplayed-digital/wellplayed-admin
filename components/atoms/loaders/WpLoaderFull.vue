@@ -20,7 +20,8 @@ defineProps({
   width: 100vw;
   height: 100dvh;
   height: 100vh;
-  background-color: white;
+  background: linear-gradient(45deg, rgb(var(--v-theme-primary)), rgb(var(--v-theme-secondary)));
+  // background-color: rgb(var(--v-theme-primary));
   display: flex;
   justify-content: center;
   align-items: center;

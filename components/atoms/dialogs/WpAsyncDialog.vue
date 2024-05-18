@@ -27,27 +27,24 @@
         <div>
           <slot name="default" />
         </div>
-        <div v-if="$slots['append-footer']" class="pt-2">
-          <slot name="append-footer" />
-        </div>
       </v-card-text>
       <WpDivider />
       <v-card-text class="py-6 flex-grow-0">
-        <v-row dense>
-          <v-col>
+        <div class="d-flex">
+          <div v-if="$slots['append-footer']">
+            <slot name="append-footer" v-bind="{ close }" />
+          </div>
+          <div class="flex-grow-1 d-flex justify-end">
             <WpButton
-              size="x-large"
-              block
+              size="large"
               variant="text"
+              class="mr-2"
               @click="cancel"
             >
               {{ $t("global.cancel") }}
             </WpButton>
-          </v-col>
-          <v-col>
             <WpButton
-              size="x-large"
-              block
+              size="large"
               color="primary"
               :loading="loading"
               :disabled="!canConfirm"
@@ -55,8 +52,8 @@
             >
               {{ $t("global.confirm") }}
             </WpButton>
-          </v-col>
-        </v-row>
+          </div>
+        </div>
       </v-card-text>
     </WpCard>
   </v-dialog>

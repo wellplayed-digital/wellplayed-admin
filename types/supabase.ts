@@ -9,129 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      bookings: {
-        Row: {
-          base_price_per_night: number
-          base_total_price: number
-          cabin: Json
-          cabin_id: number
-          created_at: string
-          discount: boolean
-          end_date: string
-          final_price_per_night: number
-          final_total_price: number
-          guests: number
-          id: number
-          nights_breakdown: Json[]
-          start_date: string
-          status: Database['public']['Enums']['booking_status']
-          total_nights: number
-          user_id: string
-        }
-        Insert: {
-          base_price_per_night: number
-          base_total_price: number
-          cabin: Json
-          cabin_id: number
-          created_at?: string
-          discount: boolean
-          end_date: string
-          final_price_per_night: number
-          final_total_price: number
-          guests: number
-          id?: number
-          nights_breakdown: Json[]
-          start_date: string
-          status?: Database['public']['Enums']['booking_status']
-          total_nights: number
-          user_id: string
-        }
-        Update: {
-          base_price_per_night?: number
-          base_total_price?: number
-          cabin?: Json
-          cabin_id?: number
-          created_at?: string
-          discount?: boolean
-          end_date?: string
-          final_price_per_night?: number
-          final_total_price?: number
-          guests?: number
-          id?: number
-          nights_breakdown?: Json[]
-          start_date?: string
-          status?: Database['public']['Enums']['booking_status']
-          total_nights?: number
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'public_bookings_cabin_id_fkey'
-            columns: ['cabin_id']
-            isOneToOne: false
-            referencedRelation: 'cabins'
-            referencedColumns: ['id']
-          },
-          {
-            foreignKeyName: 'public_bookings_user_id_fkey'
-            columns: ['user_id']
-            isOneToOne: false
-            referencedRelation: 'users'
-            referencedColumns: ['id']
-          },
-        ]
-      }
-      cabins: {
-        Row: {
-          base_price_per_night: number
-          capacity: number
-          enabled: boolean
-          id: number
-          name: string
-        }
-        Insert: {
-          base_price_per_night: number
-          capacity: number
-          enabled?: boolean
-          id?: number
-          name: string
-        }
-        Update: {
-          base_price_per_night?: number
-          capacity?: number
-          enabled?: boolean
-          id?: number
-          name?: string
-        }
-        Relationships: []
-      }
-      pricing_adjustments: {
-        Row: {
-          enabled: boolean
-          end_date: string
-          id: number
-          name: string
-          price_multiplier: number
-          start_date: string
-        }
-        Insert: {
-          enabled?: boolean
-          end_date: string
-          id?: number
-          name: string
-          price_multiplier: number
-          start_date: string
-        }
-        Update: {
-          enabled?: boolean
-          end_date?: string
-          id?: number
-          name?: string
-          price_multiplier?: number
-          start_date?: string
-        }
-        Relationships: []
-      }
       profiles: {
         Row: {
           first_name: string | null
@@ -161,61 +38,42 @@ export type Database = {
           },
         ]
       }
+      projects: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      book_stay: {
-        Args: {
-          cabin_id: number
-          start_date: string
-          end_date: string
-          guests: number
-        }
-        Returns: {
-          base_price_per_night: number
-          base_total_price: number
-          cabin: Json
-          cabin_id: number
-          created_at: string
-          discount: boolean
-          end_date: string
-          final_price_per_night: number
-          final_total_price: number
-          guests: number
-          id: number
-          nights_breakdown: Json[]
-          start_date: string
-          status: Database['public']['Enums']['booking_status']
-          total_nights: number
-          user_id: string
-        }
-      }
-      search_stay: {
-        Args: {
-          start_date: string
-          end_date: string
-          guests: number
-        }
-        Returns: {
-          cabin: Json
-          price_details: Json
-          stay_start_date: string
-          stay_end_date: string
-          stay_guests: number
-        }[]
-      }
+      [_ in never]: never
     }
     Enums: {
-      booking_status: 'pending' | 'confirmed' | 'cancelled'
+      [_ in never]: never
     }
     CompositeTypes: {
-      cabin_details: {
-        id: number | null
-        name: string | null
-        capacity: number | null
-      }
+      [_ in never]: never
     }
   }
 }

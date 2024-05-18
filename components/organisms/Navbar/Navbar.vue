@@ -1,9 +1,5 @@
 <template>
-  <WpBgGlass class="wp-z-index-10">
-    <WpContainer>
-      <NavbarDesktop :left-links="visibleLeftLinks" :right-links="visibleRightLinks" />
-    </WpContainer>
-  </WpBgGlass>
+  <NavbarDesktop :left-links="visibleLeftLinks" :right-links="visibleRightLinks" />
 </template>
 
 <script setup>

@@ -1,9 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap:wght@400;700&display=swap");
-
-:root {
-  --font-brand: "Nunito Sans", sans-serif;
-}
-
 body {
   background-color: #121212;
 }
@@ -54,14 +48,6 @@ body {
   text-decoration: none;
 }
 
-.wp-font-brand {
-  font-family: var(--font-brand) !important;
-  font-weight: 400 !important;
-  &.font-weight-bold {
-    font-weight: 700 !important;
-  }
-}
-
 .wp-overlay {
   position: relative;
   &::after {
@@ -75,4 +61,11 @@ body {
     pointer-events: none;
     background: radial-gradient(circle, rgba(black, 0.4) 0%, rgba(black, 1) 100%);
   }
+}
+
+.wp-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
 }
