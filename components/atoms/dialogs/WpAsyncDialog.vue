@@ -4,6 +4,7 @@
     :width="width"
     persistent
     transition="scale-transition"
+    @update:model-value="emitsOpenOrClose"
   >
     <template #activator="slotAttrs">
       <slot name="activator" v-bind="{ ...slotAttrs, open }" />
@@ -71,16 +72,15 @@ const props = defineProps({
   canConfirm: { type: Boolean, default: true },
   cancelText: { type: String, default: 'Cancel' }
 })
-const emits = defineEmits(['confirm', 'cancel'])
+const emits = defineEmits(['confirm', 'cancel', 'open', 'close'])
 const show = ref(false)
 const loading = ref(false)
 const confirm = async () => {
   try {
     loading.value = true
-    const res = await props.confirmFunction()
-    if (res?.cancel) { return }
-    emits('confirm')
+    await props.confirmFunction()
     show.value = false
+    emits('confirm')
   } catch (error) {
     snackbar.error({ text: error.message })
   } finally {
@@ -88,13 +88,22 @@ const confirm = async () => {
   }
 }
 const cancel = () => {
-  emits('cancel')
   show.value = false
+  emits('cancel')
 }
 const open = () => {
   show.value = true
+  emits('open')
 }
 const close = () => {
   show.value = false
+  emits('close')
+}
+const emitsOpenOrClose = (value) => {
+  if (value) {
+    emits('open')
+  } else {
+    emits('close')
+  }
 }
 </script>

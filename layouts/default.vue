@@ -1,5 +1,5 @@
 <template>
-  <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+  <Html lang="en-US">
     <Head>
       <Title>{{ title }}</Title>
       <template v-for="link in head.link" :key="link.id">
@@ -23,11 +23,7 @@
 
 <script setup>
 const route = useRoute()
-const head = useLocaleHead({
-  addDirAttribute: true,
-  identifierAttribute: 'id',
-  addSeoAttributes: true
-})
+const head = useHead()
 const title = computed(() => `Wellplayed Admin | ${route.meta.title}`)
 const loading = ref(true)
 onMounted(async () => {

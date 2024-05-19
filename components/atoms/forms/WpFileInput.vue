@@ -4,9 +4,9 @@
     ref="$textField"
     :variant="variant"
     :prepend-icon="null"
-    :place-holder="label"
     prepend-inner-icon="mdi-paperclip"
     class="wp-text-field"
+    clearable
   >
     <template v-for="(_, slotName) in $slots" #[slotName]>
       <slot :name="slotName" />

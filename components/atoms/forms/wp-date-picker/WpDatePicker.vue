@@ -14,6 +14,7 @@
         :prepend-inner-icon="prependInnerIcon"
         :hide-details="hideDetails"
         :autofocus="autofocus"
+        @clear="date = null"
       >
         <template #append-inner>
           <slot name="append-inner" />
@@ -43,10 +44,10 @@
     :close-on-content-click="false"
     location="bottom"
   >
-    <template #activator="{props: slotProps}">
+    <template #activator="{ props: slotProps }">
       <WpDatePickerField
         v-bind="{...$attrs, ...slotProps}"
-        :model-value="date"
+        v-model="date"
         :label="label"
         :rules="rules"
         :prepend-inner-icon="prependInnerIcon"
@@ -81,6 +82,9 @@ const props = defineProps({
 })
 const display = ref(useDisplay())
 const show = ref(props.autofocus)
+const clear = () => {
+  console.log('clear')
+}
 </script>
 
 <style lang="scss" scoped>

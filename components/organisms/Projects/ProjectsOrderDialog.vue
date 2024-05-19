@@ -43,6 +43,7 @@
               <WpCard
                 :variant="element.published ? 'flat' : 'tonal'"
                 :style="{ opacity: element.published ? '1' : '0.5' }"
+                :disabled="loading"
               >
                 <v-card-text class="wp-pointer-events-none">
                   <div class="d-flex justify-space-between align-center">
@@ -75,14 +76,13 @@
 
 <script setup>
 import { cloneDeep } from 'lodash'
-
-const projectsStore = useProjectsStore()
+const supabase = useSupabaseClient()
 const display = ref(useDisplay())
 const props = defineProps({
   projects: { type: Array, default: () => [] }
 })
-const getProjectsToEdit = () => cloneDeep(props.projects)
-const projectsToEdit = ref(getProjectsToEdit())
+const projectsToEdit = ref([])
+
 const dragging = ref(null)
 const dragStart = (element) => {
   dragging.value = projectsToEdit.value.find(project => project.order === element.oldIndex)
@@ -92,16 +92,18 @@ const reorderProjects = () => {
     project.order = index
   })
 }
+const reset = () => {
+  projectsToEdit.value = cloneDeep(props.projects)
+  reorderProjects()
+}
 const dragEnd = () => {
   dragging.value = null
   reorderProjects()
 }
+const loading = ref(false)
 const updateProjectsOrder = async () => {
-  await projectsStore.updateProjectsOrder(projectsToEdit.value)
-}
-const reset = () => {
-  projectsToEdit.value = getProjectsToEdit()
-  reorderProjects()
+  const { error } = await supabase.rpc('update_projects_order', { projects: projectsToEdit.value })
+  if (error) { throw error }
 }
 const orderByCreated = () => {
   projectsToEdit.value = projectsToEdit.value.sort((a, b) => {

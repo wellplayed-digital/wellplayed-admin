@@ -12,6 +12,7 @@
             variant="text"
             size="small"
             :to="link.to"
+            class="mr-2"
             @click="link.click"
           >
             {{ link.text }}

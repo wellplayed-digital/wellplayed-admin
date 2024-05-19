@@ -6,6 +6,12 @@
 const userStore = useUserStore()
 const links = computed(() => [
   {
+    key: 'projects',
+    text: 'Projects',
+    to: '/projects',
+    visible: !!userStore.user
+  },
+  {
     key: 'login',
     text: 'Login',
     to: '/login',
@@ -13,7 +19,7 @@ const links = computed(() => [
   },
   {
     key: 'profile',
-    text: 'Profile',
+    text: 'My Profile',
     to: '/profile',
     visible: !!userStore.user
   }
