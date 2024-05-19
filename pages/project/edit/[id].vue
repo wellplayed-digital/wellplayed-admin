@@ -1,22 +1,28 @@
 <template>
   <WpContainer max-width="800px">
     <div class="mb-10 d-flex align-center">
-      <WpIconButton icon="mdi-chevron-left" density="compact" size="x-large" to="/projects" />
-      <h1 class="text-h5 ml-2">
+      <WpIconButton
+        icon="mdi-chevron-left"
+        density="compact"
+        size="x-large"
+        class="ml-n4 mr-2"
+        to="/projects"
+      />
+      <h1 class="text-h5">
         Edit project
       </h1>
     </div>
-    <WpForm :disabled="disabled || loading || project.deleted" @submit="editProject">
-      <div>
-        <WpTextField v-model="projectToEdit.title" hide-details label="Title" />
+    <WpForm :disabled="disabled || loading || project.status === 'deleted'" @submit="editProject">
+      <div class="pb-4">
+        <WpTextField v-model="projectToEdit.title" label="Title" :rules="[required]" />
       </div>
-      <div class="pt-6">
+      <div class="pb-6">
         <WpTextarea v-model="projectToEdit.description" hide-details label="Description" />
       </div>
-      <div class="pt-6">
+      <div class="pb-6">
         <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
       </div>
-      <div class="pt-6 d-flex align-center">
+      <div class="pb-10 d-flex align-center">
         <div class="flex-grow-1">
           <WpDatePicker
             v-model="projectToEdit.published_at"
@@ -27,7 +33,7 @@
         </div>
         <div class="pl-6">
           <v-switch
-            v-model="projectToEdit.published"
+            v-model="published"
             label="Published"
             inset
             color="primary"
@@ -35,23 +41,24 @@
           />
         </div>
       </div>
-      <div class="pt-10 d-flex justify-space-between">
+      <div class="d-flex justify-space-between">
         <WpButton
-          v-if="project.deleted"
-          variant="tonal"
-          size="x-large"
-          @click="restoreProject"
-        >
-          Restore
-        </WpButton>
-        <WpButton
-          v-else
+          v-if="project.status !== 'deleted'"
           color="error"
           variant="tonal"
           size="x-large"
           @click="deleteProject"
         >
           Delete
+        </WpButton>
+        <WpButton
+          v-else
+          color="success"
+          variant="tonal"
+          size="x-large"
+          @click="restoreProject"
+        >
+          Restore
         </WpButton>
         <div class="d-flex justify-end">
           <WpButton
@@ -68,7 +75,7 @@
             type="submit"
             color="primary"
             size="x-large"
-            :disabled="disabled || project.deleted"
+            :disabled="disabled || project.status === 'deleted'"
             :loading="loading"
           >
             Save
@@ -85,21 +92,29 @@ const supabase = useSupabaseClient()
 const route = useRoute()
 const projectId = route.params.id
 const snackbar = useSnackbar()
+const { required } = useRules()
 const DEFAULT_PROJECT = {
   order: null,
   title: null,
   description: null,
   cover: null,
   published_at: null,
-  published: false
+  status: 'draft'
 }
 const disabled = ref(true)
-const project = ref(cloneDeep(DEFAULT_PROJECT))
-const projectToEdit = ref(cloneDeep(project.value))
+const project = ref(null)
+const projectToEdit = ref(null)
+const published = ref(null)
+const setProject = (data) => {
+  project.value = cloneDeep(data)
+  projectToEdit.value = cloneDeep(data)
+  published.value = data.status === 'published'
+}
+setProject(DEFAULT_PROJECT)
 const projectsLenght = ref(0)
 const fetchProjectsLength = async () => {
   try {
-    const { data, error } = await supabase.from('projects').select('id')
+    const { data, error } = await supabase.from('projects').select('id').eq('status', 'published')
     if (error) { throw error }
     projectsLenght.value = data.length
   } catch (error) {
@@ -115,8 +130,7 @@ const fetchProject = async () => {
       .eq('id', route.params.id)
       .single()
     if (error) { throw error }
-    project.value = data
-    projectToEdit.value = cloneDeep(project.value)
+    setProject(data)
     disabled.value = false
   } catch (error) {
     snackbar.error({ text: 'There was an error fetching the project' })
@@ -127,13 +141,13 @@ const loading = ref(false)
 const editProject = async () => {
   try {
     loading.value = true
-    const projectOrder = !projectToEdit.value.published ? 0 : project.value.order > 0 ? project.value.order : projectsLenght.value + 1
+    const projectOrder = !published.value ? 0 : project.value.order > 0 ? project.value.order : projectsLenght.value + 1
     const { error } = await supabase.from('projects').update({
       order: projectOrder,
       title: projectToEdit.value.title,
       description: projectToEdit.value.description,
       published_at: projectToEdit.value.publishedAt,
-      published: projectToEdit.value.published,
+      status: published.value ? 'published' : 'draft',
       updated_at: new Date().toUTCString()
     }).eq('id', project.value.id)
     if (error) { throw error }
@@ -150,8 +164,7 @@ const deleteProject = async () => {
     loading.value = true
     const { error } = await supabase.from('projects').update({
       order: 0,
-      published: false,
-      deleted: true,
+      status: 'deleted',
       updated_at: new Date().toUTCString()
     }).eq('id', projectId)
     if (error) { throw error }
@@ -169,7 +182,7 @@ const restoreProject = async () => {
   await fetchProjectsLength()
   try {
     const { error } = await supabase.from('projects').update({
-      deleted: false,
+      status: 'draft',
       updated_at: new Date().toUTCString()
     }).eq('id', projectId)
     if (error) { throw error }

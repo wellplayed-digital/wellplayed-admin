@@ -48,9 +48,9 @@ const showPublished = ref(true)
 const showDraft = ref(true)
 const showDeleted = ref(false)
 const filteredProjects = computed(() => projects.value.filter((project) => {
-  if (showDeleted.value && project.deleted) { return true }
-  if (showPublished.value && project.published) { return true }
-  if (showDraft.value && !project.published && !project.deleted) { return true }
+  if (project.status === 'published' && showPublished.value) { return true }
+  if (project.status === 'draft' && showDraft.value) { return true }
+  if (project.status === 'deleted' && showDeleted.value) { return true }
   return false
 }))
 const fetchProjects = async () => {

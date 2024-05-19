@@ -1,37 +1,46 @@
 <template>
   <WpContainer max-width="800px">
     <div class="mb-10 d-flex align-center">
-      <WpIconButton icon="mdi-chevron-left" density="compact" size="x-large" to="/projects" />
-      <h1 class="text-h5 ml-2">
+      <WpIconButton
+        icon="mdi-chevron-left"
+        density="compact"
+        size="x-large"
+        class="ml-n4 mr-2"
+        to="/projects"
+      />
+      <h1 class="text-h5">
         Create a new project
       </h1>
     </div>
-    <WpForm :loading="loading" @submit="createProject">
-      <div>
-        <WpTextField v-model="newProject.title" hide-details label="Title" />
+    <WpForm :disabled="loading" @submit="createProject">
+      <div class="pb-4">
+        <WpTextField v-model="newProject.title" label="Title" :rules="[required]" />
       </div>
-      <div class="pt-6">
+      <div class="pb-6">
         <WpTextarea v-model="newProject.description" hide-details label="Description" />
       </div>
-      <div class="pt-6">
+      <div class="pb-6">
         <WpFileInput v-model="newProject.cover" hide-details label="Cover" />
       </div>
-      <div class="pt-6 d-flex justify-space-between align-center">
-        <WpDatePicker
-          v-model="newProject.published_at"
-          label="Publish Date"
-          hide-details
-          class="mr-4"
-        />
-        <v-switch
-          v-model="newProject.published"
-          label="Published"
-          inset
-          color="primary"
-          hide-details
-        />
+      <div class="pb-10 d-flex justify-space-between align-center">
+        <div class="flex-grow-1 pr-6">
+          <WpDatePicker
+            v-model="newProject.published_at"
+            label="Publish Date"
+            hide-details
+          />
+        </div>
+        <div>
+          <v-switch
+            v-model="published"
+            label="Published"
+            inset
+            color="primary"
+            hide-details
+          />
+        </div>
       </div>
-      <div class="pt-10 d-flex justify-end">
+      <div class="d-flex justify-end">
         <WpButton
           color="primary"
           variant="text"
@@ -60,19 +69,21 @@
 import { cloneDeep } from 'lodash'
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
+const { required } = useRules()
 const DEFAULT_PROJECT = {
   cover: null,
   title: null,
   description: null,
   published_at: null,
-  published: false
+  status: 'draft'
 }
 const newProject = ref(cloneDeep(DEFAULT_PROJECT))
+const published = ref(false)
 const projectsLenght = ref(0)
 const disabled = ref(true)
 const fetchProjectsLength = async () => {
   try {
-    const { data, error } = await supabase.from('projects').select('id')
+    const { data, error } = await supabase.from('projects').select('id').eq('status', 'published')
     if (error) { throw error }
     projectsLenght.value = data.length
     disabled.value = false
@@ -87,16 +98,15 @@ const createProject = async () => {
   await fetchProjectsLength()
   try {
     const { data, error } = await supabase.from('projects').insert({
-      order: newProject.value.published ? projectsLenght.value + 1 : 0,
+      order: published.value ? projectsLenght.value + 1 : 0,
       title: newProject.value.title,
       description: newProject.value.description,
       // cover: newProject.value.cover,
       published_at: newProject.value.published_at,
-      published: newProject.value.published
+      status: published.value ? 'published' : 'draft'
     }).select().single()
     if (error) { throw error }
-    const newProjectId = data.id
-    await navigateTo(`/project/edit/${newProjectId}`)
+    await navigateTo(`/project/edit/${data.id}`)
     snackbar.success({ text: 'The project has been created successfully' })
   } catch (error) {
     snackbar.error({ text: 'There was an error creating the project' })

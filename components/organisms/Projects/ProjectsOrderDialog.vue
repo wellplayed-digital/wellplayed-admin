@@ -24,11 +24,7 @@
             class="py-1 wp-cursor-grab"
             :style="{ opacity: element.id === dragging?.id ? '0' : '1' }"
           >
-            <WpCard
-              :variant="element.published ? 'flat' : 'tonal'"
-              :style="{ opacity: element.published ? '1' : '0.5' }"
-              :disabled="loading"
-            >
+            <WpCard>
               <v-card-text class="wp-pointer-events-none">
                 <div class="d-flex justify-space-between align-center">
                   <div class="wp-ellipsis">
@@ -63,26 +59,25 @@ const props = defineProps({
 })
 defineEmits(['confirm'])
 const projectsToEdit = ref([])
-const dragging = ref(null)
-const dragStart = (element) => {
-  const originalOrder = projectsToEdit.value.length - element.oldIndex
-  dragging.value = projectsToEdit.value.find(project => project.order === originalOrder)
-}
 const reorderProjects = () => {
   projectsToEdit.value.forEach((project, index) => {
     project.order = projectsToEdit.value.length - index
   })
 }
 const reset = () => {
-  const publishedProjects = props.projects.filter(project => project.published && !project.deleted)
+  const publishedProjects = props.projects.filter(project => project.status === 'published')
   projectsToEdit.value = cloneDeep(publishedProjects)
   reorderProjects()
+}
+const dragging = ref(null)
+const dragStart = (element) => {
+  const originalOrder = projectsToEdit.value.length - element.oldIndex
+  dragging.value = projectsToEdit.value.find(project => project.order === originalOrder)
 }
 const dragEnd = () => {
   dragging.value = null
   reorderProjects()
 }
-const loading = ref(false)
 const updateProjectsOrder = async () => {
   const { error } = await supabase.rpc('update_projects_order', { projects: projectsToEdit.value })
   if (error) { throw error }

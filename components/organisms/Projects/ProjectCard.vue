@@ -16,14 +16,14 @@
         <div class="text-body-2 text-disabled">
           {{ ISOtoFormat(project.published_at) }}
         </div>
-        <WpChip v-if="project.deleted" color="error">
-          Deleted
-        </WpChip>
-        <WpChip v-else-if="project.published" color="primary">
+        <WpChip v-if="project.status === 'published'" color="primary">
           Published
         </WpChip>
-        <WpChip v-else color="info">
+        <WpChip v-else-if="project.status === 'draft'" color="info">
           Draft
+        </WpChip>
+        <WpChip v-else-if="project.status === 'deleted'" color="error">
+          Deleted
         </WpChip>
       </div>
     </v-card-text>
