@@ -3,7 +3,6 @@ import type { Ref } from 'vue'
 import type { Database, Tables } from '~/types/supabase'
 
 export const useUserStore = defineStore('user', () => {
-  const localePath = useLocalePath()
   const snackbar = useSnackbar()
   const supabase = useSupabaseClient<Database>()
 
@@ -40,9 +39,9 @@ export const useUserStore = defineStore('user', () => {
         updated_at: new Date().toUTCString()
       })
       if (error) { throw error }
-      snackbar.success({ text: useT('stores.user.updateProfileSuccess') })
+      snackbar.success({ text: 'Your profile has been updated successfully' })
     } catch (error) {
-      snackbar.error({ text: useT('stores.user.updateProfileError') })
+      snackbar.error({ text: 'There was an error updating your profile' })
     } finally {
       await fetchProfile()
       updatingProfile.value = false
@@ -54,10 +53,10 @@ export const useUserStore = defineStore('user', () => {
       logginIn.value = true
       const { error } = await (supabase.auth as any).signInWithOtp({ email })
       if (error) { throw error }
-      snackbar.success({ text: useT('stores.user.loginSuccess') })
-      navigateTo(localePath('/'))
+      snackbar.success({ text: 'We sent an access link to your email' })
+      navigateTo('/')
     } catch (error) {
-      snackbar.error({ text: useT('stores.user.loginError') })
+      snackbar.error({ text: 'There was an error sending the access link' })
     } finally {
       logginIn.value = false
     }
@@ -68,10 +67,10 @@ export const useUserStore = defineStore('user', () => {
       signingOut.value = true
       const { error } = await (supabase.auth as any).signOut()
       if (error) { throw error }
-      navigateTo(localePath('/'))
+      navigateTo('/')
       reset()
     } catch (error) {
-      snackbar.error({ text: useT('stores.user.signOutError') })
+      snackbar.error({ text: 'There was an error logging out' })
     } finally {
       signingOut.value = false
     }

@@ -1,29 +1,33 @@
 <template>
   <ProjectCreateDialog edit :project="project">
     <template #activator="{props: slotProps}">
-      <WpCard v-bind="slotProps">
+      <WpCard
+        :variant="project.published ? 'flat' : 'tonal'"
+        v-bind="slotProps"
+        :style="{ opacity: project.published ? '1' : '0.5' }"
+      >
         <v-card-text class="pt-6">
-          <div class="d-flex align-center">
-            <div v-if="project.title" class="text-h5 wp-ellipsis">
-              {{ project.title }}
-            </div>
-            <div v-else class="text-h5 wp-ellipsis text-disabled">
-              No title
-            </div>
-            <WpChip v-if="project.published" size="small" color="primary" class="ml-2">
-              Published
-            </WpChip>
+          <div class="text-h5 wp-ellipsis">
+            {{ project.title }}
           </div>
-          <div>
+          <div class="pb-4">
             <div v-if="project.description" class="text-body-1 wp-ellipsis text-medium-emphasis">
               {{ project.description }}
             </div>
-            <div v-else class="text-body-1 wp-ellipsis text-disabled">
-              No description
+            <div v-else class="text-body-1">
+              &nbsp;
             </div>
           </div>
-          <div class="text-right text-disabled text-body-2 pt-4">
-            {{ project.id }}
+          <div class="d-flex align-center justify-space-between">
+            <div class="text-body-2 text-disabled">
+              {{ ISOtoFormat(project.published_at) }}
+            </div>
+            <WpChip v-if="project.published" color="primary">
+              Published
+            </WpChip>
+            <WpChip v-else>
+              Draft
+            </WpChip>
           </div>
         </v-card-text>
       </WpCard>
@@ -32,6 +36,7 @@
 </template>
 
 <script setup>
+const { ISOtoFormat } = useDates()
 defineProps({
   project: { type: Object, required: true }
 })

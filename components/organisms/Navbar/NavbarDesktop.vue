@@ -3,11 +3,11 @@
     <div class="py-4">
       <v-row align="center">
         <v-col cols="6">
-          <WpBrandLogo :to="localePath('/')" />
+          <WpBrandLogo to="/" />
         </v-col>
         <v-col cols="6" class="d-flex justify-end align-center">
           <WpButton
-            v-for="link in rightLinks"
+            v-for="link in links"
             :key="link.key"
             variant="text"
             size="small"
@@ -23,8 +23,7 @@
 </template>
 
 <script setup>
-const localePath = useLocalePath()
 defineProps({
-  rightLinks: { type: Array, required: true }
+  links: { type: Array, required: true }
 })
 </script>

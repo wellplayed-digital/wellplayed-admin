@@ -3,12 +3,13 @@
     v-bind="$attrs"
     active
     :model-value="formattedDate"
-    :label="label"
+    :label="formattedDate ? label : ''"
     readonly
     :rules="rules"
     :prepend-inner-icon="prependInnerIcon"
     :hide-details="hideDetails"
     :autofocus="autofocus"
+    :placeholder="label"
     class="wp-date-picker-field"
   >
     <template v-for="(_, slotName) in $slots" #[slotName]>
@@ -27,9 +28,7 @@ const props = defineProps({
   hideDetails: { type: Boolean, default: false },
   autofocus: { type: Boolean, default: false }
 })
-const formattedDate = computed(() => {
-  return ISOtoFormat(props.modelValue, { format: 'DATE_MED_WITH_WEEKDAY' })
-})
+const formattedDate = computed(() => ISOtoFormat(props.modelValue))
 </script>
 
 <style lang="scss" scoped>

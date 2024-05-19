@@ -7,7 +7,7 @@
         size="small"
         prepend-icon="mdi-cash-multiple"
         prepend-icon-color="primary"
-        :tooltip-text="$t('global.currency')"
+        tooltip-text="Currency"
       >
         {{ currencyStore.userCurrency.code }}
       </WpButton>

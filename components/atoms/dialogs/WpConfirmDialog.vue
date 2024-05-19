@@ -10,7 +10,7 @@
     </template>
     <WpCard>
       <v-card-text class="py-6">
-        <div class="text-h6 text-center pa-4 mb-4">
+        <div class="text-h6 text-center pa-4 mb-4" :class="`text-${color}`">
           {{ text }}
         </div>
         <v-row dense>
@@ -19,14 +19,15 @@
               size="x-large"
               block
               variant="text"
+              :color="color"
               @click="cancel"
             >
-              {{ $t("global.cancel") }}
+              Cancel
             </WpButton>
           </v-col>
           <v-col>
-            <WpButton size="x-large" block color="primary" @click="confirm">
-              {{ $t("global.confirm") }}
+            <WpButton size="x-large" block :color="color" @click="confirm">
+              {{ confirmText }}
             </WpButton>
           </v-col>
         </v-row>
@@ -37,7 +38,9 @@
 
 <script setup>
 defineProps({
-  text: { type: String, required: true }
+  color: { type: String, default: 'primary' },
+  text: { type: String, required: true },
+  confirmText: { type: String, default: 'Confirm' }
 })
 const emits = defineEmits(['confirm', 'cancel'])
 const show = ref(false)

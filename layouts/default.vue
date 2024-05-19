@@ -22,14 +22,13 @@
 </template>
 
 <script setup>
-const { t } = useI18n()
 const route = useRoute()
 const head = useLocaleHead({
   addDirAttribute: true,
   identifierAttribute: 'id',
   addSeoAttributes: true
 })
-const title = computed(() => `Wellplayed Admin | ${t(route.meta.title)}`)
+const title = computed(() => `Wellplayed Admin | ${route.meta.title}`)
 const loading = ref(true)
 onMounted(async () => {
   await nextTick()

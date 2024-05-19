@@ -41,7 +41,7 @@
               class="mr-2"
               @click="cancel"
             >
-              {{ $t("global.cancel") }}
+              {{ cancelText }}
             </WpButton>
             <WpButton
               size="large"
@@ -50,7 +50,7 @@
               :disabled="!canConfirm"
               @click="confirm"
             >
-              {{ $t("global.confirm") }}
+              {{ confirmText }}
             </WpButton>
           </div>
         </div>
@@ -66,8 +66,10 @@ const props = defineProps({
   title: { type: String, required: true },
   subtitle: { type: String, default: null },
   width: { type: String, default: 'auto' },
+  confirmText: { type: String, default: 'Confirm' },
   confirmFunction: { type: Function, default: () => {} },
-  canConfirm: { type: Boolean, default: true }
+  canConfirm: { type: Boolean, default: true },
+  cancelText: { type: String, default: 'Cancel' }
 })
 const emits = defineEmits(['confirm', 'cancel'])
 const show = ref(false)
@@ -75,7 +77,8 @@ const loading = ref(false)
 const confirm = async () => {
   try {
     loading.value = true
-    await props.confirmFunction()
+    const res = await props.confirmFunction()
+    if (res?.cancel) { return }
     emits('confirm')
     show.value = false
   } catch (error) {

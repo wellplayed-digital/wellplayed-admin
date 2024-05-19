@@ -42,7 +42,7 @@ export const useCurrencyStore = defineStore('currency', () => {
   const getPrice = (price: number) => {
     if (userCurrency.value.code === 'ARS') {
       if (!dollarPrice.value) {
-        snackbar.error({ text: useT('stores.currency.dollarError') })
+        snackbar.error({ text: 'Cannot get dollar price' })
         return
       }
       return formatPrice(price * dollarPrice.value, 0)

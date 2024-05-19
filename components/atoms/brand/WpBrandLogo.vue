@@ -1,14 +1,14 @@
 <template>
   <NuxtLink
-    class="wp-brand-logo wp-reset-link d-inline-flex align-center wp-user-select-none"
+    class="wp-brand-logo wp-reset-link d-inline-flex wp-user-select-none"
     :to="to"
     :style="{ fontSize }"
   >
     <WpBrandISO
-      :style="{ width: '1.5rem', marginBottom: '1rem' }"
+      :style="{ width: '1.5rem' }"
       :loading="loading"
     />
-    <span class="ml-4">
+    <span class="pl-6 pt-4">
       Wellplayed Admin
     </span>
   </NuxtLink>

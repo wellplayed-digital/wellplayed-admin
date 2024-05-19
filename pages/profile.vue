@@ -2,10 +2,10 @@
   <div class="h-100 d-flex align-center">
     <WpContainer max-width="35rem">
       <h1 class="text-h4 text-center mb-10">
-        {{ $t('pages.profile.title') }}
+        This is your profile
       </h1>
       <WpConfirmDialog
-        :text="$t('pages.profile.confirmChanges')"
+        text="Are you sure you want to save the changes?"
         @confirm="userStore.updateProfile(firstName, lastName)"
         @cancel="unsavedChangesWarning"
       >
@@ -25,14 +25,14 @@
                   <WpTextField
                     v-model="firstName"
                     :rules="[required]"
-                    :label="$t('global.firstName')"
+                    label="First Name"
                   />
                 </v-col>
                 <v-col cols="12" sm="6">
                   <WpTextField
                     v-model="lastName"
                     :rules="[required]"
-                    :label="$t('global.lastName')"
+                    label="Last Name"
                   />
                 </v-col>
                 <v-col>
@@ -44,7 +44,7 @@
                     :loading="userStore.updatingProfile"
                     :disabled="!valid || !hasUnsavedChanges"
                   >
-                    {{ $t('global.save') }}
+                    Save
                   </WpButton>
                 </v-col>
               </v-row>
@@ -54,7 +54,7 @@
       </WpConfirmDialog>
       <WpDivider class="py-4" />
       <WpConfirmDialog
-        :text="$t('pages.profile.confirmLogout')"
+        text="Are you sure you want to log out?"
         @confirm="userStore.signOut"
       >
         <template #activator="{ props: slotProps }">
@@ -65,7 +65,7 @@
             block
             :loading="userStore.signingOut"
           >
-            {{ $t('global.logout') }}
+            Log Out
           </WpButton>
         </template>
       </WpConfirmDialog>
@@ -75,7 +75,7 @@
 
 <script setup>
 definePageMeta({
-  title: 'pages.profile.headTitle',
+  title: 'Profile',
   middleware: ['auth']
 })
 const { required } = useRules()
@@ -90,7 +90,7 @@ const hasUnsavedChanges = computed(() => (
 ))
 const unsavedChangesWarning = () => {
   if (hasUnsavedChanges.value) {
-    snackbar.warning({ text: t('pages.profile.unsavedChangesWarning') })
+    snackbar.warning({ text: 'You have unsaved changes' })
   }
 }
 </script>

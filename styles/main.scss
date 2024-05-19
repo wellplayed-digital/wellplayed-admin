@@ -29,10 +29,31 @@ body {
   }
 }
 
+.wp-cursor-grab {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.wp-cursor-grab:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
 .wp-pointer-events-none {
   pointer-events: none;
   * {
     pointer-events: none;
+  }
+}
+
+.wp-pointer-events-all {
+  pointer-events: all;
+  * {
+    pointer-events: all;
   }
 }
 
