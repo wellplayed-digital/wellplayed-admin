@@ -37,7 +37,7 @@
       </div>
       <div class="pt-10 d-flex justify-space-between">
         <WpButton
-          v-if="projectToEdit.deleted"
+          v-if="project.deleted"
           variant="tonal"
           size="x-large"
           @click="restoreProject"
@@ -60,7 +60,7 @@
             size="x-large"
             class="mr-2"
             :disabled="disabled"
-            @click="reset"
+            to="/projects"
           >
             Cancel
           </WpButton>
@@ -68,7 +68,7 @@
             type="submit"
             color="primary"
             size="x-large"
-            :disabled="disabled"
+            :disabled="disabled || project.deleted"
             :loading="loading"
           >
             Save
@@ -96,10 +96,18 @@ const DEFAULT_PROJECT = {
 const disabled = ref(true)
 const project = ref(cloneDeep(DEFAULT_PROJECT))
 const projectToEdit = ref(cloneDeep(project.value))
-const reset = () => {
-  projectToEdit.value = cloneDeep(project.value)
+const projectsLenght = ref(0)
+const fetchProjectsLength = async () => {
+  try {
+    const { data, error } = await supabase.from('projects').select('id')
+    if (error) { throw error }
+    projectsLenght.value = data.length
+  } catch (error) {
+    snackbar.error({ text: 'There was an error fetching the projects' })
+  }
 }
 const fetchProject = async () => {
+  await fetchProjectsLength()
   try {
     const { data, error } = await supabase
       .from('projects')
@@ -108,7 +116,7 @@ const fetchProject = async () => {
       .single()
     if (error) { throw error }
     project.value = data
-    reset()
+    projectToEdit.value = cloneDeep(project.value)
     disabled.value = false
   } catch (error) {
     snackbar.error({ text: 'There was an error fetching the project' })
@@ -119,12 +127,14 @@ const loading = ref(false)
 const editProject = async () => {
   try {
     loading.value = true
+    const projectOrder = !projectToEdit.value.published ? 0 : project.value.order > 0 ? project.value.order : projectsLenght.value + 1
     const { error } = await supabase.from('projects').update({
-      updated_at: new Date().toUTCString(),
+      order: projectOrder,
       title: projectToEdit.value.title,
       description: projectToEdit.value.description,
       published_at: projectToEdit.value.publishedAt,
-      published: projectToEdit.value.published
+      published: projectToEdit.value.published,
+      updated_at: new Date().toUTCString()
     }).eq('id', project.value.id)
     if (error) { throw error }
     await navigateTo('/projects')
@@ -139,9 +149,10 @@ const deleteProject = async () => {
   try {
     loading.value = true
     const { error } = await supabase.from('projects').update({
-      updated_at: new Date().toUTCString(),
+      order: 0,
       published: false,
-      deleted: true
+      deleted: true,
+      updated_at: new Date().toUTCString()
     }).eq('id', projectId)
     if (error) { throw error }
     await fetchProject()
@@ -154,11 +165,12 @@ const deleteProject = async () => {
   }
 }
 const restoreProject = async () => {
+  loading.value = true
+  await fetchProjectsLength()
   try {
-    loading.value = true
     const { error } = await supabase.from('projects').update({
-      updated_at: new Date().toUTCString(),
-      deleted: false
+      deleted: false,
+      updated_at: new Date().toUTCString()
     }).eq('id', projectId)
     if (error) { throw error }
     await fetchProject()

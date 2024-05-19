@@ -1,9 +1,5 @@
 <template>
-  <WpCard
-    :variant="project.published ? 'flat' : 'tonal'"
-    :style="{ opacity: project.published ? '1' : '0.5' }"
-    :to="`/project/edit/${project.id}`"
-  >
+  <WpCard :to="`/project/edit/${project.id}`">
     <v-card-text class="pt-6">
       <div class="text-h5 wp-ellipsis">
         {{ project.title }}
@@ -13,17 +9,20 @@
           {{ project.description }}
         </div>
         <div v-else class="text-body-1">
-              &nbsp;
+          &nbsp;
         </div>
       </div>
       <div class="d-flex align-center justify-space-between">
         <div class="text-body-2 text-disabled">
           {{ ISOtoFormat(project.published_at) }}
         </div>
-        <WpChip v-if="project.published" color="primary">
+        <WpChip v-if="project.deleted" color="error">
+          Deleted
+        </WpChip>
+        <WpChip v-else-if="project.published" color="primary">
           Published
         </WpChip>
-        <WpChip v-else>
+        <WpChip v-else color="info">
           Draft
         </WpChip>
       </div>

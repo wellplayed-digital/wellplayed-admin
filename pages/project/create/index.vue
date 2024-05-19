@@ -61,7 +61,6 @@ import { cloneDeep } from 'lodash'
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
 const DEFAULT_PROJECT = {
-  order: null,
   cover: null,
   title: null,
   description: null,
@@ -78,19 +77,20 @@ const fetchProjectsLength = async () => {
     projectsLenght.value = data.length
     disabled.value = false
   } catch (error) {
-    snackbar.error({ text: 'There was an error fetching the projects' })
+    snackbar.error({ text: 'There was an error fetching the amount of projects' })
   }
 }
 onMounted(fetchProjectsLength)
 const loading = ref(false)
 const createProject = async () => {
+  loading.value = true
+  await fetchProjectsLength()
   try {
-    loading.value = true
     const { data, error } = await supabase.from('projects').insert({
-      order: projectsLenght.value + 1,
-      // cover: newProject.value.cover,
+      order: newProject.value.published ? projectsLenght.value + 1 : 0,
       title: newProject.value.title,
       description: newProject.value.description,
+      // cover: newProject.value.cover,
       published_at: newProject.value.published_at,
       published: newProject.value.published
     }).select().single()

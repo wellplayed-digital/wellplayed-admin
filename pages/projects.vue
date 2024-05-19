@@ -5,12 +5,18 @@
         <h1 class="text-h4 mr-6">
           Projects
         </h1>
+        <WpChip :color="showPublished ? 'primary' : 'default'" class="mr-2" @click="tooglePublished">
+          Published
+        </WpChip>
+        <WpChip :color="showDraft ? 'info' : 'default'" class="mr-2" @click="toogleDraft">
+          Draft
+        </WpChip>
         <WpChip :color="showDeleted ? 'error' : 'default'" @click="toogleDeleted">
-          Show Deleted
+          Deleted
         </WpChip>
       </div>
       <div>
-        <ProjectsOrderDialog :projects="projects">
+        <ProjectsOrderDialog :projects="projects" @confirm="fetchProjects">
           <template #activator="{props: slotProps}">
             <WpButton v-bind="slotProps" size="large" variant="tonal" class="mr-2" :disabled="disabled">
               Change Order
@@ -23,7 +29,7 @@
       </div>
     </div>
     <v-row>
-      <v-col v-for="project in projects" :key="project.id" lg="3">
+      <v-col v-for="project in filteredProjects" :key="project.id" md="6" lg="3">
         <ProjectCard :project="project" />
       </v-col>
     </v-row>
@@ -38,14 +44,22 @@ const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
 const disabled = ref(true)
 const projects = ref([])
+const showPublished = ref(true)
+const showDraft = ref(true)
 const showDeleted = ref(false)
+const filteredProjects = computed(() => projects.value.filter((project) => {
+  if (showDeleted.value && project.deleted) { return true }
+  if (showPublished.value && project.published) { return true }
+  if (showDraft.value && !project.published && !project.deleted) { return true }
+  return false
+}))
 const fetchProjects = async () => {
   try {
     const { data, error } = await supabase
       .from('projects')
       .select('*')
-      .eq('deleted', showDeleted.value)
-      .order('order', { ascending: true })
+      .order('order', { ascending: false })
+      .order('created_at', { ascending: false })
     if (error) { throw error }
     projects.value = data
     disabled.value = false
@@ -54,6 +68,14 @@ const fetchProjects = async () => {
   }
 }
 onMounted(fetchProjects)
+const tooglePublished = async () => {
+  showPublished.value = !showPublished.value
+  await fetchProjects()
+}
+const toogleDraft = async () => {
+  showDraft.value = !showDraft.value
+  await fetchProjects()
+}
 const toogleDeleted = async () => {
   showDeleted.value = !showDeleted.value
   await fetchProjects()

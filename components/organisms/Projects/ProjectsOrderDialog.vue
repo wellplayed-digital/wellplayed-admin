@@ -7,69 +7,49 @@
     :fullscreen="display.xs"
     @open="reset"
     @cancel="reset"
+    @confirm="$emit('confirm')"
   >
     <template #activator="slotAttrs">
       <slot v-bind="slotAttrs" name="activator" />
     </template>
     <template #default>
-      <div>
-        <div class="d-flex align-center pb-6">
-          <div class="text-body-2 text-medium-emphasis mr-2">
-            Order by:
-          </div>
-          <WpButton size="small" variant="tonal" class="mr-2" @click="orderByCreated">
-            Created
-          </WpButton>
-          <WpButton size="small" variant="tonal" @click="orderByPublished">
-            Published
-          </WpButton>
-        </div>
-        <div class="pb-4">
-          <div class="text-body-2 text-medium-emphasis">
-            Click and drag to reorder the projects.
-          </div>
-        </div>
-        <draggable
-          v-model="projectsToEdit"
-          item-key="id"
-          @start="dragStart"
-          @end="dragEnd"
-        >
-          <template #item="{ element }">
-            <div
-              class="py-1 wp-cursor-grab"
-              :style="{ opacity: element.id === dragging?.id ? '0' : '1' }"
+      <draggable
+        v-model="projectsToEdit"
+        item-key="id"
+        @start="dragStart"
+        @end="dragEnd"
+      >
+        <template #item="{ element }">
+          <div
+            class="py-1 wp-cursor-grab"
+            :style="{ opacity: element.id === dragging?.id ? '0' : '1' }"
+          >
+            <WpCard
+              :variant="element.published ? 'flat' : 'tonal'"
+              :style="{ opacity: element.published ? '1' : '0.5' }"
+              :disabled="loading"
             >
-              <WpCard
-                :variant="element.published ? 'flat' : 'tonal'"
-                :style="{ opacity: element.published ? '1' : '0.5' }"
-                :disabled="loading"
-              >
-                <v-card-text class="wp-pointer-events-none">
-                  <div class="d-flex justify-space-between align-center">
-                    <div class="wp-ellipsis">
-                      <span class="text-body-1">
-                        {{ element.title }}
-                      </span>
-                      <span v-if="element.description" class="text-body-2 text-medium-emphasis ml-2">
-                        {{ element.description }}
-                      </span>
-                    </div>
-                    <div class="ml-2">
-                      <WpChip v-if="element.published" color="primary" size="small">
-                        Published
-                      </WpChip>
-                      <WpChip v-else size="small">
-                        Draft
-                      </WpChip>
-                    </div>
+              <v-card-text class="wp-pointer-events-none">
+                <div class="d-flex justify-space-between align-center">
+                  <div class="wp-ellipsis">
+                    <span class="text-body-1">
+                      {{ element.title }}
+                    </span>
+                    <span v-if="element.description" class="text-body-2 text-medium-emphasis ml-2">
+                      {{ element.description }}
+                    </span>
                   </div>
-                </v-card-text>
-              </WpCard>
-            </div>
-          </template>
-        </draggable>
-      </div>
+                  <div class="ml-2">
+                    <WpChip color="primary" size="small">
+                      Published
+                    </WpChip>
+                  </div>
+                </div>
+              </v-card-text>
+            </WpCard>
+          </div>
+        </template>
+      </draggable>
     </template>
   </WpAsyncDialog>
 </template>
@@ -81,19 +61,21 @@ const display = ref(useDisplay())
 const props = defineProps({
   projects: { type: Array, default: () => [] }
 })
+defineEmits(['confirm'])
 const projectsToEdit = ref([])
-
 const dragging = ref(null)
 const dragStart = (element) => {
-  dragging.value = projectsToEdit.value.find(project => project.order === element.oldIndex)
+  const originalOrder = projectsToEdit.value.length - element.oldIndex
+  dragging.value = projectsToEdit.value.find(project => project.order === originalOrder)
 }
 const reorderProjects = () => {
   projectsToEdit.value.forEach((project, index) => {
-    project.order = index
+    project.order = projectsToEdit.value.length - index
   })
 }
 const reset = () => {
-  projectsToEdit.value = cloneDeep(props.projects)
+  const publishedProjects = props.projects.filter(project => project.published && !project.deleted)
+  projectsToEdit.value = cloneDeep(publishedProjects)
   reorderProjects()
 }
 const dragEnd = () => {
@@ -104,17 +86,5 @@ const loading = ref(false)
 const updateProjectsOrder = async () => {
   const { error } = await supabase.rpc('update_projects_order', { projects: projectsToEdit.value })
   if (error) { throw error }
-}
-const orderByCreated = () => {
-  projectsToEdit.value = projectsToEdit.value.sort((a, b) => {
-    return new Date(b.created_at) - new Date(a.created_at)
-  })
-  reorderProjects()
-}
-const orderByPublished = () => {
-  projectsToEdit.value = projectsToEdit.value.sort((a, b) => {
-    return new Date(b.published_at) - new Date(a.published_at)
-  })
-  reorderProjects()
 }
 </script>
