@@ -47,6 +47,7 @@
           color="error"
           variant="tonal"
           size="x-large"
+          :loading="loading"
           @click="deleteProject"
         >
           Delete
@@ -56,6 +57,7 @@
           color="success"
           variant="tonal"
           size="x-large"
+          :loading="loading"
           @click="restoreProject"
         >
           Restore
