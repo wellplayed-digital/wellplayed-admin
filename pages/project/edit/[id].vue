@@ -22,7 +22,7 @@
       <div class="pb-6">
         <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
       </div>
-      <div class="pb-10 d-flex align-center">
+      <div class="pb-6 d-flex align-center">
         <div class="flex-grow-1">
           <WpDatePicker
             v-model="projectToEdit.published_at"
@@ -39,6 +39,14 @@
             color="primary"
             hide-details
           />
+        </div>
+      </div>
+      <div class="pb-10">
+        <h2 class="text-body-1">
+          Sections
+        </h2>
+        <div v-for="section in sections" :key="section.id">
+          <SectionCard :section="section" />
         </div>
       </div>
       <div class="d-flex justify-space-between">
@@ -103,7 +111,6 @@ const DEFAULT_PROJECT = {
   published_at: null,
   status: 'draft'
 }
-const disabled = ref(true)
 const project = ref(null)
 const projectToEdit = ref(null)
 const published = ref(null)
@@ -113,6 +120,39 @@ const setProject = (data) => {
   published.value = data.status === 'published'
 }
 setProject(DEFAULT_PROJECT)
+const sections = ref([])
+const fetchSections = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('sections')
+      .select('*')
+      .eq('project_id', projectId)
+      .order('order', { ascending: false })
+      .order('created_at', { ascending: false })
+    if (error) { throw error }
+    sections.value = data
+  } catch (error) {
+    snackbar.error({ text: 'There was an error fetching the sections' })
+  }
+}
+const disabled = ref(true)
+const fetchProject = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .select()
+      .eq('id', route.params.id)
+      .single()
+    if (error) { throw error }
+    setProject(data)
+    await fetchSections()
+    disabled.value = false
+  } catch (error) {
+    snackbar.error({ text: 'There was an error fetching the project' })
+  }
+}
+onMounted(fetchProject)
+const loading = ref(false)
 const projectsLenght = ref(0)
 const fetchProjectsLength = async () => {
   try {
@@ -123,24 +163,8 @@ const fetchProjectsLength = async () => {
     snackbar.error({ text: 'There was an error fetching the projects' })
   }
 }
-const fetchProject = async () => {
-  await fetchProjectsLength()
-  try {
-    const { data, error } = await supabase
-      .from('projects')
-      .select()
-      .eq('id', route.params.id)
-      .single()
-    if (error) { throw error }
-    setProject(data)
-    disabled.value = false
-  } catch (error) {
-    snackbar.error({ text: 'There was an error fetching the project' })
-  }
-}
-onMounted(fetchProject)
-const loading = ref(false)
 const editProject = async () => {
+  await fetchProjectsLength()
   try {
     loading.value = true
     const projectOrder = !published.value ? 0 : project.value.order > 0 ? project.value.order : projectsLenght.value + 1
@@ -148,7 +172,7 @@ const editProject = async () => {
       order: projectOrder,
       title: projectToEdit.value.title,
       description: projectToEdit.value.description,
-      published_at: projectToEdit.value.publishedAt,
+      published_at: projectToEdit.value.published_at,
       status: published.value ? 'published' : 'draft',
       updated_at: new Date().toUTCString()
     }).eq('id', project.value.id)
@@ -165,7 +189,7 @@ const deleteProject = async () => {
   try {
     loading.value = true
     const { error } = await supabase.from('projects').update({
-      order: 0,
+      order: -1,
       status: 'deleted',
       updated_at: new Date().toUTCString()
     }).eq('id', projectId)
@@ -181,9 +205,9 @@ const deleteProject = async () => {
 }
 const restoreProject = async () => {
   loading.value = true
-  await fetchProjectsLength()
   try {
     const { error } = await supabase.from('projects').update({
+      order: 0,
       status: 'draft',
       updated_at: new Date().toUTCString()
     }).eq('id', projectId)

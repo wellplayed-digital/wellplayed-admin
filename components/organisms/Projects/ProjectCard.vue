@@ -4,14 +4,9 @@
       <div class="text-h5 wp-ellipsis">
         {{ project.title }}
       </div>
-      <div class="pb-4">
-        <div v-if="project.description" class="text-body-1 wp-ellipsis text-medium-emphasis">
-          {{ project.description }}
-        </div>
-        <div v-else class="text-body-1">
-          &nbsp;
-        </div>
-      </div>
+      <p class="pb-4 text-body-1 wp-ellipsis text-medium-emphasis">
+        {{ project.description || '&nbsp;' }}
+      </p>
       <div class="d-flex align-center justify-space-between">
         <div class="text-body-2 text-disabled">
           {{ ISOtoFormat(project.published_at) }}

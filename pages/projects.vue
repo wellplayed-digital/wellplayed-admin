@@ -5,15 +5,15 @@
         <h1 class="text-h4 mr-6">
           Projects
         </h1>
-        <WpChip :color="showPublished ? 'primary' : 'default'" class="mr-2" @click="tooglePublished">
-          Published
-        </WpChip>
-        <WpChip :color="showDraft ? 'info' : 'default'" class="mr-2" @click="toogleDraft">
-          Draft
-        </WpChip>
-        <WpChip :color="showDeleted ? 'error' : 'default'" @click="toogleDeleted">
-          Deleted
-        </WpChip>
+        <v-chip-group v-model="activeStatusFiltersIndex" column multiple mandatory>
+          <WpChip
+            v-for="filter in statusFilters"
+            :key="filter.key"
+            :text="filter.text"
+            :color="filter.color"
+            filter
+          />
+        </v-chip-group>
       </div>
       <div>
         <ProjectsOrderDialog :projects="projects" @confirm="fetchProjects">
@@ -44,13 +44,17 @@ const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
 const disabled = ref(true)
 const projects = ref([])
-const showPublished = ref(true)
-const showDraft = ref(true)
-const showDeleted = ref(false)
+const statusFilters = ref([
+  { key: 'published', text: 'Published', color: 'primary' },
+  { key: 'draft', text: 'Draft', color: 'info' },
+  { key: 'deleted', text: 'Deleted', color: 'error' }
+])
+const activeStatusFiltersIndex = ref([])
+const activeStatusFilters = computed(() => statusFilters.value
+  .filter((_, index) => activeStatusFiltersIndex.value.includes(index))
+  .map(filter => filter.key))
 const filteredProjects = computed(() => projects.value.filter((project) => {
-  if (project.status === 'published' && showPublished.value) { return true }
-  if (project.status === 'draft' && showDraft.value) { return true }
-  if (project.status === 'deleted' && showDeleted.value) { return true }
+  if (activeStatusFilters.value.includes(project.status)) { return true }
   return false
 }))
 const fetchProjects = async () => {
@@ -67,19 +71,11 @@ const fetchProjects = async () => {
     snackbar.error({ text: error.message })
   }
 }
-onMounted(fetchProjects)
-const tooglePublished = async () => {
-  showPublished.value = !showPublished.value
+onMounted(async () => {
   await fetchProjects()
-}
-const toogleDraft = async () => {
-  showDraft.value = !showDraft.value
-  await fetchProjects()
-}
-const toogleDeleted = async () => {
-  showDeleted.value = !showDeleted.value
-  await fetchProjects()
-}
+  activeStatusFiltersIndex.value = [0, 1]
+})
+
 // const route = useRoute()
 // const userStore = useUserStore()
 // onMounted(async () => {

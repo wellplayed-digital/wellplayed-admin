@@ -82,9 +82,6 @@ const props = defineProps({
 })
 const display = ref(useDisplay())
 const show = ref(props.autofocus)
-const clear = () => {
-  console.log('clear')
-}
 </script>
 
 <style lang="scss" scoped>
