@@ -18,12 +18,12 @@
       <div>
         <ProjectsOrderDialog :projects="projects" @confirm="fetchProjects">
           <template #activator="{props: slotProps}">
-            <WpButton v-bind="slotProps" size="large" variant="tonal" class="mr-2" :disabled="disabled">
+            <WpButton v-bind="slotProps" size="large" variant="tonal" class="mr-2" :disabled="loading">
               Change Order
             </WpButton>
           </template>
         </ProjectsOrderDialog>
-        <WpButton size="large" to="/project/create" :disabled="disabled">
+        <WpButton size="large" to="/project/create" :disabled="loading">
           New Project
         </WpButton>
       </div>
@@ -42,7 +42,7 @@ definePageMeta({
 })
 const supabase = useSupabaseClient()
 const snackbar = useSnackbar()
-const disabled = ref(true)
+const loading = ref(false)
 const projects = ref([])
 const statusFilters = ref([
   { key: 'published', text: 'Published', color: 'primary' },
@@ -59,6 +59,7 @@ const filteredProjects = computed(() => projects.value.filter((project) => {
 }))
 const fetchProjects = async () => {
   try {
+    loading.value = true
     const { data, error } = await supabase
       .from('projects')
       .select('*')
@@ -66,9 +67,10 @@ const fetchProjects = async () => {
       .order('created_at', { ascending: false })
     if (error) { throw error }
     projects.value = data
-    disabled.value = false
   } catch (error) {
     snackbar.error({ text: error.message })
+  } finally {
+    loading.value = false
   }
 }
 onMounted(async () => {

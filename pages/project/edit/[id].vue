@@ -1,6 +1,6 @@
 <template>
-  <WpContainer max-width="800px">
-    <div class="mb-10 d-flex align-center">
+  <WpContainer max-width="1200px">
+    <div class="pb-10 d-flex align-center">
       <WpIconButton
         icon="mdi-chevron-left"
         density="compact"
@@ -13,85 +13,70 @@
       </h1>
     </div>
     <WpForm :disabled="disabled || loading || project.status === 'deleted'" @submit="editProject">
-      <div class="pb-4">
-        <WpTextField v-model="projectToEdit.title" label="Title" :rules="[required]" />
-      </div>
-      <div class="pb-6">
-        <WpTextarea v-model="projectToEdit.description" hide-details label="Description" />
-      </div>
-      <div class="pb-6">
-        <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
-      </div>
-      <div class="pb-6 d-flex align-center">
-        <div class="flex-grow-1">
-          <WpDatePicker
-            v-model="projectToEdit.published_at"
-            label="Publish Date"
-            hide-details
-            clearable
-          />
-        </div>
-        <div class="pl-6">
-          <v-switch
-            v-model="published"
-            label="Published"
-            inset
-            color="primary"
-            hide-details
-          />
-        </div>
-      </div>
-      <div class="pb-10">
-        <h2 class="text-body-1">
-          Sections
-        </h2>
-        <div v-for="section in sections" :key="section.id">
-          <SectionCard :section="section" />
-        </div>
-      </div>
-      <div class="d-flex justify-space-between">
-        <WpButton
-          v-if="project.status !== 'deleted'"
-          color="error"
-          variant="tonal"
-          size="x-large"
-          :loading="loading"
-          @click="deleteProject"
-        >
-          Delete
-        </WpButton>
-        <WpButton
-          v-else
-          color="success"
-          variant="tonal"
-          size="x-large"
-          :loading="loading"
-          @click="restoreProject"
-        >
-          Restore
-        </WpButton>
-        <div class="d-flex justify-end">
-          <WpButton
-            color="primary"
-            variant="text"
-            size="x-large"
-            class="mr-2"
-            :disabled="disabled"
-            to="/projects"
-          >
-            Cancel
-          </WpButton>
-          <WpButton
-            type="submit"
-            color="primary"
-            size="x-large"
-            :disabled="disabled || project.status === 'deleted'"
-            :loading="loading"
-          >
-            Save
-          </WpButton>
-        </div>
-      </div>
+      <v-row>
+        <v-col>
+          <WpTextField v-model="projectToEdit.title" label="Title" :rules="[required]" class="mb-4" />
+          <WpTextarea v-model="projectToEdit.description" hide-details label="Description" class="mb-6" />
+          <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
+          <WpDivider class="my-8" />
+          <SectionsList />
+        </v-col>
+        <v-col cols="4">
+          <WpCard>
+            <v-card-text class="pt-8">
+              <WpDatePicker
+                v-model="projectToEdit.published_at"
+                label="Publish Date"
+                hide-details
+                clearable
+                class="mb-2"
+              />
+              <v-switch
+                v-model="published"
+                label="Published"
+                inset
+                color="primary"
+                hide-details
+                class="mb-6"
+              />
+              <div class="mb-2">
+                <WpButton
+                  v-if="project.status !== 'deleted'"
+                  color="error"
+                  variant="tonal"
+                  size="x-large"
+                  block
+                  :loading="loading"
+                  @click="deleteProject"
+                >
+                  Delete
+                </WpButton>
+                <WpButton
+                  v-else
+                  color="success"
+                  variant="tonal"
+                  size="x-large"
+                  block
+                  :loading="loading"
+                  @click="restoreProject"
+                >
+                  Restore
+                </WpButton>
+              </div>
+              <WpButton
+                type="submit"
+                color="primary"
+                size="x-large"
+                block
+                :disabled="disabled || project.status === 'deleted'"
+                :loading="loading"
+              >
+                Save
+              </WpButton>
+            </v-card-text>
+          </WpCard>
+        </v-col>
+      </v-row>
     </WpForm>
   </WpContainer>
 </template>
@@ -120,21 +105,6 @@ const setProject = (data) => {
   published.value = data.status === 'published'
 }
 setProject(DEFAULT_PROJECT)
-const sections = ref([])
-const fetchSections = async () => {
-  try {
-    const { data, error } = await supabase
-      .from('sections')
-      .select('*')
-      .eq('project_id', projectId)
-      .order('order', { ascending: false })
-      .order('created_at', { ascending: false })
-    if (error) { throw error }
-    sections.value = data
-  } catch (error) {
-    snackbar.error({ text: 'There was an error fetching the sections' })
-  }
-}
 const disabled = ref(true)
 const fetchProject = async () => {
   try {
@@ -145,7 +115,6 @@ const fetchProject = async () => {
       .single()
     if (error) { throw error }
     setProject(data)
-    await fetchSections()
     disabled.value = false
   } catch (error) {
     snackbar.error({ text: 'There was an error fetching the project' })
