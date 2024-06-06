@@ -1,5 +1,9 @@
 <template>
-  <WpAsyncDialog title="Create Section" :confirm-function="save">
+  <WpAsyncDialog
+    title="Create Section"
+    :confirm-function="save"
+    width="40rem"
+  >
     <template #activator="slotAttrs">
       <slot v-bind="slotAttrs" name="activator" />
     </template>

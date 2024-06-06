@@ -1,7 +1,7 @@
 <template>
   <WpAsyncDialog
     title="Change Projects Order"
-    :width="display.xs ? '100%' : '40rem'"
+    width="40rem"
     confirm-text="Save"
     :confirm-function="updateProjectsOrder"
     :fullscreen="display.xs"

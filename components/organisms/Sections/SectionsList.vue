@@ -43,10 +43,4 @@ const fetchSections = async () => {
   }
 }
 onMounted(fetchSections)
-const addSection = () => {
-  sections.value.push({
-    title: null,
-    description: null
-  })
-}
 </script>

@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="show"
-    :width="width"
+    :width="display.xs ? '100%' : width"
     persistent
     transition="scale-transition"
     @update:model-value="emitsOpenOrClose"
