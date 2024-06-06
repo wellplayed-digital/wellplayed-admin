@@ -17,7 +17,7 @@
       </div>
       <div>
         <ProjectsOrderDialog :projects="projects" @confirm="fetchProjects">
-          <template #activator="{props: slotProps}">
+          <template #activator="{ props: slotProps }">
             <WpButton v-bind="slotProps" size="large" variant="tonal" class="mr-2" :disabled="loading">
               Change Order
             </WpButton>

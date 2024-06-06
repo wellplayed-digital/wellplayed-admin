@@ -1,6 +1,6 @@
 <template>
   <v-menu location="bottom center">
-    <template #activator="{props: slotProps}">
+    <template #activator="{ props: slotProps }">
       <WpButton
         v-bind="slotProps"
         variant="text"

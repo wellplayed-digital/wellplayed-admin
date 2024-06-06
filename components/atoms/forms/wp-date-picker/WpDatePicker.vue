@@ -5,9 +5,9 @@
     fullscreen
     transition="scale-transition"
   >
-    <template #activator="{props: slotProps}">
+    <template #activator="{ props: slotProps }">
       <WpDatePickerField
-        v-bind="{...$attrs, ...slotProps}"
+        v-bind="{ ...$attrs, ...slotProps }"
         :model-value="date"
         :label="label"
         :rules="rules"

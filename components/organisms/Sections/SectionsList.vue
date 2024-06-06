@@ -8,9 +8,13 @@
         <WpButton variant="tonal" class="mr-2">
           Change Order
         </WpButton>
-        <WpButton @click="addSection">
-          Add section
-        </WpButton>
+        <SectionCreateDialog>
+          <template #activator="{ props: slotProps }">
+            <WpButton v-bind="slotProps">
+              Add section
+            </WpButton>
+          </template>
+        </SectionCreateDialog>
       </div>
     </div>
     <div v-for="section in sections" :key="section.id" class="mb-4">
