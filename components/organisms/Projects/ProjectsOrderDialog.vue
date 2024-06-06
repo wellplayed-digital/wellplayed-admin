@@ -13,39 +13,29 @@
       <slot v-bind="slotAttrs" name="activator" />
     </template>
     <template #default>
-      <draggable
-        v-model="projectsToEdit"
-        item-key="id"
-        @start="dragStart"
-        @end="dragEnd"
-      >
+      <WpDraggable v-model="projectsToEdit" @drag-end="reorderProjects">
         <template #item="{ element }">
-          <div
-            class="py-1 wp-cursor-grab"
-            :style="{ opacity: element.id === dragging?.id ? '0' : '1' }"
-          >
-            <WpCard>
-              <v-card-text class="wp-pointer-events-none">
-                <div class="d-flex justify-space-between align-center">
-                  <div class="wp-ellipsis">
-                    <span class="text-body-1">
-                      {{ element.title }}
-                    </span>
-                    <span v-if="element.description" class="text-body-2 text-medium-emphasis ml-2">
-                      {{ element.description }}
-                    </span>
-                  </div>
-                  <div class="ml-2">
-                    <WpChip color="primary" size="small">
-                      Published
-                    </WpChip>
-                  </div>
+          <WpCard>
+            <v-card-text class="wp-pointer-events-none">
+              <div class="d-flex justify-space-between align-center">
+                <div class="wp-ellipsis">
+                  <span class="text-body-1">
+                    {{ element.title }}
+                  </span>
+                  <span v-if="element.description" class="text-body-2 text-medium-emphasis ml-2">
+                    {{ element.description }}
+                  </span>
                 </div>
-              </v-card-text>
-            </WpCard>
-          </div>
+                <div class="ml-2">
+                  <WpChip color="primary" size="small">
+                    Published
+                  </WpChip>
+                </div>
+              </div>
+            </v-card-text>
+          </WpCard>
         </template>
-      </draggable>
+      </WpDraggable>
     </template>
   </WpAsyncDialog>
 </template>
@@ -67,15 +57,6 @@ const reorderProjects = () => {
 const reset = () => {
   const publishedProjects = props.projects.filter(project => project.status === 'published')
   projectsToEdit.value = cloneDeep(publishedProjects)
-  reorderProjects()
-}
-const dragging = ref(null)
-const dragStart = (element) => {
-  const originalOrder = projectsToEdit.value.length - element.oldIndex
-  dragging.value = projectsToEdit.value.find(project => project.order === originalOrder)
-}
-const dragEnd = () => {
-  dragging.value = null
   reorderProjects()
 }
 const updateProjectsOrder = async () => {

@@ -1,5 +1,5 @@
 <template>
-  <WpContainer max-width="1200px">
+  <WpContainer max-width="800px">
     <div class="pb-10 d-flex align-center">
       <WpIconButton
         icon="mdi-chevron-left"
@@ -13,70 +13,59 @@
       </h1>
     </div>
     <WpForm :disabled="disabled || loading || project.status === 'deleted'" @submit="editProject">
-      <v-row>
-        <v-col>
-          <WpTextField v-model="projectToEdit.title" label="Title" :rules="[required]" class="mb-4" />
-          <WpTextarea v-model="projectToEdit.description" hide-details label="Description" class="mb-6" />
-          <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
-          <WpDivider class="my-8" />
-          <SectionsList />
-        </v-col>
-        <v-col cols="4">
-          <WpCard>
-            <v-card-text class="pt-8">
-              <WpDatePicker
-                v-model="projectToEdit.published_at"
-                label="Publish Date"
-                hide-details
-                clearable
-                class="mb-2"
-              />
-              <v-switch
-                v-model="published"
-                label="Published"
-                inset
-                color="primary"
-                hide-details
-                class="mb-6"
-              />
-              <div class="mb-2">
-                <WpButton
-                  v-if="project.status !== 'deleted'"
-                  color="error"
-                  variant="tonal"
-                  size="x-large"
-                  block
-                  :loading="loading"
-                  @click="deleteProject"
-                >
-                  Delete
-                </WpButton>
-                <WpButton
-                  v-else
-                  color="success"
-                  variant="tonal"
-                  size="x-large"
-                  block
-                  :loading="loading"
-                  @click="restoreProject"
-                >
-                  Restore
-                </WpButton>
-              </div>
-              <WpButton
-                type="submit"
-                color="primary"
-                size="x-large"
-                block
-                :disabled="disabled || project.status === 'deleted'"
-                :loading="loading"
-              >
-                Save
-              </WpButton>
-            </v-card-text>
-          </WpCard>
-        </v-col>
-      </v-row>
+      <WpTextField v-model="projectToEdit.title" label="Title" :rules="[required]" class="mb-4" />
+      <WpTextarea v-model="projectToEdit.description" hide-details label="Description" class="mb-6" />
+      <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
+      <WpDivider class="my-8" />
+      <SectionsList />
+      <WpDivider class="my-8" />
+      <div class="d-flex align-center mb-8">
+        <WpDatePicker
+          v-model="projectToEdit.published_at"
+          label="Publish Date"
+          hide-details
+          clearable
+          class="mr-4"
+        />
+        <v-switch
+          v-model="published"
+          label="Published"
+          inset
+          color="primary"
+          hide-details
+        />
+      </div>
+      <div class="d-flex justify-space-between">
+        <WpButton
+          v-if="project.status !== 'deleted'"
+          color="error"
+          variant="tonal"
+          size="x-large"
+          :loading="loading"
+          @click="deleteProject"
+        >
+          Delete
+        </WpButton>
+        <WpButton
+          v-else
+          color="success"
+          variant="tonal"
+          size="x-large"
+          :loading="loading"
+          @click="restoreProject"
+        >
+          Restore
+        </WpButton>
+        <WpButton
+          type="submit"
+          color="primary"
+          size="x-large"
+          :disabled="disabled || project.status === 'deleted'"
+          :loading="loading"
+        >
+          Save
+        </WpButton>
+      </div>
     </WpForm>
   </WpContainer>
 </template>
