@@ -44,7 +44,16 @@
                 <WpIconButton icon="mdi-pencil" tooltip-text="Edit" v-bind="slotProps" />
               </template>
             </SectionCreateDialog>
-            <WpIconButton icon="mdi-delete" tooltip-text="Delete" />
+            <WpConfirmDialog
+              text="Are you sure you want to delete this section?"
+              color="error"
+              confirm-text="Delete"
+              @confirm="deleteSection(section.id)"
+            >
+              <template #activator="{ props: slotProps }">
+                <WpIconButton icon="mdi-delete" tooltip-text="Delete" v-bind="slotProps" />
+              </template>
+            </WpConfirmDialog>
           </div>
         </div>
       </v-card-text>
@@ -73,5 +82,11 @@ const fetchSections = async () => {
     snackbar.error({ text: 'There was an error fetching the sections' })
   }
 }
-onMounted(fetchSections)
+onMounted(async () => {
+  await fetchSections()
+})
+const deleteSection = async (id) => {
+  await supabase.from('sections').delete().eq('id', id)
+  await fetchSections()
+}
 </script>

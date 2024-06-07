@@ -91,7 +91,9 @@ const fetchProjectsLength = async () => {
     snackbar.error({ text: 'There was an error fetching the amount of projects' })
   }
 }
-onMounted(fetchProjectsLength)
+onMounted(async () => {
+  await fetchProjectsLength()
+})
 const loading = ref(false)
 const createProject = async () => {
   loading.value = true
