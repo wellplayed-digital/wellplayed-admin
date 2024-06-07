@@ -13,9 +13,23 @@
       </h1>
     </div>
     <WpForm :disabled="disabled || loading || project.status === 'deleted'" @submit="editProject">
-      <WpTextField v-model="projectToEdit.title" label="Title" :rules="[required]" class="mb-4" />
-      <WpTextarea v-model="projectToEdit.description" hide-details label="Description" class="mb-6" />
-      <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
+      <WpTextField
+        v-model="projectToEdit.title"
+        label="Title"
+        :rules="[required]"
+        class="mb-4"
+      />
+      <WpTextarea
+        v-model="projectToEdit.description"
+        hide-details
+        label="Description"
+        class="mb-6"
+      />
+      <WpFileInput
+        v-model="projectToEdit.cover"
+        hide-details
+        label="Cover"
+      />
       <WpDivider class="my-8" />
       <SectionsList :project-id="projectId" />
       <WpDivider class="my-8" />

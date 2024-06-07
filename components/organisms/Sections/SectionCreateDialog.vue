@@ -1,6 +1,6 @@
 <template>
   <WpAsyncDialog
-    title="Create Section"
+    :title="update ? 'Update Section' : 'Create Section'"
     :confirm-function="confirm"
     width="40rem"
     @open="init"
@@ -10,7 +10,7 @@
     </template>
     <template #default>
       <WpTextField v-model="title" label="Title" :rules="[required]" class="mb-4" />
-      <WpTextField v-model="description" label="Description" hide-details />
+      <WpTextarea v-model="description" label="Description" hide-details />
     </template>
   </WpAsyncDialog>
 </template>

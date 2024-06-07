@@ -13,44 +13,41 @@
       </h1>
     </div>
     <WpForm :disabled="loading" @submit="createProject">
-      <div class="pb-4">
-        <WpTextField v-model="newProject.title" label="Title" :rules="[required]" />
-      </div>
-      <div class="pb-6">
-        <WpTextarea v-model="newProject.description" hide-details label="Description" />
-      </div>
-      <div class="pb-6">
-        <WpFileInput v-model="newProject.cover" hide-details label="Cover" />
-      </div>
-      <div class="pb-10 d-flex justify-space-between align-center">
-        <div class="flex-grow-1 pr-6">
-          <WpDatePicker
-            v-model="newProject.published_at"
-            label="Publish Date"
-            hide-details
-          />
-        </div>
-        <div>
-          <v-switch
-            v-model="published"
-            label="Published"
-            inset
-            color="primary"
-            hide-details
-          />
-        </div>
+      <WpTextField
+        v-model="newProject.title"
+        label="Title"
+        :rules="[required]"
+        class="mb-4"
+      />
+      <WpTextarea
+        v-model="newProject.description"
+        hide-details
+        label="Description"
+        class="mb-6"
+      />
+      <WpFileInput
+        v-model="newProject.cover"
+        hide-details
+        label="Cover"
+      />
+      <WpDivider class="my-8" />
+      <div class="d-flex align-center mb-8">
+        <WpDatePicker
+          v-model="newProject.published_at"
+          label="Publish Date"
+          hide-details
+          clearable
+          class="mr-4"
+        />
+        <v-switch
+          v-model="published"
+          label="Published"
+          inset
+          color="primary"
+          hide-details
+        />
       </div>
       <div class="d-flex justify-end">
-        <WpButton
-          color="primary"
-          variant="text"
-          size="x-large"
-          class="mr-2"
-          :disabled="disabled"
-          to="/projects"
-        >
-          Cancel
-        </WpButton>
         <WpButton
           color="primary"
           type="submit"
