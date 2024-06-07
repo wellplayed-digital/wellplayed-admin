@@ -77,7 +77,7 @@ const fetchSections = async () => {
       .order('created_at', { ascending: false })
     if (error) { throw error }
     sections.value = data
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error fetching the sections' })
   }
 }
@@ -85,7 +85,13 @@ onMounted(async () => {
   await fetchSections()
 })
 const deleteSection = async (id) => {
-  await supabase.from('sections').delete().eq('id', id)
+  try {
+    const { error } = await supabase.from('sections').delete().eq('id', id)
+    if (error) { throw error }
+    snackbar.success({ text: 'The section has been deleted successfully' })
+  } catch {
+    snackbar.error({ text: 'There was an error deleting the section' })
+  }
   await fetchSections()
 }
 </script>

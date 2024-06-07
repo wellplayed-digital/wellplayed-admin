@@ -17,6 +17,7 @@
 
 <script setup>
 const supabase = useSupabaseClient()
+const snackbar = useSnackbar()
 const { required } = useRules()
 const props = defineProps({
   projectId: { type: String, required: true },
@@ -41,6 +42,7 @@ const update = async () => {
     description: description.value
   }).eq('id', props.section.id)
   if (error) { throw error }
+  snackbar.success({ text: 'The section has been updated successfully' })
   emits('updated')
 }
 const create = async () => {
@@ -51,6 +53,7 @@ const create = async () => {
     description: description.value
   }])
   if (error) { throw error }
+  snackbar.success({ text: 'The section has been created successfully' })
   emits('created')
 }
 const confirm = () => {

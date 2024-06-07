@@ -84,7 +84,7 @@ const fetchProjectsLength = async () => {
     if (error) { throw error }
     projectsLenght.value = data.length
     disabled.value = false
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error fetching the amount of projects' })
   }
 }
@@ -107,7 +107,7 @@ const createProject = async () => {
     if (error) { throw error }
     await navigateTo(`/project/edit/${data.id}`)
     snackbar.success({ text: 'The project has been created successfully' })
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error creating the project' })
   } finally {
     loading.value = false

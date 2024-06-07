@@ -23,7 +23,7 @@ export const useUserStore = defineStore('user', () => {
       const { data, error } = await supabase.from('profiles').select('*').single()
       if (error) { throw error }
       profile.value = data
-    } catch (error) {
+    } catch {
       //! Nuxt error when trying to invoke useT or useSnackbar
       reset()
     }
@@ -40,7 +40,7 @@ export const useUserStore = defineStore('user', () => {
       })
       if (error) { throw error }
       snackbar.success({ text: 'Your profile has been updated successfully' })
-    } catch (error) {
+    } catch {
       snackbar.error({ text: 'There was an error updating your profile' })
     } finally {
       await fetchProfile()
@@ -55,7 +55,7 @@ export const useUserStore = defineStore('user', () => {
       if (error) { throw error }
       snackbar.success({ text: 'We sent an access link to your email' })
       navigateTo('/')
-    } catch (error) {
+    } catch {
       snackbar.error({ text: 'There was an error sending the access link' })
     } finally {
       logginIn.value = false
@@ -69,7 +69,7 @@ export const useUserStore = defineStore('user', () => {
       if (error) { throw error }
       navigateTo('/')
       reset()
-    } catch (error) {
+    } catch {
       snackbar.error({ text: 'There was an error logging out' })
     } finally {
       signingOut.value = false

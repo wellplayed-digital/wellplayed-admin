@@ -25,7 +25,7 @@ export const useCurrencyStore = defineStore('currency', () => {
       dollarPrice.value = data.value
       const SECONDS_IN_MS = 1000
       useIntervalFn(refresh, 60 * SECONDS_IN_MS)
-    } catch (error) {
+    } catch {
       //! Nuxt error when trying to invoke useT or useSnackbar
       dollarPrice.value = null
       setDollarAsOnlyCurrency()

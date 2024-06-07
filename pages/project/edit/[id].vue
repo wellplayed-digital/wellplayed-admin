@@ -31,8 +31,6 @@
         label="Cover"
       />
       <WpDivider class="my-8" />
-      <SectionsList :project-id="projectId" />
-      <WpDivider class="my-8" />
       <div class="d-flex align-center mb-8">
         <WpDatePicker
           v-model="projectToEdit.published_at"
@@ -80,6 +78,8 @@
           Save
         </WpButton>
       </div>
+      <WpDivider class="my-8" />
+      <SectionsList :project-id="projectId" />
     </WpForm>
   </WpContainer>
 </template>
@@ -119,7 +119,7 @@ const fetchProject = async () => {
     if (error) { throw error }
     setProject(data)
     disabled.value = false
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error fetching the project' })
   }
 }
@@ -133,7 +133,7 @@ const fetchProjectsLength = async () => {
     const { data, error } = await supabase.from('projects').select('id').eq('status', 'published')
     if (error) { throw error }
     projectsLenght.value = data.length
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error fetching the projects' })
   }
 }
@@ -151,9 +151,8 @@ const editProject = async () => {
       updated_at: new Date().toUTCString()
     }).eq('id', project.value.id)
     if (error) { throw error }
-    await navigateTo('/projects')
     snackbar.success({ text: 'The project has been updated successfully' })
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error updating the project' })
   } finally {
     loading.value = false
@@ -170,7 +169,7 @@ const deleteProject = async () => {
     if (error) { throw error }
     await fetchProject()
     snackbar.success({ text: 'The project has been deleted successfully' })
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error deleting the project' })
     return { cancel: true }
   } finally {
@@ -188,7 +187,7 @@ const restoreProject = async () => {
     if (error) { throw error }
     await fetchProject()
     snackbar.success({ text: 'The project has been restored successfully' })
-  } catch (error) {
+  } catch {
     snackbar.error({ text: 'There was an error restoring the project' })
   } finally {
     loading.value = false
