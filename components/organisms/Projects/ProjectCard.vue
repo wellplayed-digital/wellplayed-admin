@@ -11,7 +11,7 @@
         <div class="text-body-2 text-disabled">
           {{ ISOtoFormat(project.published_at) }}
         </div>
-        <WpChip v-if="project.status === 'published'" color="primary">
+        <WpChip v-if="project.status === 'published'" color="success">
           Published
         </WpChip>
         <WpChip v-else-if="project.status === 'draft'" color="info">

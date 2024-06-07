@@ -5,9 +5,17 @@
         Sections
       </h2>
       <div>
-        <WpButton v-if="sections.length > 0" variant="tonal" class="mr-2">
-          Change Order
-        </WpButton>
+        <SectionsOrderDialog
+          v-if="sections.length > 0"
+          :sections="sections"
+          @confirm="fetchSections"
+        >
+          <template #activator="{ props: slotProps }">
+            <WpButton variant="tonal" class="mr-2" v-bind="slotProps">
+              Change Order
+            </WpButton>
+          </template>
+        </SectionsOrderDialog>
         <SectionCreateDialog
           :project-id="projectId"
           :order="sections.length"
@@ -81,9 +89,7 @@ const fetchSections = async () => {
     snackbar.error({ text: 'There was an error fetching the sections' })
   }
 }
-onMounted(async () => {
-  await fetchSections()
-})
+onMounted(fetchSections)
 const deleteSection = async (id) => {
   try {
     const { error } = await supabase.from('sections').delete().eq('id', id)

@@ -29,8 +29,8 @@
         v-model="newProject.cover"
         hide-details
         label="Cover"
+        class="mb-6"
       />
-      <WpDivider class="my-8" />
       <div class="d-flex align-center mb-8">
         <WpDatePicker
           v-model="newProject.published_at"
@@ -39,11 +39,10 @@
           clearable
           class="mr-4"
         />
-        <v-switch
+        <WpSwitch
           v-model="published"
           label="Published"
-          inset
-          color="primary"
+          color="success"
           hide-details
         />
       </div>
@@ -88,9 +87,7 @@ const fetchProjectsLength = async () => {
     snackbar.error({ text: 'There was an error fetching the amount of projects' })
   }
 }
-onMounted(async () => {
-  await fetchProjectsLength()
-})
+onMounted(fetchProjectsLength)
 const loading = ref(false)
 const createProject = async () => {
   loading.value = true

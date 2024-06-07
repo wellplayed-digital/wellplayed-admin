@@ -27,7 +27,7 @@
                   </span>
                 </div>
                 <div class="ml-2">
-                  <WpChip color="primary" size="small">
+                  <WpChip color="success" size="small">
                     Published
                   </WpChip>
                 </div>
@@ -43,6 +43,7 @@
 <script setup>
 import { cloneDeep } from 'lodash'
 const supabase = useSupabaseClient()
+const snackbar = useSnackbar()
 const display = ref(useDisplay())
 const props = defineProps({
   projects: { type: Array, default: () => [] }
@@ -62,5 +63,6 @@ const reset = () => {
 const updateProjectsOrder = async () => {
   const { error } = await supabase.rpc('update_projects_order', { projects: projectsToEdit.value })
   if (error) { throw error }
+  snackbar.success({ text: 'The projects order has been updated successfully' })
 }
 </script>

@@ -45,7 +45,7 @@ const snackbar = useSnackbar()
 const loading = ref(false)
 const projects = ref([])
 const statusFilters = ref([
-  { key: 'published', text: 'Published', color: 'primary' },
+  { key: 'published', text: 'Published', color: 'success' },
   { key: 'draft', text: 'Draft', color: 'info' },
   { key: 'deleted', text: 'Deleted', color: 'error' }
 ])
