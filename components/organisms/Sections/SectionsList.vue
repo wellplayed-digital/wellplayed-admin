@@ -81,7 +81,7 @@ const fetchSections = async () => {
       .from('sections')
       .select('*')
       .eq('project_id', props.projectId)
-      .order('order', { ascending: true })
+      .order('order', { ascending: false })
       .order('created_at', { ascending: false })
     if (error) { throw error }
     sections.value = data
