@@ -45,12 +45,12 @@ defineProps({
 const emits = defineEmits(['confirm', 'cancel'])
 const show = ref(false)
 const confirm = () => {
-  emits('confirm')
   show.value = false
+  emits('confirm')
 }
 const cancel = () => {
-  emits('cancel')
   show.value = false
+  emits('cancel')
 }
 const open = () => {
   show.value = true

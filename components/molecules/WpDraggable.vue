@@ -10,7 +10,9 @@
         class="py-1 wp-cursor-grab"
         :style="{ opacity: element.id === dragging?.id ? '0' : '1' }"
       >
-        <slot name="item" v-bind="{ element }" />
+        <div class="wp-pointer-events-none">
+          <slot name="item" v-bind="{ element }" />
+        </div>
       </div>
     </template>
   </draggable>

@@ -1,42 +1,60 @@
 <template>
   <WpAsyncDialog
     title="Create Section"
-    :confirm-function="create"
+    :confirm-function="confirm"
     width="40rem"
-    @close="reset"
+    @open="init"
   >
     <template #activator="slotAttrs">
       <slot v-bind="slotAttrs" name="activator" />
     </template>
     <template #default>
-      <WpTextField v-model="section.title" label="Title" :rules="[required]" class="mb-4" />
-      <WpTextField v-model="section.description" label="Description" hide-details />
+      <WpTextField v-model="title" label="Title" :rules="[required]" class="mb-4" />
+      <WpTextField v-model="description" label="Description" hide-details />
     </template>
   </WpAsyncDialog>
 </template>
 
 <script setup>
-import { cloneDeep } from 'lodash'
 const supabase = useSupabaseClient()
 const { required } = useRules()
 const props = defineProps({
   projectId: { type: String, required: true },
-  order: { type: Number, required: true }
+  order: { type: Number, required: true },
+  update: { type: Boolean, default: false },
+  section: { type: Object, default: null }
 })
-const emits = defineEmits(['created'])
-const DEFAULT_SECTION = {
-  project_id: props.projectId,
-  order: props.order,
-  title: null,
-  description: null
+const emits = defineEmits(['updated', 'created'])
+const title = ref(null)
+const description = ref(null)
+const init = () => {
+  if (props.update) {
+    title.value = props.section.title
+    description.value = props.section.description
+  } else {
+    title.value = null
+    description.value = null
+  }
 }
-const section = ref(cloneDeep(DEFAULT_SECTION))
+const update = async () => {
+  const { error } = await supabase.from('sections').update({
+    title: title.value,
+    description: description.value
+  }).eq('id', props.section.id)
+  if (error) { throw error }
+  emits('updated')
+}
 const create = async () => {
-  const { error } = await supabase.from('sections').insert([section.value])
+  const { error } = await supabase.from('sections').insert([{
+    project_id: props.projectId,
+    order: props.order,
+    title: title.value,
+    description: description.value
+  }])
   if (error) { throw error }
   emits('created')
 }
-const reset = () => {
-  section.value = cloneDeep(DEFAULT_SECTION)
+const confirm = () => {
+  props.update ? update() : create()
 }
 </script>

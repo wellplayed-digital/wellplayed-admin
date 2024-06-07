@@ -16,7 +16,7 @@
       <WpDraggable v-model="projectsToEdit" @drag-end="reorderProjects">
         <template #item="{ element }">
           <WpCard>
-            <v-card-text class="wp-pointer-events-none">
+            <v-card-text>
               <div class="d-flex justify-space-between align-center">
                 <div class="wp-ellipsis">
                   <span class="text-body-1">

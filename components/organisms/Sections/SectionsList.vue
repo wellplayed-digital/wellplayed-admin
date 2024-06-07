@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="d-flex justify-space-between align-center">
-      <h2 class="text-h5 text-primary">
+      <h2 class="text-h6">
         Sections
       </h2>
       <div>
-        <WpButton variant="tonal" class="mr-2">
+        <WpButton v-if="sections.length > 0" variant="tonal" class="mr-2">
           Change Order
         </WpButton>
         <SectionCreateDialog
@@ -22,7 +22,7 @@
       </div>
     </div>
     <WpCard v-for="section in sections" :key="section.id" class="my-4">
-      <v-card-text class="wp-pointer-events-none">
+      <v-card-text>
         <div class="d-flex justify-space-between align-center">
           <div class="wp-ellipsis">
             <span class="text-body-1">
@@ -33,14 +33,21 @@
             </span>
           </div>
           <div class="ml-2">
-            <WpChip color="primary" size="small">
-              Published
-            </WpChip>
+            <SectionCreateDialog
+              :project-id="projectId"
+              :order="section.order"
+              :section="section"
+              update
+              @updated="fetchSections"
+            >
+              <template #activator="{ props: slotProps }">
+                <WpIconButton icon="mdi-pencil" tooltip-text="Edit" v-bind="slotProps" />
+              </template>
+            </SectionCreateDialog>
+            <WpIconButton icon="mdi-delete" tooltip-text="Delete" />
           </div>
         </div>
       </v-card-text>
-
-      <!-- <SectionCard :section="section" /> -->
     </WpCard>
   </div>
 </template>
