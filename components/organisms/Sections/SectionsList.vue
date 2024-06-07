@@ -37,7 +37,6 @@
               :project-id="projectId"
               :order="section.order"
               :section="section"
-              update
               @updated="fetchSections"
             >
               <template #activator="{ props: slotProps }">

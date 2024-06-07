@@ -1,6 +1,6 @@
 <template>
   <WpAsyncDialog
-    :title="update ? 'Update Section' : 'Create Section'"
+    :title="section ? 'Update Section' : 'Create Section'"
     :confirm-function="confirm"
     width="40rem"
     @open="init"
@@ -21,14 +21,13 @@ const { required } = useRules()
 const props = defineProps({
   projectId: { type: String, required: true },
   order: { type: Number, required: true },
-  update: { type: Boolean, default: false },
   section: { type: Object, default: null }
 })
 const emits = defineEmits(['updated', 'created'])
 const title = ref(null)
 const description = ref(null)
 const init = () => {
-  if (props.update) {
+  if (props.section) {
     title.value = props.section.title
     description.value = props.section.description
   } else {
@@ -55,6 +54,6 @@ const create = async () => {
   emits('created')
 }
 const confirm = () => {
-  props.update ? update() : create()
+  props.section ? update() : create()
 }
 </script>
