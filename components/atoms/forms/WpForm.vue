@@ -6,7 +6,7 @@
 
 <script setup>
 const emits = defineEmits(['submit'])
-const valid = ref(false)
+const valid = ref(true)
 const submit = () => {
   if (valid.value) {
     emits('submit')

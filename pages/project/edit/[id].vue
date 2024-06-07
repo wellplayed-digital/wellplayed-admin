@@ -17,7 +17,7 @@
       <WpTextarea v-model="projectToEdit.description" hide-details label="Description" class="mb-6" />
       <WpFileInput v-model="projectToEdit.cover" hide-details label="Cover" />
       <WpDivider class="my-8" />
-      <SectionsList />
+      <SectionsList :project-id="projectId" />
       <WpDivider class="my-8" />
       <div class="d-flex align-center mb-8">
         <WpDatePicker
